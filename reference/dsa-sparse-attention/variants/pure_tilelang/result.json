@@ -1,0 +1,13 @@
+{
+  "variant": "pure_tilelang",
+  "definition": "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64",
+  "status": "not_measured_on_this_env",
+  "note": "TileLang-only variant. Serves as dep-minimal fallback vs cute_reduce.",
+  "kernel_env": "unknown",
+  "kernel_mean_latency_ms": null,
+  "canonical_baseline_mean_latency_ms": null,
+  "speedup_vs_canonical_baseline": null,
+  "legacy_speedup_headline": "45.37 \u00b1 0.03x (CV 0.1%, 5-run variance-check)",
+  "legacy_env": "Modal B200 / CUDA 12.8 / v3 sub-env / attention-optimized machine (not this Mac)",
+  "per_workload": null
+}

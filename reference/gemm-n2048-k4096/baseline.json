@@ -1,0 +1,104 @@
+{
+  "operator": "gemm_n2048_k4096",
+  "source": "expert",
+  "environment": {
+    "gpu": "b200",
+    "backend": "modal",
+    "cuda_version": "13.0",
+    "measured_at": "2026-05-20T23:09:49"
+  },
+  "benchmark_config": {
+    "warmup_runs": 3,
+    "iterations": 100,
+    "num_trials": 5
+  },
+  "workloads": {
+    "bcc2cc41b7464e54b0c4d11e65da96d8": {
+      "reference_latency_ms": 0.0098239
+    },
+    "ff70a7abf26848aba6424c7571f777d4": {
+      "reference_latency_ms": 0.0090274
+    },
+    "f4513ae887ae4d42946dcf6630671c22": {
+      "reference_latency_ms": 0.0095361
+    },
+    "e5931dc39ece4669b866483e6e2d6773": {
+      "reference_latency_ms": 0.015881600000000003
+    },
+    "b99854266fd7401a9f296cdf99e56e6c": {
+      "reference_latency_ms": 0.0098305
+    },
+    "75f0b62d01a44f9bac44a61ec9a3f3a1": {
+      "reference_latency_ms": 0.0088416
+    },
+    "0d81c8cba4e0419d930c49f025bf248a": {
+      "reference_latency_ms": 0.15220830000000002
+    },
+    "bc6d8e2eb9144c24ae849d16e406d1bf": {
+      "reference_latency_ms": 0.11597120000000001
+    },
+    "23b29a3363644b318e28b625442e6c07": {
+      "reference_latency_ms": 0.0094593
+    },
+    "f3fc0b3875a240289fa1cee3be00d318": {
+      "reference_latency_ms": 0.0088004
+    },
+    "1a8ac05e5c784f87849356996308c0a4": {
+      "reference_latency_ms": 0.017699100000000002
+    },
+    "77447ed3b33945febc56a7bb29df6c96": {
+      "reference_latency_ms": 0.010943999999999999
+    },
+    "40e6e3afbc0e497ab37e7d1d3be26561": {
+      "reference_latency_ms": 0.15327739999999998
+    },
+    "3df32230aaa54926baede3b24a2e5497": {
+      "reference_latency_ms": 0.11656340000000001
+    },
+    "bedb8548688b46c3966cd45f5968b909": {
+      "reference_latency_ms": 0.0090687
+    },
+    "05961b272663429c878b1d87511f274f": {
+      "reference_latency_ms": 0.009788700000000001
+    },
+    "584d85771a40498fb56ad8b57c4049a4": {
+      "reference_latency_ms": 0.0091586
+    },
+    "0d36b29c950249999521ad20f21a2a86": {
+      "reference_latency_ms": 0.009488199999999999
+    },
+    "b1b357ea7c98484491f5baed129223e1": {
+      "reference_latency_ms": 0.00976
+    },
+    "824df7caad214f1fbb8d06ccf92d0447": {
+      "reference_latency_ms": 0.009728200000000001
+    },
+    "b5b4a32d9b4e4cca8b97cf6ca98796ff": {
+      "reference_latency_ms": 0.008867
+    },
+    "89eb1e6ef40743ab95e759c4a62e8b0b": {
+      "reference_latency_ms": 0.0097921
+    },
+    "8c8652e5d07c4089bde9948f98842c07": {
+      "reference_latency_ms": 0.012556800000000002
+    },
+    "a6796f718a3a4a24ae171f7d00be7226": {
+      "reference_latency_ms": 0.15200719999999998
+    },
+    "f09b7c55ea694fafa94e94edfebc660e": {
+      "reference_latency_ms": 0.0095103
+    },
+    "45c35ee3f5884e5389909344a2ede169": {
+      "reference_latency_ms": 0.13005499999999998
+    },
+    "5ead6f71a44e46e2968fe3da8124b6af": {
+      "reference_latency_ms": 0.1087972
+    },
+    "662593cec9b947a9b79803eb3b26e11a": {
+      "reference_latency_ms": 0.0853762
+    },
+    "477715ab00314b1f85c0b660e32f00e0": {
+      "reference_latency_ms": 0.0093026
+    }
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "timestamp": "2026-05-20T17:21:27.799908",
+  "label": "iter-12 aligned-fast-path",
+  "backend": "modal-b200",
+  "solution_name": "rmsnorm_h128-solution",
+  "definition": "rmsnorm_h128",
+  "baseline_cached": true,
+  "baseline_iterations": 5,
+  "solution_iterations": 100,
+  "score": {
+    "final_score": 1.1621461711921366,
+    "group_scores": {
+      "4": {
+        "speedup": 1.071885054431663,
+        "latency_ms": 0.0022689
+      },
+      "24": {
+        "speedup": 1.033817280453258,
+        "latency_ms": 0.0022592
+      },
+      "32": {
+        "speedup": 1.0109426892616877,
+        "latency_ms": 0.0023486
+      },
+      "136": {
+        "speedup": 0.9946496815286623,
+        "latency_ms": 0.0023550000000000003
+      },
+      "192": {
+        "speedup": 1.009574792183488,
+        "latency_ms": 0.0022976999999999997
+      },
+      "256": {
+        "speedup": 1.0221227399165507,
+        "latency_ms": 0.0023008
+      },
+      "316": {
+        "speedup": 1.0,
+        "latency_ms": 0.002304
+      },
+      "1088": {
+        "speedup": 0.9905529079330269,
+        "latency_ms": 0.0023711
+      },
+      "2048": {
+        "speedup": 0.9778705467515096,
+        "latency_ms": 0.0024673
+      },
+      "2528": {
+        "speedup": 0.9719417281979644,
+        "latency_ms": 0.0025055
+      },
+      "49532": {
+        "speedup": 1.4483190362587346,
+        "latency_ms": 0.0059103
+      },
+      "65016": {
+        "speedup": 1.4177836637504349,
+        "latency_ms": 0.0074754
+      },
+      "396256": {
+        "speedup": 1.64979971852333,
+        "latency_ms": 0.0323295
+      },
+      "520128": {
+        "speedup": 1.670786557499608,
+        "latency_ms": 0.0414655
+      }
+    },
+    "group_axis": "batch_size",
+    "passed": 14,
+    "failed": 0,
+    "error": 0,
+    "total": 14,
+    "min_speedup": 0.9719417281979644,
+    "max_speedup": 1.670786557499608
+  },
+  "results": {
+    "rmsnorm_h128": {
+      "4b7f0d02-8404-4eb4-be5c-64b0fd639684": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 192
+        },
+        "latency_ms": 0.0022976999999999997,
+        "reference_latency_ms": 0.0023197,
+        "speedup_factor": 1.009574792183488,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      },
+      "6abd9329-a1de-4704-9378-d7d70388cbfd": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 24
+        },
+        "latency_ms": 0.0022592,
+        "reference_latency_ms": 0.0023356,
+        "speedup_factor": 1.033817280453258,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      },
+      "52688c58-7dd4-4ce5-8ed7-bc8aabac4d7b": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 32
+        },
+        "latency_ms": 0.0023486,
+        "reference_latency_ms": 0.0023743,
+        "speedup_factor": 1.0109426892616877,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      },
+      "e971e0cc-d914-424e-a3ea-187e9cec413f": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 4
+        },
+        "latency_ms": 0.0022689,
+        "reference_latency_ms": 0.002432,
+        "speedup_factor": 1.071885054431663,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      },
+      "3b02c1b8-29dc-4c13-86a0-b7834daad8a1": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 1088
+        },
+        "latency_ms": 0.0023711,
+        "reference_latency_ms": 0.0023487,
+        "speedup_factor": 0.9905529079330269,
+        "max_abs_error": 0.0078125,
+        "max_rel_error": 0.006993003189563751
+      },
+      "ae6aa520-b8be-4e28-b3c4-fa484a2c17c2": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 136
+        },
+        "latency_ms": 0.0023550000000000003,
+        "reference_latency_ms": 0.0023424,
+        "speedup_factor": 0.9946496815286623,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      },
+      "1e5d6f59-edbc-4d45-8edf-5599001cc270": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 2528
+        },
+        "latency_ms": 0.0025055,
+        "reference_latency_ms": 0.0024351999999999998,
+        "speedup_factor": 0.9719417281979644,
+        "max_abs_error": 0.00390625,
+        "max_rel_error": 0.0069444444961845875
+      },
+      "a978e7eb-89fa-444f-96b1-ceb4cbb02f4c": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 316
+        },
+        "latency_ms": 0.002304,
+        "reference_latency_ms": 0.002304,
+        "speedup_factor": 1.0,
+        "max_abs_error": 0.001953125,
+        "max_rel_error": 0.004464285913854837
+      },
+      "f2872f89-5d8d-403a-9603-5918541cb9e0": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 520128
+        },
+        "latency_ms": 0.0414655,
+        "reference_latency_ms": 0.06928,
+        "speedup_factor": 1.670786557499608,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 0.0078125
+      },
+      "16ce2b65-3a33-4e46-8924-57859152abf0": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 65016
+        },
+        "latency_ms": 0.0074754,
+        "reference_latency_ms": 0.0105985,
+        "speedup_factor": 1.4177836637504349,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 0.007462686393409967
+      },
+      "a11c12ed-feb2-4b09-a091-5964a86b6b17": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 396256
+        },
+        "latency_ms": 0.0323295,
+        "reference_latency_ms": 0.053337199999999994,
+        "speedup_factor": 1.64979971852333,
+        "max_abs_error": 0.0625,
+        "max_rel_error": 0.0078125
+      },
+      "d5201e02-7338-405c-9c4d-ff95a03a00cc": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 49532
+        },
+        "latency_ms": 0.0059103,
+        "reference_latency_ms": 0.00856,
+        "speedup_factor": 1.4483190362587346,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 0.007633578032255173
+      },
+      "1a7fa8e1-ba96-443e-b697-6f2436a130d6": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 2048
+        },
+        "latency_ms": 0.0024673,
+        "reference_latency_ms": 0.0024127,
+        "speedup_factor": 0.9778705467515096,
+        "max_abs_error": 0.001953125,
+        "max_rel_error": 0.005128204822540283
+      },
+      "d48fe9d2-1e43-418c-835c-0948ee76535b": {
+        "status": "PASSED",
+        "solution": "rmsnorm_h128-solution",
+        "axes": {
+          "batch_size": 256
+        },
+        "latency_ms": 0.0023008,
+        "reference_latency_ms": 0.0023517,
+        "speedup_factor": 1.0221227399165507,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      }
+    }
+  }
+}

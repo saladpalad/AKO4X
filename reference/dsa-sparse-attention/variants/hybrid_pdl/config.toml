@@ -1,0 +1,14 @@
+# Config for variants/hybrid_pdl/kernel.py
+# Deps: torch + triton 3.6 + tilelang + apache-tvm-ffi
+# Variance-check: 57.55 ± 0.02x (CV 0.0%, 3-run, Modal B200, CUDA 13.2, 2026-04-24).
+# Canonical abs kernel latency: ~9.85 µs mean (T=1: 7.07 µs, T=8: ~11 µs).
+# Delta from hybrid_2d_reduce (55.31x): +2.24x via Triton 3.6 PDL on TRI path.
+[solution]
+name = "hybrid_pdl"
+definition = "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false

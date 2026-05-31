@@ -1,0 +1,23 @@
+# Config for variants/triton_bv_dispatch_graph/kernel.py
+# Deps: torch + triton (nothing else).
+# Best reported: 1.126× mean (iter-27, Modal B200 CUDA 13.2, 2026-04-23).
+# Per-B: B=1→1.42×  B=4→1.26×  B=8→1.14×  B=16→1.05×  B=32→0.95×
+#        B=48→0.98×  B=64→0.96×
+[solution]
+name = "triton_bv_dispatch_graph"
+definition = "gdn_decode_qk4_v8_d128_k_last"
+author = "AKO4FIB"
+
+[build]
+language = "triton"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+# NOTE: correctness requirement, not a perf knob. The kernel's graph
+# cache's input-pointer key aliases across workloads in a persistent
+# benchmark runner when PyTorch's allocator reuses tensor addresses
+# between workloads — graph replay then uses stale pointers baked into
+# the captured graph. Isolated runner (1 process per workload) prevents
+# this. Pattern inherited from reference/dsa-sparse-attention/cute_reduce_v6.
+[benchmark]
+use_isolated_runner = true

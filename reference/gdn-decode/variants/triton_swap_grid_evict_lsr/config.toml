@@ -1,0 +1,28 @@
+# Config for variants/triton_swap_grid_evict_lsr/kernel.py
+# Deps: torch + triton (nothing else).
+# Best reported: 1.13× ± 0.00166× variance-check 3 (CV 0.10%,
+#                Modal B200 CUDA 13.2, 2026-04-24).
+# Per-B: B=1→1.41× B=4→1.26× B=8→1.13× B=16→1.04×
+#        B=32→0.954× B=48→1.01× (first large-B bucket crossing 1.0×)
+#        B=64→0.984×
+# Drift-free A/B vs triton_bv_dispatch_graph anchor: mean +0.58%.
+[solution]
+name = "triton_swap_grid_evict_lsr"
+definition = "gdn_decode_qk4_v8_d128_k_last"
+author = "AKO4FIB"
+
+[build]
+language = "triton"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+# NOTE: correctness requirement, not a perf knob. See ../TRAPS.md
+# "Graph-cache pointer aliasing" for rationale.
+[benchmark]
+use_isolated_runner = true
+
+# NOTE: DISABLE_LLVM_OPT=disable-lsr is set inline in kernel.py via
+# `os.environ.setdefault(...)` at module import time. Documented here
+# so the flag is discoverable from config.toml alone. Measured neutral
+# but kept as zero-cost insurance on this register-bound kernel
+# (51 regs/thread, 43% occupancy).

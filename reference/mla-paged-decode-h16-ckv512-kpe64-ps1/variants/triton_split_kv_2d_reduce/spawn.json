@@ -1,0 +1,24 @@
+{
+  "operator": "mla_paged_decode_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-decode",
+  "round": 2,
+  "round_label": "mla-paged-decode-r2",
+  "gpu": "b200",
+  "backend": "modal",
+  "session_id": "c68df8fc-8528-4c6f-a6ea-9f8cbd47b5cd",
+  "spawn_seed_origin": "round-1 child commit 195eda4 (iter-12, bf16 partial output, AB+10.68% over its iter-3)",
+  "child_head_commit": "d3b7f9a",
+  "iterations_in_session": 8,
+  "wins": [
+    "iter-3 (+11%): 2D-tile reduce kernel",
+    "iter-5 (+1% headline, +17-23% on b=64 large): surgical splits=16 for b>=32 and avg>=600"
+  ],
+  "dead_ends": [
+    "iter-1 BLOCK_N=128 (-22%, smem occupancy crush)",
+    "iter-2 num_stages=1 (-34%, lost cp.async pipelining)",
+    "iter-6 reduce D_CHUNK=16 (-7% headline, -22% b=64, store-coalescing floor)",
+    "iter-7 reduce num_warps=8 (-15%, MMA tile-picker regression)"
+  ],
+  "ncu_profile": "split kernel: 205 regs/thread, 94KB smem/block, 0 spills, 10.7% achieved occupancy, 12% peak BW, 30.8% L1TEX scoreboard stalls",
+  "date": "2026-05-20"
+}

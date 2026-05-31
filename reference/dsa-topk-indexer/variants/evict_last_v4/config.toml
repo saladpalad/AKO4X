@@ -1,0 +1,14 @@
+# Config for variants/evict_last_v4/kernel.py
+# Deps: torch + triton + nvidia-cutlass-dsl (--no-deps >= 4.3.4)
+# Legacy headline: 42.78x @ CUDA 12.8 + cached expert baseline.
+# Canonical abs kernel latency (CUDA 13.2, 2026-04-19): ~3.3 µs mean.
+# Note: CuTe DSL radix is the primary path post-cleanup; no CUDA fallback.
+[solution]
+name = "evict_last_v4"
+definition = "dsa_topk_indexer_fp8_h64_d128_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false

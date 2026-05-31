@@ -1,0 +1,15 @@
+{
+  "round": 6,
+  "round_id": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1-r6",
+  "operator": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1",
+  "gpu": "b200",
+  "backend": "modal",
+  "parent": "iter2-workmap-cross-dsl-archive",
+  "parent_kernel_path": "reference/mla-paged-prefill-causal-h16-ckv512-kpe64-ps1/variants/iter2-workmap-cross-dsl-archive/kernel.py",
+  "sub_session_id": "fc6bca71-605d-49af-a31b-6ac988c37748",
+  "phase1_iters": 1,
+  "score": 1.4566835671090417,
+  "forensic_subbaseline": true,
+  "closing_evidence": "Module-import probe documents NVIDIA cutedsl mla.py donor accepts our shape for fp16/fp8 (rejects bf16 only via dtype allowlist). Hot path unchanged from r5 anchor. Concrete porting handoff to round-7 (~4-6 iter budget)."
+}

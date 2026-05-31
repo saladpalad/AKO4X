@@ -1,0 +1,743 @@
+{
+  "timestamp": "2026-05-20T03:51:45.514860",
+  "label": "iter-8 revert confirm (= iter-5)",
+  "backend": "modal-b200",
+  "solution_name": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+  "definition": "mla_paged_decode_h16_ckv512_kpe64_ps1",
+  "baseline_cached": true,
+  "baseline_iterations": 5,
+  "solution_iterations": 100,
+  "score": {
+    "final_score": 1.2135986402797534,
+    "group_scores": {
+      "1": {
+        "speedup": 1.3396678207077597,
+        "latency_ms": 0.012999006666666668
+      },
+      "16": {
+        "speedup": 1.3203837448775946,
+        "latency_ms": 0.018659356250000002
+      },
+      "64": {
+        "speedup": 0.9886236790306568,
+        "latency_ms": 0.04898680625
+      }
+    },
+    "group_axis": "batch_size",
+    "passed": 47,
+    "failed": 0,
+    "error": 0,
+    "total": 47,
+    "min_speedup": 0.7647873491232065,
+    "max_speedup": 1.736691060410389
+  },
+  "results": {
+    "mla_paged_decode_h16_ckv512_kpe64_ps1": {
+      "00cb2bc2-c7c7-43a1-b857-b516eb2ce061": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 8
+        },
+        "latency_ms": 0.0062721,
+        "reference_latency_ms": 0.0108927,
+        "speedup_factor": 1.736691060410389,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 18.42521858215332
+      },
+      "c2e8ef55-ec17-442c-acd9-30ba9e9ecd4f": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 108
+        },
+        "latency_ms": 0.0109471,
+        "reference_latency_ms": 0.013209299999999998,
+        "speedup_factor": 1.2066483360890097,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 108.29447174072266
+      },
+      "deb5f26c-b29b-47f4-b5e6-bb70f89080e4": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 208
+        },
+        "latency_ms": 0.0112256,
+        "reference_latency_ms": 0.0132256,
+        "speedup_factor": 1.178164196123147,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 47.162296295166016
+      },
+      "7cd78cb9-ecb1-469c-a651-1063ffa4d662": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 308
+        },
+        "latency_ms": 0.0114176,
+        "reference_latency_ms": 0.014483099999999999,
+        "speedup_factor": 1.2684889994394617,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 29.009729385375977
+      },
+      "951de642-3020-4954-b87e-8d21ed0edf70": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 408
+        },
+        "latency_ms": 0.0114688,
+        "reference_latency_ms": 0.015215999999999999,
+        "speedup_factor": 1.3267299107142856,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 63.58502197265625
+      },
+      "4d9f5e3e-84d0-43d4-bb18-c451ef8009c0": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 508
+        },
+        "latency_ms": 0.0114495,
+        "reference_latency_ms": 0.0159296,
+        "speedup_factor": 1.3912921961657714,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 46.53556823730469
+      },
+      "5c200fe9-c07f-4dab-a8e8-dc8ff9b17c20": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 608
+        },
+        "latency_ms": 0.0114816,
+        "reference_latency_ms": 0.0165536,
+        "speedup_factor": 1.4417502787068006,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 77.75526428222656
+      },
+      "d232cde2-c7ff-4f74-aac4-f6c86d59c0b6": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 708
+        },
+        "latency_ms": 0.011558599999999999,
+        "reference_latency_ms": 0.01768,
+        "speedup_factor": 1.5295970100185146,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 23.172607421875
+      },
+      "2cde88e6-dc7a-4cd0-8a97-980cd2c02740": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 808
+        },
+        "latency_ms": 0.0114845,
+        "reference_latency_ms": 0.017926400000000002,
+        "speedup_factor": 1.5609212416735603,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 17.097713470458984
+      },
+      "53a7dfec-6b9f-479d-afcd-1878dbe090bd": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 2708
+        },
+        "latency_ms": 0.019097700000000002,
+        "reference_latency_ms": 0.022486299999999997,
+        "speedup_factor": 1.1774349790812504,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 31.29228973388672
+      },
+      "f26d4f7f-b6fd-4868-953f-84fa4af0e120": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 1908
+        },
+        "latency_ms": 0.015568000000000002,
+        "reference_latency_ms": 0.0194913,
+        "speedup_factor": 1.252010534429599,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 38.1082878112793
+      },
+      "e6bef587-9992-4a28-8339-f4a7c197d457": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 1008
+        },
+        "latency_ms": 0.0133377,
+        "reference_latency_ms": 0.019897400000000003,
+        "speedup_factor": 1.4918164301191363,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 124.28126525878906
+      },
+      "d0da33e2-2d94-42b5-be8a-09111f9f2649": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 2408
+        },
+        "latency_ms": 0.018598200000000002,
+        "reference_latency_ms": 0.0215774,
+        "speedup_factor": 1.1601875450312396,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 71.0098876953125
+      },
+      "990b57e3-2975-41a1-be67-ecd1ba020887": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 1108
+        },
+        "latency_ms": 0.0155327,
+        "reference_latency_ms": 0.0204962,
+        "speedup_factor": 1.3195516555396034,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 17.43113136291504
+      },
+      "28210082-1728-4ee1-a365-9d3f0f64170a": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 1208
+        },
+        "latency_ms": 0.015545400000000001,
+        "reference_latency_ms": 0.016380699999999998,
+        "speedup_factor": 1.053732937074633,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 18.872636795043945
+      },
+      "5e86857b-bb94-4f2c-b9e6-6000c253dc10": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 2757
+        },
+        "latency_ms": 0.020128,
+        "reference_latency_ms": 0.0202303,
+        "speedup_factor": 1.0050824721780605,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 918.14208984375
+      },
+      "34026642-ef29-42d6-88b9-4b0ff96c5553": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 1857
+        },
+        "latency_ms": 0.0158591,
+        "reference_latency_ms": 0.0151615,
+        "speedup_factor": 0.9560126362782251,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 2944.287841796875
+      },
+      "89070a1d-4d70-4122-8955-03cae1300f24": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 3557
+        },
+        "latency_ms": 0.0200775,
+        "reference_latency_ms": 0.020342199999999998,
+        "speedup_factor": 1.0131839123396835,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 5165.67236328125
+      },
+      "1250b1f6-1957-4001-ad14-9f511b3d6c83": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 4357
+        },
+        "latency_ms": 0.0185758,
+        "reference_latency_ms": 0.020863899999999998,
+        "speedup_factor": 1.1231763907880143,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 200.7393798828125
+      },
+      "5bfb8416-4862-448a-a52c-c684372f03d2": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 7257
+        },
+        "latency_ms": 0.0164639,
+        "reference_latency_ms": 0.0245952,
+        "speedup_factor": 1.493886624675806,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 342.5196838378906
+      },
+      "57106903-f8b5-491b-8b6c-58e2d77b222e": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 8057
+        },
+        "latency_ms": 0.0164639,
+        "reference_latency_ms": 0.0250366,
+        "speedup_factor": 1.520696797235163,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 443.0763244628906
+      },
+      "373074ba-f398-4a23-b628-90778267ef79": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 5057
+        },
+        "latency_ms": 0.0164479,
+        "reference_latency_ms": 0.025151899999999998,
+        "speedup_factor": 1.5291860967053543,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 179.48146057128906
+      },
+      "c4e14a53-dad1-404e-ae4f-bbe3355d8504": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 9657
+        },
+        "latency_ms": 0.020508699999999998,
+        "reference_latency_ms": 0.029484699999999996,
+        "speedup_factor": 1.4376679165427355,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 374.6392517089844
+      },
+      "f42ce054-47e4-4db1-a4f8-650674a8d6d1": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 5857
+        },
+        "latency_ms": 0.016451100000000003,
+        "reference_latency_ms": 0.025379099999999998,
+        "speedup_factor": 1.54269927238908,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 846.6884155273438
+      },
+      "220b10b5-0a65-4892-8bf0-4d0ecf5b69d2": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 10857
+        },
+        "latency_ms": 0.020547100000000002,
+        "reference_latency_ms": 0.029507,
+        "speedup_factor": 1.4360664035313984,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 483.5213623046875
+      },
+      "787d2d2f-548c-46ab-9ded-55fd30b1de20": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 6657
+        },
+        "latency_ms": 0.0164639,
+        "reference_latency_ms": 0.02536,
+        "speedup_factor": 1.5403397736866722,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 3808.105712890625
+      },
+      "e417264f-195d-4204-89fa-3ebdb539f1cf": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 12857
+        },
+        "latency_ms": 0.0205279,
+        "reference_latency_ms": 0.0297149,
+        "speedup_factor": 1.4475372541760236,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 188.58786010742188
+      },
+      "a128f96f-583a-48cb-aceb-d70e0015aca3": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 457
+        },
+        "latency_ms": 0.0102402,
+        "reference_latency_ms": 0.014272000000000002,
+        "speedup_factor": 1.3937227788519757,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 209.66595458984375
+      },
+      "bd2dae14-7bae-4edb-964f-2163accf506e": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 14857
+        },
+        "latency_ms": 0.024611,
+        "reference_latency_ms": 0.0305022,
+        "speedup_factor": 1.2393726382511885,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 797.2891235351562
+      },
+      "84221f45-78f8-4d44-84f6-998153d2c1fa": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 17257
+        },
+        "latency_ms": 0.0246525,
+        "reference_latency_ms": 0.030259199999999997,
+        "speedup_factor": 1.22742926680864,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 309.5064392089844
+      },
+      "7a9dc58c-7844-4b82-9a02-722027bcf4f3": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 16,
+          "num_pages": 989669,
+          "len_indptr": 17,
+          "num_kv_indices": 8857
+        },
+        "latency_ms": 0.0205312,
+        "reference_latency_ms": 0.025049699999999998,
+        "speedup_factor": 1.2200796836034913,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1102.288818359375
+      },
+      "fd4b2558-ee4f-4d9e-ab3f-7a8333db6340": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 27545
+        },
+        "latency_ms": 0.0372284,
+        "reference_latency_ms": 0.0378849,
+        "speedup_factor": 1.0176343866510513,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 8415.673828125
+      },
+      "7e083fc8-60fc-4a06-8536-5bb47511e81d": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 30745
+        },
+        "latency_ms": 0.038374200000000004,
+        "reference_latency_ms": 0.0424542,
+        "speedup_factor": 1.1063214347139483,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 867.1468505859375
+      },
+      "60b29b12-9c97-44ea-b82b-765fd04e2a38": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 33945
+        },
+        "latency_ms": 0.0405248,
+        "reference_latency_ms": 0.0481535,
+        "speedup_factor": 1.1882476903032217,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 5996.45361328125
+      },
+      "b018a35e-fff0-4baa-9c2f-397db906c529": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 37145
+        },
+        "latency_ms": 0.0423933,
+        "reference_latency_ms": 0.052003100000000003,
+        "speedup_factor": 1.226682046455454,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 2104.58935546875
+      },
+      "86a0eb47-e5b4-4854-adac-7b85b2774afe": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 40345
+        },
+        "latency_ms": 0.0476027,
+        "reference_latency_ms": 0.0505088,
+        "speedup_factor": 1.06104905814166,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1718.0733642578125
+      },
+      "80797c3d-c602-495e-be70-a6e87f2d0479": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 44845
+        },
+        "latency_ms": 0.0495872,
+        "reference_latency_ms": 0.050479699999999995,
+        "speedup_factor": 1.0179985964119773,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 6529.0849609375
+      },
+      "f4367b30-b3e2-4e11-8554-e10602245b1d": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 48045
+        },
+        "latency_ms": 0.049708600000000006,
+        "reference_latency_ms": 0.0510622,
+        "speedup_factor": 1.027230700522646,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 476.5948791503906
+      },
+      "b15c7099-4863-4c19-a8c2-c8c7201f38f6": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 51245
+        },
+        "latency_ms": 0.0516735,
+        "reference_latency_ms": 0.0508767,
+        "speedup_factor": 0.9845801039217393,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 260.0942687988281
+      },
+      "65082ffb-4d9d-4ad4-bc55-5216464087c7": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 54445
+        },
+        "latency_ms": 0.052886100000000005,
+        "reference_latency_ms": 0.051712,
+        "speedup_factor": 0.9777994595933525,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1579.0216064453125
+      },
+      "d771f51c-9886-42bf-a55f-2ff996ba3725": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 57645
+        },
+        "latency_ms": 0.0537152,
+        "reference_latency_ms": 0.05187200000000001,
+        "speedup_factor": 0.9656856904563329,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 3628.76416015625
+      },
+      "5bef8d88-0f74-4ccb-a256-b02842951df3": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 75145
+        },
+        "latency_ms": 0.0725245,
+        "reference_latency_ms": 0.0732895,
+        "speedup_factor": 1.0105481595874497,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 1489.1396484375
+      },
+      "45be562f-a643-46ca-be28-229e56a23e87": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 9945
+        },
+        "latency_ms": 0.0342559,
+        "reference_latency_ms": 0.030425600000000004,
+        "speedup_factor": 0.8881856848017423,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 2423.4697265625
+      },
+      "939f995a-1ab2-4d19-8d94-50f07e73542d": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 62345
+        },
+        "latency_ms": 0.07025600000000001,
+        "reference_latency_ms": 0.053730900000000005,
+        "speedup_factor": 0.7647873491232065,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 758.003662109375
+      },
+      "c9ba5e7f-839b-446f-9c02-7ab25e23fb7e": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 16345
+        },
+        "latency_ms": 0.0352798,
+        "reference_latency_ms": 0.0307807,
+        "speedup_factor": 0.8724737668580888,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 2664.13427734375
+      },
+      "0c746a7a-977c-46cd-a4be-2403b80ad7ef": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 22745
+        },
+        "latency_ms": 0.036287799999999995,
+        "reference_latency_ms": 0.031888099999999996,
+        "speedup_factor": 0.878755394374969,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 414.7978820800781
+      },
+      "1c3743b9-d48e-453a-a023-9b52b1b73989": {
+        "status": "PASSED",
+        "solution": "mla_paged_decode_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "batch_size": 64,
+          "num_pages": 989669,
+          "len_indptr": 65,
+          "num_kv_indices": 68745
+        },
+        "latency_ms": 0.0714909,
+        "reference_latency_ms": 0.0593374,
+        "speedup_factor": 0.8299993425736703,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 22549.998046875
+      }
+    }
+  }
+}

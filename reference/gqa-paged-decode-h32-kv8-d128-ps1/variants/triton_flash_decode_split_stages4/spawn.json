@@ -1,0 +1,28 @@
+{
+  "operator": "gqa_paged_decode_h32_kv8_d128_ps1",
+  "family": "gqa-paged-decode-h32-kv8-d128-ps1",
+  "round": 1,
+  "round_label": "gqa-paged-decode-h32-kv8-d128-ps1-r1",
+  "gpu": "b200",
+  "backend": "modal",
+  "session_id": "27ec4581-5dd9-4fee-9188-3c1a506fa6a5",
+  "spawn_seed_origin": "operator reference (brand-new family; no prior variant)",
+  "child_head_commit": "ba15bd5",
+  "iterations_in_session": 14,
+  "wins": [
+    "iter-2 (+0.50): drop host .item() sync + fused-when-SPLIT=1 (one-launch path)",
+    "iter-3 (+0.29): B=64 SPLIT 1->4 (2048 vs 512 CTAs cut tail-CTA work)",
+    "iter-6 (+0.04): exp2 + bake log2(e) into qk_scale; LSE = m + log2(l) directly",
+    "iter-11 (+0.02): num_stages 2->3 split kernel (async-prefetch K/V vs compute)",
+    "iter-12 (~0): num_stages 3->4 (prefetch plateau)",
+    "iter-14 (anchor confirm): SPLIT=8 for B=64 (1.48->1.57x B=64; 65us)"
+  ],
+  "dead_ends": [
+    "iter-9 BLOCK_N=128 for B=64 (67->72us; SMEM/reg blowup, occupancy drop)",
+    "iter-10 num_warps=8 split kernel (B=64 67->80us; bad 16x64x128 MMA scheduling)",
+    "iter-7 SPLIT=8 for B=16 (1.07->0.98x; reduce-relaunch tax > parallelism gain)",
+    "iter-13 SPLIT=16 for B=64 (65->76us; per-CTA work too small to amortize dispatch)"
+  ],
+  "ncu_profile": "split kernel B=64: DRAM 51.8% (3.97/~8 TB/s), achieved occupancy 27.9% of theoretical 31.25% (80 reg/thread cap), SM compute 26.9%, L1/L2 hit ~0% (pure streaming gather as expected for page_size=1) \u2014 memory-bound not compute-bound",
+  "date": "2026-05-21"
+}

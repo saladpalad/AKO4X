@@ -1,0 +1,93 @@
+{
+  "operator": "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64",
+  "source": "expert",
+  "environment": {
+    "gpu": "B200",
+    "backend": "modal",
+    "cuda_version": "unknown",
+    "measured_at": "2026-04-19T13:16:49"
+  },
+  "benchmark_config": {
+    "warmup_runs": 3,
+    "iterations": 5,
+    "num_trials": 5
+  },
+  "workloads": {
+    "0c23b10c7b7645719517828c12eaa1d2": {
+      "reference_latency_ms": 0.5372547
+    },
+    "9d4a5f21268e484ea05a2f2af91d9fa7": {
+      "reference_latency_ms": 0.5351233000000001
+    },
+    "b7668cfd194c4b95ab600feb205ebac6": {
+      "reference_latency_ms": 0.5350691999999999
+    },
+    "0a63b87bb2e54e9db1ca3c4c53a1d521": {
+      "reference_latency_ms": 0.5347649999999999
+    },
+    "05f6de657db543ae9e4c46796522843a": {
+      "reference_latency_ms": 0.5418916
+    },
+    "fc85411e250c41879b6d6a1edb80f0a7": {
+      "reference_latency_ms": 0.5353378
+    },
+    "e6b849f2900446148c01d81152efae23": {
+      "reference_latency_ms": 0.535261
+    },
+    "9f3f891bfbe24776adfcd5a579d093dd": {
+      "reference_latency_ms": 0.5408581
+    },
+    "f77df5ce21634f7ca0586af7e3c13434": {
+      "reference_latency_ms": 0.545642
+    },
+    "385742b2717e4f02b918c7349dde23d8": {
+      "reference_latency_ms": 0.5598019
+    },
+    "4c46a94ba2364dc7ab476286dee8dce3": {
+      "reference_latency_ms": 0.5565637
+    },
+    "3838996164a94d728710f913477feba8": {
+      "reference_latency_ms": 0.5628006
+    },
+    "02d6ae9c64ab42ff93f05c23c53bcb7d": {
+      "reference_latency_ms": 0.5544805
+    },
+    "ddfa9e340b264f76abe7418692faa876": {
+      "reference_latency_ms": 0.5487908
+    },
+    "78b2e11c30004cceb84355722a7c6b0a": {
+      "reference_latency_ms": 0.552909
+    },
+    "68d6817dcfd1433aa8d2ddeefd54b6ea": {
+      "reference_latency_ms": 0.541658
+    },
+    "564007ac354e4662a62cc4d6352dc494": {
+      "reference_latency_ms": 0.5518692
+    },
+    "ae4219a95f044f45bd10e17ab63c6e8f": {
+      "reference_latency_ms": 0.5466564
+    },
+    "232ed014bafc4835b9881bb308c659b0": {
+      "reference_latency_ms": 0.5475714999999999
+    },
+    "7a389715dcc3479e9b0512309f9d1d56": {
+      "reference_latency_ms": 0.5518628999999999
+    },
+    "5096e459ce3f4cdf82773ce1a0c73c8a": {
+      "reference_latency_ms": 0.5509413000000001
+    },
+    "d57eb9e19f0642e8af9bd76ad0823303": {
+      "reference_latency_ms": 0.5477315
+    },
+    "2207f0fdc96347c59d106e4976cfad57": {
+      "reference_latency_ms": 0.5464870000000001
+    }
+  },
+  "provenance": {
+    "env": "Modal B200 / nvidia/cuda:12.8.0-devel-ubuntu22.04 / torch + triton (latest cu128) / flashinfer (pre-2026-04-19 SHA)",
+    "machine": "AKO4FIB attention-optimization workstation (not this Mac originally; file was later copied here)",
+    "measured_on": "2026-04-15 (approx)",
+    "solution": "flashinfer_wrapper_5af199",
+    "note": "Canonical expert baseline for this operator. All speedup numbers in LESSONS/VARIANTS/results/result.json are computed as baseline.reference_latency_ms / kernel_latency_ms using this file. 23 workloads measured at CUDA 12.8 / warmup=3 iterations=5 num_trials=5 (see benchmark_config)."
+  }
+}

@@ -1,0 +1,748 @@
+{
+  "timestamp": "2026-05-22T04:19:32.120509",
+  "label": "iter-5-disable-tl-add-graph-capture",
+  "backend": "modal-b200",
+  "solution_name": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+  "definition": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1",
+  "baseline_cached": true,
+  "baseline_iterations": 5,
+  "solution_iterations": 100,
+  "score": {
+    "final_score": 1.4772537273494855,
+    "group_scores": {
+      "1": {
+        "speedup": 2.323615345528455,
+        "latency_ms": 0.0062976
+      },
+      "2": {
+        "speedup": 2.2091370558375636,
+        "latency_ms": 0.006304
+      },
+      "3": {
+        "speedup": 1.6199695306917612,
+        "latency_ms": 0.0074173
+      },
+      "4": {
+        "speedup": 2.20562172606917,
+        "latency_ms": 0.0066243
+      },
+      "5": {
+        "speedup": 1.5934094719195306,
+        "latency_ms": 0.0076352
+      },
+      "6": {
+        "speedup": 2.0602774164315885,
+        "latency_ms": 0.006841700000000001
+      },
+      "8": {
+        "speedup": 1.596405826344662,
+        "latency_ms": 0.0079295
+      },
+      "10": {
+        "speedup": 1.5055378075005907,
+        "latency_ms": 0.008044699999999998
+      },
+      "13": {
+        "speedup": 1.5521015429049172,
+        "latency_ms": 0.0078942
+      },
+      "15": {
+        "speedup": 1.552149015165817,
+        "latency_ms": 0.0079455
+      },
+      "17": {
+        "speedup": 1.5742720883534136,
+        "latency_ms": 0.007968
+      },
+      "22": {
+        "speedup": 1.1943136478441576,
+        "latency_ms": 0.030050900000000002
+      },
+      "26": {
+        "speedup": 1.5922532847713398,
+        "latency_ms": 0.0080447
+      },
+      "29": {
+        "speedup": 1.8975607768019076,
+        "latency_ms": 0.0098146
+      },
+      "33": {
+        "speedup": 2.110186692389622,
+        "latency_ms": 0.0099522
+      },
+      "43": {
+        "speedup": 2.249664190897598,
+        "latency_ms": 0.0101248
+      },
+      "52": {
+        "speedup": 2.42622257670834,
+        "latency_ms": 0.0104063
+      },
+      "58": {
+        "speedup": 2.373848324171815,
+        "latency_ms": 0.0102785
+      },
+      "69": {
+        "speedup": 2.4193370272783628,
+        "latency_ms": 0.010323200000000001
+      },
+      "96": {
+        "speedup": 1.7403413705323931,
+        "latency_ms": 0.014652700000000001
+      },
+      "123": {
+        "speedup": 1.1509630123292236,
+        "latency_ms": 0.015005
+      },
+      "138": {
+        "speedup": 1.6006263326226013,
+        "latency_ms": 0.015007999999999999
+      },
+      "199": {
+        "speedup": 1.3143900200267022,
+        "latency_ms": 0.023968
+      },
+      "287": {
+        "speedup": 1.3728093981960057,
+        "latency_ms": 0.028924699999999998
+      },
+      "376": {
+        "speedup": 1.0590460539269089,
+        "latency_ms": 0.0380923
+      },
+      "473": {
+        "speedup": 1.1869072754208128,
+        "latency_ms": 0.034290799999999996
+      },
+      "805": {
+        "speedup": 0.8478771007044359,
+        "latency_ms": 0.0896604
+      },
+      "1028": {
+        "speedup": 0.816445667162272,
+        "latency_ms": 0.1186428
+      },
+      "1187": {
+        "speedup": 0.8978223446110289,
+        "latency_ms": 0.12942360000000003
+      },
+      "1954": {
+        "speedup": 0.8304106128580837,
+        "latency_ms": 0.07774719999999999
+      },
+      "3024": {
+        "speedup": 0.8656882545205384,
+        "latency_ms": 0.5448079
+      },
+      "3842": {
+        "speedup": 0.8825061970090593,
+        "latency_ms": 0.2552441
+      },
+      "6053": {
+        "speedup": 0.9015206472161411,
+        "latency_ms": 0.5432621
+      },
+      "8987": {
+        "speedup": 0.8717109828492771,
+        "latency_ms": 0.9172383
+      },
+      "10870": {
+        "speedup": 0.9232691859627649,
+        "latency_ms": 3.7661974999999996
+      },
+      "15092": {
+        "speedup": 0.9386000437065722,
+        "latency_ms": 1.8514378
+      },
+      "15883": {
+        "speedup": 0.9438923619703561,
+        "latency_ms": 2.5268467
+      },
+      "16384": {
+        "speedup": 0.9349314300446567,
+        "latency_ms": 16.297349099999998
+      }
+    },
+    "group_axis": "total_q",
+    "passed": 38,
+    "failed": 0,
+    "error": 0,
+    "total": 38,
+    "min_speedup": 0.816445667162272,
+    "max_speedup": 2.42622257670834
+  },
+  "results": {
+    "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1": {
+      "55b51e96-eecc-4dc9-814a-0f1301b2951e": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 33,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 34
+        },
+        "latency_ms": 0.0099522,
+        "reference_latency_ms": 0.021001,
+        "speedup_factor": 2.110186692389622,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 441.2014465332031
+      },
+      "d30e4c23-bb35-4f61-adb9-2163db9f5ea7": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 34
+        },
+        "latency_ms": 0.0062976,
+        "reference_latency_ms": 0.014633199999999999,
+        "speedup_factor": 2.323615345528455,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 442.6487731933594
+      },
+      "7572654f-7994-431a-bed1-65d7ec507b10": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 17,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 19
+        },
+        "latency_ms": 0.007968,
+        "reference_latency_ms": 0.012543799999999999,
+        "speedup_factor": 1.5742720883534136,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 205.18080139160156
+      },
+      "473e30ea-b329-4ef7-9961-7de140fd35da": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 52,
+          "num_pages": 989669,
+          "len_indptr": 5,
+          "num_kv_indices": 67
+        },
+        "latency_ms": 0.0104063,
+        "reference_latency_ms": 0.025248,
+        "speedup_factor": 2.42622257670834,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 5492.27490234375
+      },
+      "bda0e743-f862-4800-95e4-a7c5717c8e7e": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 376,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 381
+        },
+        "latency_ms": 0.0380923,
+        "reference_latency_ms": 0.040341499999999995,
+        "speedup_factor": 1.0590460539269089,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 3180.753662109375
+      },
+      "7e602557-ff89-41a1-8650-6c3e48fdf52a": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 287,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 288
+        },
+        "latency_ms": 0.028924699999999998,
+        "reference_latency_ms": 0.0397081,
+        "speedup_factor": 1.3728093981960057,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 3607.243408203125
+      },
+      "5ca61491-4ac7-426f-af85-cf592620a435": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 5,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 7
+        },
+        "latency_ms": 0.0076352,
+        "reference_latency_ms": 0.012166,
+        "speedup_factor": 1.5934094719195306,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 246.79031372070312
+      },
+      "77737de2-b4e3-4f75-a275-2addbc9e175d": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 1187,
+          "num_pages": 989669,
+          "len_indptr": 4,
+          "num_kv_indices": 1205
+        },
+        "latency_ms": 0.12942360000000003,
+        "reference_latency_ms": 0.1161994,
+        "speedup_factor": 0.8978223446110289,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 25178.1171875
+      },
+      "b270fd9c-8520-4bf1-87b7-f0bd87326ab6": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 10,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 12
+        },
+        "latency_ms": 0.008044699999999998,
+        "reference_latency_ms": 0.0121116,
+        "speedup_factor": 1.5055378075005907,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 110.96315002441406
+      },
+      "3bdcf0e1-3855-44b4-9ef2-db4422074531": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 3,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 5
+        },
+        "latency_ms": 0.0074173,
+        "reference_latency_ms": 0.0120158,
+        "speedup_factor": 1.6199695306917612,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 79.2413558959961
+      },
+      "6c8fe593-d2b1-4abe-89e3-51bb93638186": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 13,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 14
+        },
+        "latency_ms": 0.0078942,
+        "reference_latency_ms": 0.012252599999999999,
+        "speedup_factor": 1.5521015429049172,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 210.95843505859375
+      },
+      "98814691-2060-4bbe-8158-7bdd6868e7d0": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 26,
+          "num_pages": 989669,
+          "len_indptr": 3,
+          "num_kv_indices": 32
+        },
+        "latency_ms": 0.0080447,
+        "reference_latency_ms": 0.012809199999999998,
+        "speedup_factor": 1.5922532847713398,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 180.86534118652344
+      },
+      "74202b1d-e57c-424d-93ea-396a614e7864": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 8987,
+          "num_pages": 989669,
+          "len_indptr": 57,
+          "num_kv_indices": 14390
+        },
+        "latency_ms": 0.9172383,
+        "reference_latency_ms": 0.7995667,
+        "speedup_factor": 0.8717109828492771,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 26366.375
+      },
+      "6e3567c4-94d7-462d-b0af-b083ff8a9def": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 29,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 34
+        },
+        "latency_ms": 0.0098146,
+        "reference_latency_ms": 0.018623800000000003,
+        "speedup_factor": 1.8975607768019076,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 4527.74169921875
+      },
+      "a455e8fb-76b9-49ee-8bfb-4ac63bcd571c": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 2,
+          "num_pages": 989669,
+          "len_indptr": 3,
+          "num_kv_indices": 53
+        },
+        "latency_ms": 0.006304,
+        "reference_latency_ms": 0.0139264,
+        "speedup_factor": 2.2091370558375636,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 67.45708465576172
+      },
+      "bb28f188-53a9-45d4-89f3-b6bfe4b5fdb8": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 1028,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 1038
+        },
+        "latency_ms": 0.1186428,
+        "reference_latency_ms": 0.0968654,
+        "speedup_factor": 0.816445667162272,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 4653.08349609375
+      },
+      "ed999c80-d4d1-4952-b063-cd39dfbf5612": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 22,
+          "num_pages": 989669,
+          "len_indptr": 23,
+          "num_kv_indices": 17759
+        },
+        "latency_ms": 0.030050900000000002,
+        "reference_latency_ms": 0.0358902,
+        "speedup_factor": 1.1943136478441576,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 115.74417877197266
+      },
+      "cb60b649-f5da-49a7-b21e-0b9022bf9ff1": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 15,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 18
+        },
+        "latency_ms": 0.0079455,
+        "reference_latency_ms": 0.012332599999999999,
+        "speedup_factor": 1.552149015165817,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 74.90191650390625
+      },
+      "e6f75600-c981-4c46-9e7d-d82b41cff36c": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 69,
+          "num_pages": 989669,
+          "len_indptr": 4,
+          "num_kv_indices": 90
+        },
+        "latency_ms": 0.010323200000000001,
+        "reference_latency_ms": 0.0249753,
+        "speedup_factor": 2.4193370272783628,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 3328.09619140625
+      },
+      "733a7bbe-55fc-4834-82db-f428949e8ab2": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 3024,
+          "num_pages": 989669,
+          "len_indptr": 4,
+          "num_kv_indices": 3029
+        },
+        "latency_ms": 0.5448079,
+        "reference_latency_ms": 0.47163380000000005,
+        "speedup_factor": 0.8656882545205384,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 15290.6279296875
+      },
+      "892d1b8f-f6fe-40ad-aa3f-b6d391753bd3": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 1954,
+          "num_pages": 989669,
+          "len_indptr": 29,
+          "num_kv_indices": 2044
+        },
+        "latency_ms": 0.07774719999999999,
+        "reference_latency_ms": 0.0645621,
+        "speedup_factor": 0.8304106128580837,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 16498.716796875
+      },
+      "4eeb9b51-ce9b-40a3-9f8f-2604fed79629": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 199,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 203
+        },
+        "latency_ms": 0.023968,
+        "reference_latency_ms": 0.0315033,
+        "speedup_factor": 1.3143900200267022,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 4268.50830078125
+      },
+      "77573fb4-557b-430d-979f-5579a0349825": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 473,
+          "num_pages": 989669,
+          "len_indptr": 6,
+          "num_kv_indices": 491
+        },
+        "latency_ms": 0.034290799999999996,
+        "reference_latency_ms": 0.0407,
+        "speedup_factor": 1.1869072754208128,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 42679.09375
+      },
+      "9722a8a5-542e-4b96-b962-7ae93eb259ac": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 96,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 98
+        },
+        "latency_ms": 0.014652700000000001,
+        "reference_latency_ms": 0.025500699999999998,
+        "speedup_factor": 1.7403413705323931,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 5446.12939453125
+      },
+      "053a88a3-d024-4fbe-bc46-3f49d141de9f": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 6053,
+          "num_pages": 989669,
+          "len_indptr": 12,
+          "num_kv_indices": 6091
+        },
+        "latency_ms": 0.5432621,
+        "reference_latency_ms": 0.489762,
+        "speedup_factor": 0.9015206472161411,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 37956.23828125
+      },
+      "a06f2653-81ce-449f-91dd-e5ae53a16b92": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 16384,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 16387
+        },
+        "latency_ms": 16.297349099999998,
+        "reference_latency_ms": 15.236903899999998,
+        "speedup_factor": 0.9349314300446567,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 27662.568359375
+      },
+      "a8cff3c6-0976-4dbb-833f-481091dc6a39": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 43,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 46
+        },
+        "latency_ms": 0.0101248,
+        "reference_latency_ms": 0.0227774,
+        "speedup_factor": 2.249664190897598,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 460.92169189453125
+      },
+      "71df32c9-6f0f-4499-8599-c632f94ca83e": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 6,
+          "num_pages": 989669,
+          "len_indptr": 7,
+          "num_kv_indices": 109
+        },
+        "latency_ms": 0.006841700000000001,
+        "reference_latency_ms": 0.0140958,
+        "speedup_factor": 2.0602774164315885,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 111.40978240966797
+      },
+      "22689bbd-cd9e-4251-a90e-a2d367ddb7d8": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 805,
+          "num_pages": 989669,
+          "len_indptr": 5,
+          "num_kv_indices": 814
+        },
+        "latency_ms": 0.0896604,
+        "reference_latency_ms": 0.076021,
+        "speedup_factor": 0.8478771007044359,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 7488.1787109375
+      },
+      "a6fbb45c-905c-48b3-a74b-cc18bd963220": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 58,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 60
+        },
+        "latency_ms": 0.0102785,
+        "reference_latency_ms": 0.0243996,
+        "speedup_factor": 2.373848324171815,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 453.864013671875
+      },
+      "d44f32e1-f92e-4f37-ae26-29d71b0b105a": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 123,
+          "num_pages": 989669,
+          "len_indptr": 3,
+          "num_kv_indices": 185
+        },
+        "latency_ms": 0.015005,
+        "reference_latency_ms": 0.0172702,
+        "speedup_factor": 1.1509630123292236,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 4111.2470703125
+      },
+      "9265de63-6831-406b-b449-8bee4be7f372": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 4,
+          "num_pages": 989669,
+          "len_indptr": 5,
+          "num_kv_indices": 121
+        },
+        "latency_ms": 0.0066243,
+        "reference_latency_ms": 0.0146107,
+        "speedup_factor": 2.20562172606917,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 9.416894912719727
+      },
+      "805238ee-8470-4f4e-aa41-7c15f785173f": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 3842,
+          "num_pages": 989669,
+          "len_indptr": 21,
+          "num_kv_indices": 3916
+        },
+        "latency_ms": 0.2552441,
+        "reference_latency_ms": 0.2252545,
+        "speedup_factor": 0.8825061970090593,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 14877.3193359375
+      },
+      "fe63f292-d826-4950-8785-0a516707527f": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 15883,
+          "num_pages": 989669,
+          "len_indptr": 19,
+          "num_kv_indices": 15937
+        },
+        "latency_ms": 2.5268467,
+        "reference_latency_ms": 2.3850713,
+        "speedup_factor": 0.9438923619703561,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 32263.5
+      },
+      "54187805-1b18-4d39-83ca-46332f85da9e": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 15092,
+          "num_pages": 989669,
+          "len_indptr": 27,
+          "num_kv_indices": 15187
+        },
+        "latency_ms": 1.8514378,
+        "reference_latency_ms": 1.7377596,
+        "speedup_factor": 0.9386000437065722,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 57691.3828125
+      },
+      "f96b666d-373d-40ee-ad8d-0c3b74374558": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 138,
+          "num_pages": 989669,
+          "len_indptr": 5,
+          "num_kv_indices": 151
+        },
+        "latency_ms": 0.015007999999999999,
+        "reference_latency_ms": 0.0240222,
+        "speedup_factor": 1.6006263326226013,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1291.118896484375
+      },
+      "d88c9577-ac5d-414c-9d57-d91cc14b7eed": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 8,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 12
+        },
+        "latency_ms": 0.0079295,
+        "reference_latency_ms": 0.0126587,
+        "speedup_factor": 1.596405826344662,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 146.76991271972656
+      },
+      "0e70750d-4274-4a1f-a626-0c981044138d": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 10870,
+          "num_pages": 989669,
+          "len_indptr": 3,
+          "num_kv_indices": 10875
+        },
+        "latency_ms": 3.7661974999999996,
+        "reference_latency_ms": 3.4772141,
+        "speedup_factor": 0.9232691859627649,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 23396.1640625
+      }
+    }
+  }
+}

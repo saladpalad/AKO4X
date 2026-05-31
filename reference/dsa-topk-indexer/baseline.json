@@ -1,0 +1,408 @@
+{
+  "operator": "dsa_topk_indexer_fp8_h64_d128_topk2048_ps64",
+  "source": "expert",
+  "environment": {
+    "gpu": "B200",
+    "backend": "modal",
+    "cuda_version": "unknown",
+    "measured_at": "2026-04-22T00:53:49"
+  },
+  "benchmark_config": {
+    "warmup_runs": 3,
+    "iterations": 5,
+    "num_trials": 5
+  },
+  "workloads": {
+    "30cecff1-7ea4-474b-90fc-7f4a87206d8e": {
+      "reference_latency_ms": 0.111115
+    },
+    "cd594d26-4ac9-4b15-9305-f4c65c789c16": {
+      "reference_latency_ms": 0.1068965
+    },
+    "44ddaa65-5d63-41d6-8849-7975b5f6efd5": {
+      "reference_latency_ms": 0.10651783333333333
+    },
+    "b2098949-a0e4-4de5-9797-3d338dbc54b0": {
+      "reference_latency_ms": 0.10755266666666667
+    },
+    "4667f9ad-92f3-4503-9eea-547a30e708dc": {
+      "reference_latency_ms": 0.10544566666666666
+    },
+    "8f2fde6c-585d-48fd-86cb-3a004c2b7884": {
+      "reference_latency_ms": 0.10698683333333332
+    },
+    "02fa7f90-88b6-4fa5-ba21-29b803c23309": {
+      "reference_latency_ms": 0.10867733333333333
+    },
+    "545f8a85-3fe9-4604-898b-8b21b2cfdf11": {
+      "reference_latency_ms": 0.10778716666666666
+    },
+    "e49574dd-5ee4-4e19-be85-fe41abae9a95": {
+      "reference_latency_ms": 0.1074885
+    },
+    "0ebafac4-a597-4245-9ea9-14089ac4b8b3": {
+      "reference_latency_ms": 0.11840033333333333
+    },
+    "82a8a885-ad69-4b9e-a1a9-dd9c0715db91": {
+      "reference_latency_ms": 0.11713083333333334
+    },
+    "4279d75e-b93c-4198-9016-4d1d21e17bf2": {
+      "reference_latency_ms": 0.10762683333333334
+    },
+    "83cb81c5-7304-449a-bead-8ce4a444e2df": {
+      "reference_latency_ms": 0.10894983333333334
+    },
+    "d8a73470-cfa1-49ad-aba6-d9b99c0c5b2d": {
+      "reference_latency_ms": 0.11471533333333334
+    },
+    "16feeab1-509f-49f2-b794-4ed42b843984": {
+      "reference_latency_ms": 0.11348266666666666
+    },
+    "9754a4e7-3db5-4975-9ef4-3f3b6c61dc97": {
+      "reference_latency_ms": 0.10486966666666668
+    },
+    "05775386-52aa-4abb-982d-0aee72dd2ff6": {
+      "reference_latency_ms": 0.10561133333333332
+    },
+    "46f236c0-3aef-4628-ae2a-3b313986b9eb": {
+      "reference_latency_ms": 0.11083233333333332
+    },
+    "d54c1568-87bd-4edf-a329-f0ee35091e45": {
+      "reference_latency_ms": 0.10308833333333334
+    },
+    "17ced9b8-339a-4725-ad28-ce52a0fead0f": {
+      "reference_latency_ms": 0.13129083333333333
+    },
+    "cd3434ac-bdda-4c73-98ff-c746b236b856": {
+      "reference_latency_ms": 0.12001099999999999
+    },
+    "101a39ac-6465-45d8-88c5-b58dc3bc6398": {
+      "reference_latency_ms": 0.117979
+    },
+    "55be3dc3-b010-40b9-9591-c5349849f4e9": {
+      "reference_latency_ms": 0.11755800000000001
+    },
+    "ef12ac76-832a-439b-9c87-ce33f311e125": {
+      "reference_latency_ms": 0.13786183333333332
+    },
+    "4c7705ad-0954-4628-a978-a51a895aa008": {
+      "reference_latency_ms": 0.14626166666666665
+    },
+    "ef0d0deb-ac85-4d72-90ce-a811f2774c10": {
+      "reference_latency_ms": 0.14524816666666665
+    },
+    "28a9fa48-97c3-4d60-b7c2-ffeb230c9f1a": {
+      "reference_latency_ms": 0.15682733333333332
+    },
+    "899c2d2f-540c-432f-9944-e29d4cc6fe87": {
+      "reference_latency_ms": 0.15216033333333334
+    },
+    "03fc111f-0f63-4ca1-9765-cbaca21ada2b": {
+      "reference_latency_ms": 0.1443735
+    },
+    "b017f77a-7e57-4ab6-aa43-b82eabc3812f": {
+      "reference_latency_ms": 0.171158
+    },
+    "82bd3e70-4d7d-44a0-b97e-b5db535fca9e": {
+      "reference_latency_ms": 0.15293916666666665
+    },
+    "f897f64e-68b7-4f23-a2c5-bba516828f43": {
+      "reference_latency_ms": 0.146331
+    },
+    "df80c00b-9bc2-4fac-82aa-101301d4c2dd": {
+      "reference_latency_ms": 0.11542966666666667
+    },
+    "99920dc5-e1af-4083-a358-66ea4f897e05": {
+      "reference_latency_ms": 0.15469366666666665
+    },
+    "9410ad1e-e4f6-4911-bc96-0931dcb00838": {
+      "reference_latency_ms": 0.143787
+    },
+    "3e91afa0-0ef1-4e98-8ed5-6517c131c9f0": {
+      "reference_latency_ms": 0.15429366666666666
+    },
+    "9a2bb7f8-b1f9-43d6-91c4-cafac5ec581e": {
+      "reference_latency_ms": 0.15755233333333332
+    },
+    "2774963f-026a-4284-9189-228676fc3f70": {
+      "reference_latency_ms": 0.15468316666666668
+    },
+    "e64a4ebc-1b1b-4ec3-8c67-a9a87533946c": {
+      "reference_latency_ms": 0.1535525
+    },
+    "a4cdaee6-2c3e-46fa-a60a-fef4ccf4c30b": {
+      "reference_latency_ms": 0.11155766666666667
+    },
+    "6caf09cf-7a2e-47e0-96fa-67807366fd37": {
+      "reference_latency_ms": 0.11626199999999999
+    },
+    "7752dda1-9d4d-4383-813b-c125ad3d038a": {
+      "reference_latency_ms": 0.11090149999999999
+    },
+    "67216408-b49b-4e43-bf07-4136968b3b82": {
+      "reference_latency_ms": 0.15798466666666666
+    },
+    "8638fe06-e733-482f-99b8-946abcdfad11": {
+      "reference_latency_ms": 0.11891233333333333
+    },
+    "d04ea89f-d4c1-4fb5-8313-fb17cac68f75": {
+      "reference_latency_ms": 0.11200066666666668
+    },
+    "13dad24c-6482-436a-bb10-b54c3280a0a6": {
+      "reference_latency_ms": 0.111494
+    },
+    "1152c61f-09db-4fc6-b22a-698247cd8ce6": {
+      "reference_latency_ms": 0.10917366666666665
+    },
+    "77279062-1275-41d8-9184-210994a8b4d7": {
+      "reference_latency_ms": 0.11268283333333333
+    },
+    "9c313fc4-4453-4dc8-b4c6-ccfde2148490": {
+      "reference_latency_ms": 0.118075
+    },
+    "8f3fe9ff-ce2a-4262-96e8-b2190f763fbb": {
+      "reference_latency_ms": 0.11148833333333334
+    },
+    "06ec358c-604b-4ca6-acd5-9c1953750fb3": {
+      "reference_latency_ms": 0.10401083333333334
+    },
+    "8f1a5846-5499-40c7-9904-6887fda49a80": {
+      "reference_latency_ms": 0.1076535
+    },
+    "3240d5fa-9321-4bc1-b4bf-225416da1e2c": {
+      "reference_latency_ms": 0.10785616666666666
+    },
+    "c729310b-1f3a-4245-ac81-ac366d57b0e3": {
+      "reference_latency_ms": 0.10924299999999999
+    },
+    "81a953ea-f29f-4707-8456-67a3624a549d": {
+      "reference_latency_ms": 0.11689100000000001
+    },
+    "09bb020f-60d4-4393-a3df-765fd51011d4": {
+      "reference_latency_ms": 0.11665666666666667
+    },
+    "e515e20a-6dd7-44fe-9094-56be36424806": {
+      "reference_latency_ms": 0.110267
+    },
+    "10b4eebe-e458-410a-8b99-2784429c43b2": {
+      "reference_latency_ms": 0.108267
+    },
+    "1ece7fb3-be8d-42d3-923d-f5a85846ddee": {
+      "reference_latency_ms": 0.13110433333333335
+    },
+    "9810dadf-1fe0-48ab-a1c1-d1e0e01f233e": {
+      "reference_latency_ms": 0.194411
+    },
+    "9a95a10e-bd5a-406a-a1d1-891c941343ce": {
+      "reference_latency_ms": 0.124955
+    },
+    "696dbfa4-e56c-4a09-a907-2abbad6de073": {
+      "reference_latency_ms": 0.115568
+    },
+    "ee603b53-f9d6-4210-a83a-caf6219a8a8b": {
+      "reference_latency_ms": 0.11667749999999999
+    },
+    "70d53807-f4ba-4c16-a0be-8a1f9137e8e6": {
+      "reference_latency_ms": 0.116923
+    },
+    "19e7663d-29d7-4f96-9262-9c7bc068fadd": {
+      "reference_latency_ms": 0.11486983333333334
+    },
+    "ed3e595b-e3ba-4049-9ee9-a51b460ceff5": {
+      "reference_latency_ms": 0.1153175
+    },
+    "e4ecb462-e2be-41b3-8efc-795f49ef07bf": {
+      "reference_latency_ms": 0.1166725
+    },
+    "f1fc35d4-3052-49b2-ad6e-1f715a61a4cb": {
+      "reference_latency_ms": 0.11480566666666665
+    },
+    "67c09e9c-3f31-485f-9aef-983979a90038": {
+      "reference_latency_ms": 0.11377083333333333
+    },
+    "786b5173-e297-4ec3-82fa-450e9c79fb7d": {
+      "reference_latency_ms": 0.1160645
+    },
+    "08a752fc-53b8-4335-b08f-ddb2c71eae65": {
+      "reference_latency_ms": 0.11800533333333334
+    },
+    "cdc0ff86-2eaa-4d2a-905d-2e14ee189011": {
+      "reference_latency_ms": 0.11737133333333334
+    },
+    "f457feb2-6bf5-4be0-952d-580bf0b5f8b9": {
+      "reference_latency_ms": 0.11666716666666666
+    },
+    "e977c163-09a3-42aa-9d38-e629b67ee46a": {
+      "reference_latency_ms": 0.11258699999999999
+    },
+    "6bdb38e6-2ce5-4f77-bef8-b87a7f0cc525": {
+      "reference_latency_ms": 0.115307
+    },
+    "e26d02ef-5606-4bbf-a397-d9a75d41312b": {
+      "reference_latency_ms": 0.11438983333333334
+    },
+    "97a6d5c2-ed84-4738-8073-f07cda4c5bd3": {
+      "reference_latency_ms": 0.11073100000000001
+    },
+    "175849a8-a360-4f8f-ac2b-88d278852d45": {
+      "reference_latency_ms": 0.11406466666666666
+    },
+    "3eab2c37-dbd9-4f7a-890e-0643cc9ca2ee": {
+      "reference_latency_ms": 0.115232
+    },
+    "60605091-410d-47be-8764-9a516a256aa8": {
+      "reference_latency_ms": 0.11441649999999999
+    },
+    "bb22d09a-7fe9-46a1-a3af-90e636c3b966": {
+      "reference_latency_ms": 0.107531
+    },
+    "fb1ceff0-a905-45e7-8639-1c610d1bfbab": {
+      "reference_latency_ms": 0.11418683333333335
+    },
+    "b83c4150-dbc3-4d05-a2bf-92b7202f9f5a": {
+      "reference_latency_ms": 0.115307
+    },
+    "752c2ee5-9450-4ca4-815a-fa3e00e07991": {
+      "reference_latency_ms": 0.11046966666666667
+    },
+    "e1a185dc-a520-490b-8f93-e6fff4583e1f": {
+      "reference_latency_ms": 0.11436299999999999
+    },
+    "7f03b670-842f-4394-b4be-07c2f68b1c6d": {
+      "reference_latency_ms": 0.10969116666666667
+    },
+    "d0c00dd5-819f-490f-9f88-ead63698e9ee": {
+      "reference_latency_ms": 0.11098166666666666
+    },
+    "f7f61b05-f6fc-4269-8f38-05ed599d51c3": {
+      "reference_latency_ms": 0.11580299999999999
+    },
+    "7f1cd9c2-1097-43de-8fc8-1fa63763cf9b": {
+      "reference_latency_ms": 0.11356866666666666
+    },
+    "f59fd3e2-a6b0-4ce7-bddd-fa47b35b9b90": {
+      "reference_latency_ms": 0.113712
+    },
+    "5f7e6f22-1dae-456a-80d1-a78bcc5e071e": {
+      "reference_latency_ms": 0.10600549999999999
+    },
+    "bda73497-5c27-4f0a-b6b1-52ca3c2095d1": {
+      "reference_latency_ms": 0.11006983333333333
+    },
+    "37098ea3-9ce7-40bd-830c-b24999ce2434": {
+      "reference_latency_ms": 0.11221366666666667
+    },
+    "a03d722b-1858-43a9-86a0-37ea08cd7931": {
+      "reference_latency_ms": 0.1132005
+    },
+    "34195ade-a79a-4c96-adeb-7221109fa2a4": {
+      "reference_latency_ms": 0.11388316666666666
+    },
+    "03910df4-7c56-4612-8d08-0d82a681d0db": {
+      "reference_latency_ms": 0.10952566666666667
+    },
+    "a876010b-d67f-492d-a7e6-76e9d59e5403": {
+      "reference_latency_ms": 0.11738149999999999
+    },
+    "7f20565a-5f0d-4625-b57f-4d3f6a52f0db": {
+      "reference_latency_ms": 0.1107095
+    },
+    "a52c09bc-2ee5-4366-be02-457932a80631": {
+      "reference_latency_ms": 0.11632533333333334
+    },
+    "bb0f8277-4d31-443b-9454-ac1a547750d3": {
+      "reference_latency_ms": 0.11600016666666667
+    },
+    "6b4b9d2b-1cda-4ea7-8b4c-deca25596e70": {
+      "reference_latency_ms": 0.12407516666666667
+    },
+    "a30b4f8d-d6d7-4a9a-8a80-f85e3ec629a4": {
+      "reference_latency_ms": 0.11235766666666668
+    },
+    "8bdd4f88-c992-4c75-b78b-b4dc626ca409": {
+      "reference_latency_ms": 0.11519516666666667
+    },
+    "30a90fa5-375f-4bdb-aa48-79e59b5f0cac": {
+      "reference_latency_ms": 0.1137335
+    },
+    "de54c4e6-7c89-43c7-aefb-db20265f4cdf": {
+      "reference_latency_ms": 0.11205883333333333
+    },
+    "22207643-eed4-49cf-a2a4-70877903ec3e": {
+      "reference_latency_ms": 0.11706183333333332
+    },
+    "6832006b-2f6b-42d1-9eeb-7ef92fec7d1a": {
+      "reference_latency_ms": 0.11094949999999999
+    },
+    "9f252ffa-e3d6-4cdb-b94e-a9840d272c57": {
+      "reference_latency_ms": 0.10816033333333334
+    },
+    "4a0e0529-5a2b-4f3a-9675-3f87e10c5ad9": {
+      "reference_latency_ms": 0.11066683333333334
+    },
+    "f362edf4-723c-4751-afd9-5a0a6abbf095": {
+      "reference_latency_ms": 0.11835766666666665
+    },
+    "e0488cb7-b07a-4019-ab24-4b2f97af2530": {
+      "reference_latency_ms": 0.11085350000000001
+    },
+    "ee6946e7-b658-4e46-a389-7613624b3e78": {
+      "reference_latency_ms": 0.11674683333333331
+    },
+    "2f3b7321-e55c-4a11-9ab3-4aab5dd4ab3a": {
+      "reference_latency_ms": 0.12117916666666667
+    },
+    "5db1b172-eda8-4714-9981-a069dc33d7e9": {
+      "reference_latency_ms": 0.11746716666666666
+    },
+    "8ba75447-ae9e-4769-a5de-76e8d1685d6e": {
+      "reference_latency_ms": 0.10688550000000001
+    },
+    "e667d2ac-c644-4abe-ba3b-7ab09b5b2dfd": {
+      "reference_latency_ms": 0.1119365
+    },
+    "6b10b6da-7a58-4abc-9c40-d1fde49035d8": {
+      "reference_latency_ms": 0.12281116666666665
+    },
+    "1571c14a-181c-4f15-97a5-178e4b316ca5": {
+      "reference_latency_ms": 0.113547
+    },
+    "0c4f5578-a698-497e-95eb-873e2faf7df4": {
+      "reference_latency_ms": 0.1199095
+    },
+    "fc14d852-74ad-41e7-a538-61b89fae5d9c": {
+      "reference_latency_ms": 0.11554166666666665
+    },
+    "e63194e7-b79e-4e50-b08a-16fd1f700eb5": {
+      "reference_latency_ms": 0.11521133333333333
+    },
+    "27afdcea-6ed1-434b-bf24-a7566c4b1a56": {
+      "reference_latency_ms": 0.11613899999999999
+    },
+    "abc9d12c-2863-48db-b97f-35af7267ccf5": {
+      "reference_latency_ms": 0.11258699999999999
+    },
+    "27c3374f-c621-43f2-8a1a-8710f6ef22ba": {
+      "reference_latency_ms": 0.11890733333333332
+    },
+    "6e4e9b37-0d56-419b-ac54-69049066f914": {
+      "reference_latency_ms": 0.11298183333333334
+    },
+    "4a616af2-bd14-42f1-beed-a3c0ca68291e": {
+      "reference_latency_ms": 0.11367466666666666
+    },
+    "8635db8f-5b62-464e-9b5b-0863d65788ee": {
+      "reference_latency_ms": 0.11695483333333334
+    },
+    "dba1e960-49e4-4152-8dce-f6da100c9561": {
+      "reference_latency_ms": 0.11617600000000002
+    }
+  },
+  "provenance": {
+    "env": "Modal B200 / nvidia/cuda:12.8.0-devel-ubuntu22.04 / torch + triton (latest cu128) / deep_gemm (pre-Apr-19 SHA)",
+    "machine": "this-Mac -> Modal B200 (sm_100)",
+    "measured_on": "2026-04-15",
+    "solution": "flashinfer_deepgemm_wrapper_2ba145",
+    "note": "Canonical expert baseline for this operator. All speedup numbers in variant result.json files are computed as baseline.reference_latency_ms / kernel_latency_ms using this file. Fresh re-measurement on the CUDA 13.2 image fails: deep_gemm.get_paged_mqa_logits_metadata asserts context_lens.dim()==2 (API break); README.md notes the caveat."
+  }
+}

@@ -1,0 +1,19 @@
+diff --git a/solution/kernel.py b/solution/kernel.py
+index 9f852c4..5a81fd0 100644
+--- a/solution/kernel.py
++++ b/solution/kernel.py
+@@ -241,9 +241,12 @@ def _get_buf(shape, dtype, device):
+ 
+ def _choose_num_splits(batch_size: int, num_kv: int) -> int:
+     # Cap at 16 to keep reduce-kernel auto-unroll cheap (32+ splits caused
+-    # register spills / I-cache thrash in iter-1).
++    # register spills / I-cache thrash in iter-1 with fp32 partials).
++    # With bf16 partials (iter-12), unrolled reduce code is half as large; try
++    # higher cap for b>=8 where added parallelism may pay off.
+     target = 512
+-    splits = max(1, min(16, target // batch_size))
++    cap = 32 if batch_size >= 8 else 16
++    splits = max(1, min(cap, target // batch_size))
+     avg = num_kv / max(1, batch_size)
+     while splits > 1 and avg < splits * 16:
+         splits //= 2

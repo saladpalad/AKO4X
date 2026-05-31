@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ako4x"
+version = "0.1.0"
+description = "Scaffolding for GPU kernel optimization environments"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    {name = "Shuxiao Xie"},
+    {name = "Shuyang Xie"},
+]
+requires-python = ">=3.10"
+dependencies = [
+    # Cross-platform: needed by spawn.py / scripts orchestration on any host.
+    "flashinfer-bench @ git+https://github.com/flashinfer-ai/flashinfer-bench.git@main",
+    "numpy>=1.24.0",
+    "apache-tvm-ffi>=0.1.6,!=0.1.8,!=0.1.8.post0,<0.2",
+    "ninja",
+    "packaging>=24.2",
+    "einops",
+    "tabulate",
+    "tqdm",
+    "click",
+    # TOML parsing on Python 3.10: tomllib is stdlib only on 3.11+, so spawn.py
+    # and the scripts import-guard fall back to `import tomli`. Declare it so a
+    # clean 3.10 install actually has it. (Modal runs 3.12, so this is host-only.)
+    "tomli; python_version < '3.11'",
+    # torch has macOS arm64 wheels; keep unconditional so orchestration imports work.
+    "torch>=2.9.1",
+    # Linux + NVIDIA only. Needed by the local backend; the Modal backend installs
+    # these inside its container image. Gating by sys_platform keeps Linux installs
+    # identical while letting macOS hosts (Modal-only driving) install at all.
+    "triton>=3.5.0; sys_platform == 'linux'",
+    "cupti-python>=13.0.0; sys_platform == 'linux'",
+    "flashinfer-python @ git+https://github.com/flashinfer-ai/flashinfer.git@main ; sys_platform == 'linux'",
+    "torch-c-dlpack-ext; sys_platform == 'linux'",
+    "cuda-python; sys_platform == 'linux'",
+    "nvidia-cudnn-frontend>=1.13.0; sys_platform == 'linux'",
+    "nvidia-ml-py; sys_platform == 'linux'",
+]
+
+[project.optional-dependencies]
+modal = ["modal>=1.3.0"]
+tilelang = ["tilelang", "cuda-tile"]
+cutlass-dsl = ["nvidia-cutlass-dsl>=4.3.4"]
+# deep-gemm is used by the DSA-indexer expert baseline
+# (flashinfer_deepgemm_wrapper_2ba145). Not required by any AKO4X-optimized
+# kernel — install this extra only if you want to run the expert baseline
+# locally (e.g. to re-measure after an env change).
+#
+# IMPORTANT: pip must use `--no-build-isolation` because deep-gemm's build
+# links against the current env's torch, which pip's default isolated build
+# env doesn't see. Install with:
+#
+#   pip install --no-build-isolation ".[deep-gemm]"
+#
+# (or pre-install torch + ninja in the isolated env by other means.)
+deep-gemm = ["deep_gemm @ git+https://github.com/deepseek-ai/DeepGEMM.git@main ; sys_platform == 'linux'"]
+
+[tool.hatch.metadata]
+allow-direct-references = true

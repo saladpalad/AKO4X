@@ -1,0 +1,803 @@
+{
+  "variant": "evict_last_v4",
+  "definition": "dsa_topk_indexer_fp8_h64_d128_topk2048_ps64",
+  "status": "measured",
+  "note": "Agent-assisted variant. CuTe DSL radix anchored to Triton score kernel.",
+  "kernel_env": {
+    "image": "flashinfer/flashinfer-ci-cu132:20260401-2c675fb",
+    "base_os": "Ubuntu 24.04",
+    "machine": "this-Mac -> Modal B200 (sm_100)",
+    "cuda": "13.2",
+    "torch": "2.12.0.dev20260331+cu132",
+    "triton": "3.6.0",
+    "tilelang": "installed via `pip install tilelang --no-deps` on top of official image",
+    "nvidia_cutlass_dsl": ">=4.3.4",
+    "deep_gemm": "2.4.2+git.7f2a703",
+    "flashinfer_python": "0.6.8 (built from source in image)"
+  },
+  "kernel_measured_on": "2026-04-19T12:05:11.850098",
+  "kernel_mean_latency_ms": 0.003266,
+  "canonical_baseline_mean_latency_ms": 0.118996,
+  "canonical_baseline_provenance": "see ../../baseline.json",
+  "speedup_vs_canonical_baseline": 41.641,
+  "n_workloads": 128,
+  "n_passed": 128,
+  "per_workload": {
+    "30cecff1-7ea4-474b-90fc-7f4a87206d8e": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020288,
+      "canonical_baseline_latency_ms": 0.111115,
+      "speedup_vs_canonical_baseline": 54.769
+    },
+    "cd594d26-4ac9-4b15-9305-f4c65c789c16": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020063999999999998,
+      "canonical_baseline_latency_ms": 0.106897,
+      "speedup_vs_canonical_baseline": 53.278
+    },
+    "44ddaa65-5d63-41d6-8849-7975b5f6efd5": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020098,
+      "canonical_baseline_latency_ms": 0.106518,
+      "speedup_vs_canonical_baseline": 52.999
+    },
+    "b2098949-a0e4-4de5-9797-3d338dbc54b0": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0019808,
+      "canonical_baseline_latency_ms": 0.107553,
+      "speedup_vs_canonical_baseline": 54.298
+    },
+    "4667f9ad-92f3-4503-9eea-547a30e708dc": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020096,
+      "canonical_baseline_latency_ms": 0.105446,
+      "speedup_vs_canonical_baseline": 52.471
+    },
+    "8f2fde6c-585d-48fd-86cb-3a004c2b7884": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0019714,
+      "canonical_baseline_latency_ms": 0.106987,
+      "speedup_vs_canonical_baseline": 54.269
+    },
+    "02fa7f90-88b6-4fa5-ba21-29b803c23309": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0019776999999999998,
+      "canonical_baseline_latency_ms": 0.108677,
+      "speedup_vs_canonical_baseline": 54.951
+    },
+    "545f8a85-3fe9-4604-898b-8b21b2cfdf11": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0019649,
+      "canonical_baseline_latency_ms": 0.107787,
+      "speedup_vs_canonical_baseline": 54.856
+    },
+    "e49574dd-5ee4-4e19-be85-fe41abae9a95": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.002016,
+      "canonical_baseline_latency_ms": 0.107489,
+      "speedup_vs_canonical_baseline": 53.318
+    },
+    "0ebafac4-a597-4245-9ea9-14089ac4b8b3": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0019776000000000004,
+      "canonical_baseline_latency_ms": 0.1184,
+      "speedup_vs_canonical_baseline": 59.871
+    },
+    "82a8a885-ad69-4b9e-a1a9-dd9c0715db91": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.002016,
+      "canonical_baseline_latency_ms": 0.117131,
+      "speedup_vs_canonical_baseline": 58.101
+    },
+    "4279d75e-b93c-4198-9016-4d1d21e17bf2": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0023744,
+      "canonical_baseline_latency_ms": 0.107627,
+      "speedup_vs_canonical_baseline": 45.328
+    },
+    "83cb81c5-7304-449a-bead-8ce4a444e2df": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020352,
+      "canonical_baseline_latency_ms": 0.10895,
+      "speedup_vs_canonical_baseline": 53.533
+    },
+    "d8a73470-cfa1-49ad-aba6-d9b99c0c5b2d": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0038016,
+      "canonical_baseline_latency_ms": 0.114715,
+      "speedup_vs_canonical_baseline": 30.176
+    },
+    "16feeab1-509f-49f2-b794-4ed42b843984": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0038208,
+      "canonical_baseline_latency_ms": 0.113483,
+      "speedup_vs_canonical_baseline": 29.701
+    },
+    "9754a4e7-3db5-4975-9ef4-3f3b6c61dc97": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022367999999999997,
+      "canonical_baseline_latency_ms": 0.10487,
+      "speedup_vs_canonical_baseline": 46.884
+    },
+    "05775386-52aa-4abb-982d-0aee72dd2ff6": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022304,
+      "canonical_baseline_latency_ms": 0.105611,
+      "speedup_vs_canonical_baseline": 47.351
+    },
+    "46f236c0-3aef-4628-ae2a-3b313986b9eb": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020352,
+      "canonical_baseline_latency_ms": 0.110832,
+      "speedup_vs_canonical_baseline": 54.458
+    },
+    "d54c1568-87bd-4edf-a329-f0ee35091e45": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020096,
+      "canonical_baseline_latency_ms": 0.103088,
+      "speedup_vs_canonical_baseline": 51.298
+    },
+    "17ced9b8-339a-4725-ad28-ce52a0fead0f": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022400999999999996,
+      "canonical_baseline_latency_ms": 0.131291,
+      "speedup_vs_canonical_baseline": 58.609
+    },
+    "cd3434ac-bdda-4c73-98ff-c746b236b856": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0037952,
+      "canonical_baseline_latency_ms": 0.120011,
+      "speedup_vs_canonical_baseline": 31.622
+    },
+    "101a39ac-6465-45d8-88c5-b58dc3bc6398": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.00224,
+      "canonical_baseline_latency_ms": 0.117979,
+      "speedup_vs_canonical_baseline": 52.669
+    },
+    "55be3dc3-b010-40b9-9591-c5349849f4e9": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020096,
+      "canonical_baseline_latency_ms": 0.117558,
+      "speedup_vs_canonical_baseline": 58.498
+    },
+    "ef12ac76-832a-439b-9c87-ce33f311e125": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0037758,
+      "canonical_baseline_latency_ms": 0.137862,
+      "speedup_vs_canonical_baseline": 36.512
+    },
+    "4c7705ad-0954-4628-a978-a51a895aa008": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0037568999999999996,
+      "canonical_baseline_latency_ms": 0.146262,
+      "speedup_vs_canonical_baseline": 38.931
+    },
+    "ef0d0deb-ac85-4d72-90ce-a811f2774c10": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022944,
+      "canonical_baseline_latency_ms": 0.145248,
+      "speedup_vs_canonical_baseline": 63.306
+    },
+    "28a9fa48-97c3-4d60-b7c2-ffeb230c9f1a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.002224,
+      "canonical_baseline_latency_ms": 0.156827,
+      "speedup_vs_canonical_baseline": 70.516
+    },
+    "899c2d2f-540c-432f-9944-e29d4cc6fe87": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020096,
+      "canonical_baseline_latency_ms": 0.15216,
+      "speedup_vs_canonical_baseline": 75.717
+    },
+    "03fc111f-0f63-4ca1-9765-cbaca21ada2b": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0037696,
+      "canonical_baseline_latency_ms": 0.144373,
+      "speedup_vs_canonical_baseline": 38.299
+    },
+    "b017f77a-7e57-4ab6-aa43-b82eabc3812f": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0039168,
+      "canonical_baseline_latency_ms": 0.171158,
+      "speedup_vs_canonical_baseline": 43.698
+    },
+    "82bd3e70-4d7d-44a0-b97e-b5db535fca9e": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022342,
+      "canonical_baseline_latency_ms": 0.152939,
+      "speedup_vs_canonical_baseline": 68.454
+    },
+    "f897f64e-68b7-4f23-a2c5-bba516828f43": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022304,
+      "canonical_baseline_latency_ms": 0.146331,
+      "speedup_vs_canonical_baseline": 65.608
+    },
+    "df80c00b-9bc2-4fac-82aa-101301d4c2dd": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.002176,
+      "canonical_baseline_latency_ms": 0.11543,
+      "speedup_vs_canonical_baseline": 53.047
+    },
+    "99920dc5-e1af-4083-a358-66ea4f897e05": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0038592,
+      "canonical_baseline_latency_ms": 0.154694,
+      "speedup_vs_canonical_baseline": 40.084
+    },
+    "9410ad1e-e4f6-4911-bc96-0931dcb00838": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.002048,
+      "canonical_baseline_latency_ms": 0.143787,
+      "speedup_vs_canonical_baseline": 70.208
+    },
+    "3e91afa0-0ef1-4e98-8ed5-6517c131c9f0": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043711,
+      "canonical_baseline_latency_ms": 0.154294,
+      "speedup_vs_canonical_baseline": 35.299
+    },
+    "9a2bb7f8-b1f9-43d6-91c4-cafac5ec581e": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022692,
+      "canonical_baseline_latency_ms": 0.157552,
+      "speedup_vs_canonical_baseline": 69.431
+    },
+    "2774963f-026a-4284-9189-228676fc3f70": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0044672,
+      "canonical_baseline_latency_ms": 0.154683,
+      "speedup_vs_canonical_baseline": 34.626
+    },
+    "e64a4ebc-1b1b-4ec3-8c67-a9a87533946c": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020480999999999997,
+      "canonical_baseline_latency_ms": 0.153553,
+      "speedup_vs_canonical_baseline": 74.973
+    },
+    "a4cdaee6-2c3e-46fa-a60a-fef4ccf4c30b": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022467,
+      "canonical_baseline_latency_ms": 0.111558,
+      "speedup_vs_canonical_baseline": 49.654
+    },
+    "6caf09cf-7a2e-47e0-96fa-67807366fd37": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022081,
+      "canonical_baseline_latency_ms": 0.116262,
+      "speedup_vs_canonical_baseline": 52.653
+    },
+    "7752dda1-9d4d-4383-813b-c125ad3d038a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022624999999999998,
+      "canonical_baseline_latency_ms": 0.110901,
+      "speedup_vs_canonical_baseline": 49.017
+    },
+    "67216408-b49b-4e43-bf07-4136968b3b82": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022975,
+      "canonical_baseline_latency_ms": 0.157985,
+      "speedup_vs_canonical_baseline": 68.764
+    },
+    "8638fe06-e733-482f-99b8-946abcdfad11": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0038976,
+      "canonical_baseline_latency_ms": 0.118912,
+      "speedup_vs_canonical_baseline": 30.509
+    },
+    "d04ea89f-d4c1-4fb5-8313-fb17cac68f75": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022272,
+      "canonical_baseline_latency_ms": 0.112001,
+      "speedup_vs_canonical_baseline": 50.288
+    },
+    "13dad24c-6482-436a-bb10-b54c3280a0a6": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020223,
+      "canonical_baseline_latency_ms": 0.111494,
+      "speedup_vs_canonical_baseline": 55.132
+    },
+    "1152c61f-09db-4fc6-b22a-698247cd8ce6": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022207999999999998,
+      "canonical_baseline_latency_ms": 0.109174,
+      "speedup_vs_canonical_baseline": 49.16
+    },
+    "77279062-1275-41d8-9184-210994a8b4d7": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043522,
+      "canonical_baseline_latency_ms": 0.112683,
+      "speedup_vs_canonical_baseline": 25.891
+    },
+    "9c313fc4-4453-4dc8-b4c6-ccfde2148490": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.002211,
+      "canonical_baseline_latency_ms": 0.118075,
+      "speedup_vs_canonical_baseline": 53.403
+    },
+    "8f3fe9ff-ce2a-4262-96e8-b2190f763fbb": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0039104,
+      "canonical_baseline_latency_ms": 0.111488,
+      "speedup_vs_canonical_baseline": 28.511
+    },
+    "06ec358c-604b-4ca6-acd5-9c1953750fb3": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022718,
+      "canonical_baseline_latency_ms": 0.104011,
+      "speedup_vs_canonical_baseline": 45.783
+    },
+    "8f1a5846-5499-40c7-9904-6887fda49a80": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020222,
+      "canonical_baseline_latency_ms": 0.107653,
+      "speedup_vs_canonical_baseline": 53.236
+    },
+    "3240d5fa-9321-4bc1-b4bf-225416da1e2c": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020354,
+      "canonical_baseline_latency_ms": 0.107856,
+      "speedup_vs_canonical_baseline": 52.99
+    },
+    "c729310b-1f3a-4245-ac81-ac366d57b0e3": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020352,
+      "canonical_baseline_latency_ms": 0.109243,
+      "speedup_vs_canonical_baseline": 53.677
+    },
+    "81a953ea-f29f-4707-8456-67a3624a549d": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043776,
+      "canonical_baseline_latency_ms": 0.116891,
+      "speedup_vs_canonical_baseline": 26.702
+    },
+    "09bb020f-60d4-4393-a3df-765fd51011d4": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022879999999999997,
+      "canonical_baseline_latency_ms": 0.116657,
+      "speedup_vs_canonical_baseline": 50.986
+    },
+    "e515e20a-6dd7-44fe-9094-56be36424806": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0024035000000000003,
+      "canonical_baseline_latency_ms": 0.110267,
+      "speedup_vs_canonical_baseline": 45.878
+    },
+    "10b4eebe-e458-410a-8b99-2784429c43b2": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022944,
+      "canonical_baseline_latency_ms": 0.108267,
+      "speedup_vs_canonical_baseline": 47.188
+    },
+    "1ece7fb3-be8d-42d3-923d-f5a85846ddee": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022143999999999996,
+      "canonical_baseline_latency_ms": 0.131104,
+      "speedup_vs_canonical_baseline": 59.205
+    },
+    "9810dadf-1fe0-48ab-a1c1-d1e0e01f233e": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0041281,
+      "canonical_baseline_latency_ms": 0.194411,
+      "speedup_vs_canonical_baseline": 47.095
+    },
+    "9a95a10e-bd5a-406a-a1d1-891c941343ce": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.004198599999999999,
+      "canonical_baseline_latency_ms": 0.124955,
+      "speedup_vs_canonical_baseline": 29.761
+    },
+    "696dbfa4-e56c-4a09-a907-2abbad6de073": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0042303,
+      "canonical_baseline_latency_ms": 0.115568,
+      "speedup_vs_canonical_baseline": 27.319
+    },
+    "ee603b53-f9d6-4210-a83a-caf6219a8a8b": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0041472,
+      "canonical_baseline_latency_ms": 0.116677,
+      "speedup_vs_canonical_baseline": 28.134
+    },
+    "70d53807-f4ba-4c16-a0be-8a1f9137e8e6": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0044415999999999995,
+      "canonical_baseline_latency_ms": 0.116923,
+      "speedup_vs_canonical_baseline": 26.325
+    },
+    "19e7663d-29d7-4f96-9262-9c7bc068fadd": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043074,
+      "canonical_baseline_latency_ms": 0.11487,
+      "speedup_vs_canonical_baseline": 26.668
+    },
+    "ed3e595b-e3ba-4049-9ee9-a51b460ceff5": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043299,
+      "canonical_baseline_latency_ms": 0.115318,
+      "speedup_vs_canonical_baseline": 26.633
+    },
+    "e4ecb462-e2be-41b3-8efc-795f49ef07bf": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.004531200000000001,
+      "canonical_baseline_latency_ms": 0.116672,
+      "speedup_vs_canonical_baseline": 25.749
+    },
+    "f1fc35d4-3052-49b2-ad6e-1f715a61a4cb": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0041538,
+      "canonical_baseline_latency_ms": 0.114806,
+      "speedup_vs_canonical_baseline": 27.639
+    },
+    "67c09e9c-3f31-485f-9aef-983979a90038": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022207999999999998,
+      "canonical_baseline_latency_ms": 0.113771,
+      "speedup_vs_canonical_baseline": 51.23
+    },
+    "786b5173-e297-4ec3-82fa-450e9c79fb7d": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0046014,
+      "canonical_baseline_latency_ms": 0.116065,
+      "speedup_vs_canonical_baseline": 25.224
+    },
+    "08a752fc-53b8-4335-b08f-ddb2c71eae65": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.004179199999999999,
+      "canonical_baseline_latency_ms": 0.118005,
+      "speedup_vs_canonical_baseline": 28.236
+    },
+    "cdc0ff86-2eaa-4d2a-905d-2e14ee189011": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0046175,
+      "canonical_baseline_latency_ms": 0.117371,
+      "speedup_vs_canonical_baseline": 25.419
+    },
+    "f457feb2-6bf5-4be0-952d-580bf0b5f8b9": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043008000000000005,
+      "canonical_baseline_latency_ms": 0.116667,
+      "speedup_vs_canonical_baseline": 27.127
+    },
+    "e977c163-09a3-42aa-9d38-e629b67ee46a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022335000000000002,
+      "canonical_baseline_latency_ms": 0.112587,
+      "speedup_vs_canonical_baseline": 50.408
+    },
+    "6bdb38e6-2ce5-4f77-bef8-b87a7f0cc525": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0044864,
+      "canonical_baseline_latency_ms": 0.115307,
+      "speedup_vs_canonical_baseline": 25.701
+    },
+    "e26d02ef-5606-4bbf-a397-d9a75d41312b": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0042177,
+      "canonical_baseline_latency_ms": 0.11439,
+      "speedup_vs_canonical_baseline": 27.121
+    },
+    "97a6d5c2-ed84-4738-8073-f07cda4c5bd3": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0021186,
+      "canonical_baseline_latency_ms": 0.110731,
+      "speedup_vs_canonical_baseline": 52.266
+    },
+    "175849a8-a360-4f8f-ac2b-88d278852d45": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0041923,
+      "canonical_baseline_latency_ms": 0.114065,
+      "speedup_vs_canonical_baseline": 27.208
+    },
+    "3eab2c37-dbd9-4f7a-890e-0643cc9ca2ee": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0046111,
+      "canonical_baseline_latency_ms": 0.115232,
+      "speedup_vs_canonical_baseline": 24.99
+    },
+    "60605091-410d-47be-8764-9a516a256aa8": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043171,
+      "canonical_baseline_latency_ms": 0.114416,
+      "speedup_vs_canonical_baseline": 26.503
+    },
+    "bb22d09a-7fe9-46a1-a3af-90e636c3b966": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0023232,
+      "canonical_baseline_latency_ms": 0.107531,
+      "speedup_vs_canonical_baseline": 46.286
+    },
+    "fb1ceff0-a905-45e7-8639-1c610d1bfbab": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0044832,
+      "canonical_baseline_latency_ms": 0.114187,
+      "speedup_vs_canonical_baseline": 25.47
+    },
+    "b83c4150-dbc3-4d05-a2bf-92b7202f9f5a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0042559,
+      "canonical_baseline_latency_ms": 0.115307,
+      "speedup_vs_canonical_baseline": 27.093
+    },
+    "752c2ee5-9450-4ca4-815a-fa3e00e07991": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0019778,
+      "canonical_baseline_latency_ms": 0.11047,
+      "speedup_vs_canonical_baseline": 55.855
+    },
+    "e1a185dc-a520-490b-8f93-e6fff4583e1f": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0044832,
+      "canonical_baseline_latency_ms": 0.114363,
+      "speedup_vs_canonical_baseline": 25.509
+    },
+    "7f03b670-842f-4394-b4be-07c2f68b1c6d": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022782,
+      "canonical_baseline_latency_ms": 0.109691,
+      "speedup_vs_canonical_baseline": 48.148
+    },
+    "d0c00dd5-819f-490f-9f88-ead63698e9ee": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020096,
+      "canonical_baseline_latency_ms": 0.110982,
+      "speedup_vs_canonical_baseline": 55.226
+    },
+    "f7f61b05-f6fc-4269-8f38-05ed599d51c3": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0045537,
+      "canonical_baseline_latency_ms": 0.115803,
+      "speedup_vs_canonical_baseline": 25.431
+    },
+    "7f1cd9c2-1097-43de-8fc8-1fa63763cf9b": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043074,
+      "canonical_baseline_latency_ms": 0.113569,
+      "speedup_vs_canonical_baseline": 26.366
+    },
+    "f59fd3e2-a6b0-4ce7-bddd-fa47b35b9b90": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0043136,
+      "canonical_baseline_latency_ms": 0.113712,
+      "speedup_vs_canonical_baseline": 26.361
+    },
+    "5f7e6f22-1dae-456a-80d1-a78bcc5e071e": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022976,
+      "canonical_baseline_latency_ms": 0.106005,
+      "speedup_vs_canonical_baseline": 46.137
+    },
+    "bda73497-5c27-4f0a-b6b1-52ca3c2095d1": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022881999999999998,
+      "canonical_baseline_latency_ms": 0.11007,
+      "speedup_vs_canonical_baseline": 48.103
+    },
+    "37098ea3-9ce7-40bd-830c-b24999ce2434": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022148000000000003,
+      "canonical_baseline_latency_ms": 0.112214,
+      "speedup_vs_canonical_baseline": 50.665
+    },
+    "a03d722b-1858-43a9-86a0-37ea08cd7931": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.004416,
+      "canonical_baseline_latency_ms": 0.1132,
+      "speedup_vs_canonical_baseline": 25.634
+    },
+    "34195ade-a79a-4c96-adeb-7221109fa2a4": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0051903,
+      "canonical_baseline_latency_ms": 0.113883,
+      "speedup_vs_canonical_baseline": 21.942
+    },
+    "03910df4-7c56-4612-8d08-0d82a681d0db": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.002208,
+      "canonical_baseline_latency_ms": 0.109526,
+      "speedup_vs_canonical_baseline": 49.604
+    },
+    "a876010b-d67f-492d-a7e6-76e9d59e5403": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0055841,
+      "canonical_baseline_latency_ms": 0.117381,
+      "speedup_vs_canonical_baseline": 21.021
+    },
+    "7f20565a-5f0d-4625-b57f-4d3f6a52f0db": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022276,
+      "canonical_baseline_latency_ms": 0.11071,
+      "speedup_vs_canonical_baseline": 49.699
+    },
+    "a52c09bc-2ee5-4366-be02-457932a80631": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0047008,
+      "canonical_baseline_latency_ms": 0.116325,
+      "speedup_vs_canonical_baseline": 24.746
+    },
+    "bb0f8277-4d31-443b-9454-ac1a547750d3": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.005616,
+      "canonical_baseline_latency_ms": 0.116,
+      "speedup_vs_canonical_baseline": 20.655
+    },
+    "6b4b9d2b-1cda-4ea7-8b4c-deca25596e70": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0053951,
+      "canonical_baseline_latency_ms": 0.124075,
+      "speedup_vs_canonical_baseline": 22.998
+    },
+    "a30b4f8d-d6d7-4a9a-8a80-f85e3ec629a4": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022849000000000003,
+      "canonical_baseline_latency_ms": 0.112358,
+      "speedup_vs_canonical_baseline": 49.174
+    },
+    "8bdd4f88-c992-4c75-b78b-b4dc626ca409": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0046243,
+      "canonical_baseline_latency_ms": 0.115195,
+      "speedup_vs_canonical_baseline": 24.911
+    },
+    "30a90fa5-375f-4bdb-aa48-79e59b5f0cac": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0046078000000000004,
+      "canonical_baseline_latency_ms": 0.113734,
+      "speedup_vs_canonical_baseline": 24.683
+    },
+    "de54c4e6-7c89-43c7-aefb-db20265f4cdf": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.004496,
+      "canonical_baseline_latency_ms": 0.112059,
+      "speedup_vs_canonical_baseline": 24.924
+    },
+    "22207643-eed4-49cf-a2a4-70877903ec3e": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0056768,
+      "canonical_baseline_latency_ms": 0.117062,
+      "speedup_vs_canonical_baseline": 20.621
+    },
+    "6832006b-2f6b-42d1-9eeb-7ef92fec7d1a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022753,
+      "canonical_baseline_latency_ms": 0.110949,
+      "speedup_vs_canonical_baseline": 48.763
+    },
+    "9f252ffa-e3d6-4cdb-b94e-a9840d272c57": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022016,
+      "canonical_baseline_latency_ms": 0.10816,
+      "speedup_vs_canonical_baseline": 49.128
+    },
+    "4a0e0529-5a2b-4f3a-9675-3f87e10c5ad9": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022563,
+      "canonical_baseline_latency_ms": 0.110667,
+      "speedup_vs_canonical_baseline": 49.048
+    },
+    "f362edf4-723c-4751-afd9-5a0a6abbf095": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0055905,
+      "canonical_baseline_latency_ms": 0.118358,
+      "speedup_vs_canonical_baseline": 21.171
+    },
+    "e0488cb7-b07a-4019-ab24-4b2f97af2530": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022976,
+      "canonical_baseline_latency_ms": 0.110854,
+      "speedup_vs_canonical_baseline": 48.248
+    },
+    "ee6946e7-b658-4e46-a389-7613624b3e78": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0047007,
+      "canonical_baseline_latency_ms": 0.116747,
+      "speedup_vs_canonical_baseline": 24.836
+    },
+    "2f3b7321-e55c-4a11-9ab3-4aab5dd4ab3a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.004509000000000001,
+      "canonical_baseline_latency_ms": 0.121179,
+      "speedup_vs_canonical_baseline": 26.875
+    },
+    "5db1b172-eda8-4714-9981-a069dc33d7e9": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0059295,
+      "canonical_baseline_latency_ms": 0.117467,
+      "speedup_vs_canonical_baseline": 19.811
+    },
+    "8ba75447-ae9e-4769-a5de-76e8d1685d6e": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022528,
+      "canonical_baseline_latency_ms": 0.106886,
+      "speedup_vs_canonical_baseline": 47.446
+    },
+    "e667d2ac-c644-4abe-ba3b-7ab09b5b2dfd": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022911999999999997,
+      "canonical_baseline_latency_ms": 0.111936,
+      "speedup_vs_canonical_baseline": 48.855
+    },
+    "6b10b6da-7a58-4abc-9c40-d1fde49035d8": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0059807,
+      "canonical_baseline_latency_ms": 0.122811,
+      "speedup_vs_canonical_baseline": 20.535
+    },
+    "1571c14a-181c-4f15-97a5-178e4b316ca5": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.00224,
+      "canonical_baseline_latency_ms": 0.113547,
+      "speedup_vs_canonical_baseline": 50.691
+    },
+    "0c4f5578-a698-497e-95eb-873e2faf7df4": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0055198999999999995,
+      "canonical_baseline_latency_ms": 0.11991,
+      "speedup_vs_canonical_baseline": 21.723
+    },
+    "fc14d852-74ad-41e7-a538-61b89fae5d9c": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0047134,
+      "canonical_baseline_latency_ms": 0.115542,
+      "speedup_vs_canonical_baseline": 24.513
+    },
+    "e63194e7-b79e-4e50-b08a-16fd1f700eb5": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.004556800000000001,
+      "canonical_baseline_latency_ms": 0.115211,
+      "speedup_vs_canonical_baseline": 25.283
+    },
+    "27afdcea-6ed1-434b-bf24-a7566c4b1a56": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.005632,
+      "canonical_baseline_latency_ms": 0.116139,
+      "speedup_vs_canonical_baseline": 20.621
+    },
+    "abc9d12c-2863-48db-b97f-35af7267ccf5": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0020033,
+      "canonical_baseline_latency_ms": 0.112587,
+      "speedup_vs_canonical_baseline": 56.201
+    },
+    "27c3374f-c621-43f2-8a1a-8710f6ef22ba": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.004761699999999999,
+      "canonical_baseline_latency_ms": 0.118907,
+      "speedup_vs_canonical_baseline": 24.972
+    },
+    "6e4e9b37-0d56-419b-ac54-69049066f914": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0024322,
+      "canonical_baseline_latency_ms": 0.112982,
+      "speedup_vs_canonical_baseline": 46.453
+    },
+    "4a616af2-bd14-42f1-beed-a3c0ca68291e": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0023232,
+      "canonical_baseline_latency_ms": 0.113675,
+      "speedup_vs_canonical_baseline": 48.93
+    },
+    "8635db8f-5b62-464e-9b5b-0863d65788ee": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.00584,
+      "canonical_baseline_latency_ms": 0.116955,
+      "speedup_vs_canonical_baseline": 20.027
+    },
+    "dba1e960-49e4-4152-8dce-f6da100c9561": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0022657999999999997,
+      "canonical_baseline_latency_ms": 0.116176,
+      "speedup_vs_canonical_baseline": 51.274
+    }
+  },
+  "bench_config": {
+    "warmup_runs": 3,
+    "baseline_iterations": 5,
+    "solution_iterations": 100,
+    "num_trials": 5
+  },
+  "speedup_methodology": "mean_of_per_workload_ratios (matches bash scripts/bench.sh FINAL SCORE)",
+  "kernel_to_baseline_latency_ratio": 36.435
+}

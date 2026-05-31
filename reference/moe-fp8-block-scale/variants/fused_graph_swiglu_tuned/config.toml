@@ -1,0 +1,23 @@
+[solution]
+name = "moe_fp8_block_scale_ds_routing_topk8_ng8_kg4_e32_h7168_i2048-solution"
+definition = "moe_fp8_block_scale_ds_routing_topk8_ng8_kg4_e32_h7168_i2048"
+author = "ako4fib-run-moe_v0"
+
+[build]
+gpu = "b200"
+
+# ── Agent-configurable (update to match your kernel) ──
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+[benchmark]
+baseline_iterations = 5
+solution_iterations = 100
+num_trials = 5
+warmup_runs = 3
+timeout_seconds = 300
+use_isolated_runner = true
+atol = 1.0
+rtol = 0.3
+required_matched_ratio = 0.9

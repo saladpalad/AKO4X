@@ -1,0 +1,60 @@
+{
+  "operator": "rmsnorm_h128",
+  "source": "expert",
+  "environment": {
+    "gpu": "b200",
+    "backend": "modal",
+    "cuda_version": "13.0",
+    "measured_at": "2026-05-20T16:35:49",
+    "mode": 2
+  },
+  "benchmark_config": {
+    "warmup_runs": 3,
+    "iterations": 100,
+    "num_trials": 5
+  },
+  "workloads": {
+    "4b7f0d02-8404-4eb4-be5c-64b0fd639684": {
+      "reference_latency_ms": 0.0023197
+    },
+    "6abd9329-a1de-4704-9378-d7d70388cbfd": {
+      "reference_latency_ms": 0.0023356
+    },
+    "52688c58-7dd4-4ce5-8ed7-bc8aabac4d7b": {
+      "reference_latency_ms": 0.0023743
+    },
+    "e971e0cc-d914-424e-a3ea-187e9cec413f": {
+      "reference_latency_ms": 0.002432
+    },
+    "3b02c1b8-29dc-4c13-86a0-b7834daad8a1": {
+      "reference_latency_ms": 0.0023487
+    },
+    "ae6aa520-b8be-4e28-b3c4-fa484a2c17c2": {
+      "reference_latency_ms": 0.0023424
+    },
+    "1e5d6f59-edbc-4d45-8edf-5599001cc270": {
+      "reference_latency_ms": 0.0024351999999999998
+    },
+    "a978e7eb-89fa-444f-96b1-ceb4cbb02f4c": {
+      "reference_latency_ms": 0.002304
+    },
+    "f2872f89-5d8d-403a-9603-5918541cb9e0": {
+      "reference_latency_ms": 0.06928
+    },
+    "16ce2b65-3a33-4e46-8924-57859152abf0": {
+      "reference_latency_ms": 0.0105985
+    },
+    "a11c12ed-feb2-4b09-a091-5964a86b6b17": {
+      "reference_latency_ms": 0.053337199999999994
+    },
+    "d5201e02-7338-405c-9c4d-ff95a03a00cc": {
+      "reference_latency_ms": 0.00856
+    },
+    "1a7fa8e1-ba96-443e-b697-6f2436a130d6": {
+      "reference_latency_ms": 0.0024127
+    },
+    "d48fe9d2-1e43-418c-835c-0948ee76535b": {
+      "reference_latency_ms": 0.0023517
+    }
+  }
+}

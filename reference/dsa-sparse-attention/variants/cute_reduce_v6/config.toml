@@ -1,0 +1,25 @@
+# Config for variants/cute_reduce_v6/kernel.py
+# Deps: torch + triton + tilelang + apache-tvm-ffi + nvidia-cutlass-dsl (--no-deps)
+# Best reported: 75.60 ± 0.08x on CUDA 13.2 (2026-04-20 variance-check 5);
+# 71.83 ± 0.31x on legacy CUDA 12.8 baseline.
+# Canonical abs kernel latency (CUDA 13.2, 2026-04-19): ~7.4 µs mean.
+[solution]
+name = "cute_reduce_v6"
+definition = "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+# NOTE: correctness requirement, not a perf knob. The kernel's `_last_si_ptr ==
+# si_ptr` fast-path (inside run()) aliases across workloads in a persistent
+# benchmark runner when PyTorch's allocator reuses sparse_indices addresses
+# between workloads — graph replay then uses stale qn/qp/ckv/kpe addresses
+# baked into the captured graph. Isolated runner (1 process per workload)
+# prevents this. Verified 4/23 silent INCORRECT_NUMERICAL failures on
+# CUDA 13.2 persistent runner without this flag
+# [verified: 2026-04-20, ako4fib-run-dsa-sparse-b200-v8 iter-1].
+[benchmark]
+use_isolated_runner = true

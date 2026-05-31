@@ -1,0 +1,20 @@
+# Config for variants/cute_reduce_v5/kernel.py
+# Deps: torch + triton + tilelang + apache-tvm-ffi + nvidia-cutlass-dsl (--no-deps)
+# Legacy headline: 71.05 ± 0.31x @ CUDA 12.8 baseline.
+# Canonical abs kernel latency (CUDA 13.2): not re-measured this session.
+[solution]
+name = "cute_reduce_v5"
+definition = "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+# NOTE: correctness requirement (same `_last_si_ptr` aliasing as v6). See the
+# cute_reduce_v6 config.toml for the full rationale. v5 shares the fast-path
+# pattern and needs isolated runner on persistent-runner envs
+# [verified inference: 2026-04-20, from ako4fib-run-dsa-sparse-b200-v8].
+[benchmark]
+use_isolated_runner = true

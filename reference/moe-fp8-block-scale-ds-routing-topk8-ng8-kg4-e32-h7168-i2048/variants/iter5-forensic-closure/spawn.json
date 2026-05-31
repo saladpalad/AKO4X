@@ -1,0 +1,13 @@
+{
+  "round": 5,
+  "operator": "moe_fp8_block_scale_ds_routing_topk8_ng8_kg4_e32_h7168_i2048",
+  "family": "moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048",
+  "gpu": "b200",
+  "backend": "modal",
+  "child_dir": "ako4fib-run-moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048-r5",
+  "session_id": "0621d620-32ac-4863-a61a-5ebd3e2b24c4",
+  "parent": "iter4-autotune-tactic-sweep-gated",
+  "source": "Layer 1 (sub-packaged, sub-baseline forensic closure)",
+  "label": "iter5-forensic-closure",
+  "score_relation_to_anchor": "1.3091x (\u0394=+0.23% vs iter4 1.33x \u2014 within drift; anchor stays at iter4)"
+}

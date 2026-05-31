@@ -1,0 +1,14 @@
+# Config for variants/warp_coop_v3/kernel.py
+# Deps: torch + triton + torch.utils.cpp_extension.load_inline (CUDA)
+# Legacy headline: 41.12–41.99x @ CUDA 12.8 + cached expert baseline.
+# Canonical abs kernel latency (CUDA 13.2, 2026-04-19): ~3.5 µs mean.
+# Note: load_inline CUDA uses -arch=sm_100a for Blackwell eval alignment.
+[solution]
+name = "warp_coop_v3"
+definition = "dsa_topk_indexer_fp8_h64_d128_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false

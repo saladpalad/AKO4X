@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Spawned child environments
+ako4x-run-*/
+ako4fib-run-*/
+
+# Master CC scratch (per-round phase-1/phase-2 launchers + result JSON; the
+# real artifacts of each round live in the child env + reference/<family>/).
+.ako-run/
+
+# Per-campaign experiment archives (full provenance bundles: child envs +
+# claude session memory + reference snapshot — kept local for paper writing,
+# not pushed to origin).
+experiments/
+
+# Internal planning docs — kept local, not for public release.
+docs/PLAN.md
+docs/TODO.md
+
+# Python packaging
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Claude Code
+.claude/

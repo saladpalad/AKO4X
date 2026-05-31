@@ -1,0 +1,22 @@
+# Benchmark defaults + per-op_type overrides for flashinfer-bench.
+# [default] values apply to all operators; per-op_type sections (keyed by op_type,
+# e.g. [moe], [attention], [gemm] — match the dataset's definitions/<op_type>/
+# directory names) override specific fields. To target a single operator, use the
+# op_type its definition lives under; there is no per-operator-name section.
+# These values are merged into the child's config.toml [benchmark] at spawn time.
+# File location is the benchmark-binding marker. The repo assumes a single active
+# benchmark (see CLAUDE.md): switching benchmarks is fork-level — rename this dir
+# and the matching templates/skills/<name>/, not "add a sibling".
+
+[default]
+baseline_iterations = 5
+solution_iterations = 100
+num_trials = 5
+warmup_runs = 3
+timeout_seconds = 300
+use_isolated_runner = true
+
+[moe]
+atol = 1.0
+rtol = 0.3
+required_matched_ratio = 0.9

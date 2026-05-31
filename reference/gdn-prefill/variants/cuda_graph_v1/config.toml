@@ -1,0 +1,35 @@
+[solution]
+name = "gdn_prefill_qk4_v8_d128_k_last-solution"
+definition = "gdn_prefill_qk4_v8_d128_k_last"
+author = "user"
+
+[build]
+gpu = "b200"
+
+# ── Agent-configurable (update to match your kernel) ──
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+# GDN prefill contest-eval overrides (2026-04-22):
+#   flashinfer-bench --warmup-runs 1 --iterations 5 --num-trials 3 --timeout 300
+#   --use-isolated-runner --resume
+# Mapped into AKO4FIB [benchmark] keys: iterations→solution_iterations (5),
+# num-trials→num_trials (3), warmup-runs→warmup_runs (1). baseline_iterations
+# stays at 5 so the cached baseline is measured under the same iteration
+# budget the contest uses for the solution. timeout_seconds / use_isolated_runner
+# already match the default from templates/evaluation.toml.
+[benchmark]
+baseline_iterations = 5
+solution_iterations = 5
+num_trials = 3
+warmup_runs = 1
+timeout_seconds = 300
+use_isolated_runner = true
+
+[advisory]
+# Advisory review hook: prints a self-review prompt to stderr
+# after every N labeled benches. See templates/agent/hooks/
+# advisory-review.sh. No gate, no blocking.
+frequency = 3
+enabled = true

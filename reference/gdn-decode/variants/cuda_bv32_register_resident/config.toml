@@ -1,0 +1,29 @@
+# Config for variants/cuda_bv32_register_resident/kernel.py
+# Deps: torch + CUDA toolchain (sm_100a). torch.utils.cpp_extension JIT-compiles
+# the inline CUDA source on first call and caches under
+# ~/.cache/torch_extensions/<load_inline name>/.
+# Best reported: 1.18× ± 0.00174× variance-check 3 (CV 0.10%,
+#                Modal B200 CUDA 13.2, 2026-04-25).
+# Per-B (variance mean): B=1→1.49× B=4→1.33× B=8→1.15× B=16→1.12×
+#                        B=32→0.986× B=48→1.03× B=64→0.999×
+# Drift-free A/B vs triton_swap_grid_evict_lsr anchor: mean +5.0%
+# (B=32/48/64 each gained drift-free +5–8%; small-B already at the
+# launch-overhead floor — moves there are within session drift).
+[solution]
+name = "cuda_bv32_register_resident"
+definition = "gdn_decode_qk4_v8_d128_k_last"
+author = "AKO4FIB"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+# NOTE: correctness requirement, not a perf knob. See ../TRAPS.md
+# "Graph-cache pointer aliasing" for rationale.
+[benchmark]
+use_isolated_runner = true
+
+# NOTE: NO_GRAPH env gate is honored at module-import time inside
+# kernel.py. Profile via `scripts/profile.sh --env NO_GRAPH=1` so NCU
+# sees individual cuLaunchKernels rather than a graph replay.

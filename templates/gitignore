@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Compiled language build artifacts
+*.so
+*.o
+*.a
+*.dylib
+
+# Benchmark artifacts
+trajectory/
+profiles/
+sanitizer/
+.triton_cache/
+solution.json
+baseline.json
+
+# Claude Code runtime state (hooks + commands + settings.local.json are spawn-time setup and stay tracked)
+.claude/*
+!.claude/hooks/
+!.claude/commands/
+!.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~

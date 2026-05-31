@@ -1,0 +1,27 @@
+{
+  "operator": "mla_paged_decode_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-decode",
+  "round": 3,
+  "round_label": "mla-paged-decode-r3",
+  "gpu": "b200",
+  "backend": "modal",
+  "session_id": "a9bb4fc8-dc93-42cf-868f-c90b8aa11a3b",
+  "parent_variant": "triton_split_kv_2d_reduce",
+  "spawn_seed_origin": "reference/mla-paged-decode/variants/triton_split_kv_2d_reduce/kernel.py",
+  "child_head_commit": "d3bb8a7",
+  "iterations_in_session": 9,
+  "wins": [
+    "iter-5 (+11.41% A/B): PDL gdc_launch_dependents/gdc_wait between split\u2192reduce kernels",
+    "iter-9 (+5.91% A/B): reduce kernel num_warps=2 (was 4) \u2014 tile-matched warp count"
+  ],
+  "dead_ends": [
+    "iter-1 chunked-split kernel (-33% b=64, latency-bound needs MORE CTAs not fewer)",
+    "iter-2 splits=32 (-10% targeted, past 1024-CTA saturation)",
+    "iter-4 splits=4 (-9% targeted, latency-hiding loss > K-BW save)",
+    "iter-6 threshold=1050 (regression at avg=974 \u2014 splits=16 still needed)",
+    "iter-7 tl.dot acc= refactor (neutral)",
+    "iter-8 split kernel num_warps=2 (-33%, MMA tile picker)",
+    "bf16 pre-scaled Q (correctness fail)"
+  ],
+  "date": "2026-05-20"
+}

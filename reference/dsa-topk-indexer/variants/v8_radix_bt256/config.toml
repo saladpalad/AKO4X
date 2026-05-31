@@ -1,0 +1,20 @@
+[solution]
+name = "dsa_topk_indexer_fp8_h64_d128_topk2048_ps64-solution"
+definition = "dsa_topk_indexer_fp8_h64_d128_topk2048_ps64"
+author = "user"
+
+[build]
+gpu = "b200"
+
+# ── Agent-configurable (update to match your kernel) ──
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+[benchmark]
+baseline_iterations = 5
+solution_iterations = 100
+num_trials = 5
+warmup_runs = 3
+timeout_seconds = 300
+use_isolated_runner = true

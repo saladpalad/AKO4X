@@ -1,0 +1,180 @@
+{
+  "variant": "hybrid_pdl_v2",
+  "definition": "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64",
+  "status": "measured",
+  "note": "hybrid_pdl + Triton fwd H_SPLIT=2 + num_stages=2 + num_warps=8 (compound +1.55x AB vs in-session baseline; unlocks SM-wave-fill at T=1,2) + TileLang fwd D-chunked acc_o into 2x[H, D/2] fragments (+0.138x AB via tcgen05 scheduling slack). Variance-floor AB vs hybrid_pdl: +0.79x (+1.37%). See kernel.py header for lessons.",
+  "kernel_env": {
+    "image": "flashinfer/flashinfer-ci-cu132:20260401-2c675fb",
+    "base_os": "Ubuntu 24.04",
+    "machine": "this-Mac -> Modal B200 (sm_100)",
+    "cuda": "13.2",
+    "torch": "2.12.0.dev20260331+cu132",
+    "triton": "3.6.0",
+    "tilelang": "installed via `pip install tilelang --no-deps` on top of official image",
+    "nvidia_cutlass_dsl": "not required",
+    "deep_gemm": "not required",
+    "flashinfer_python": "0.6.8 (built from source in image)"
+  },
+  "kernel_measured_on": "2026-04-25T03:29:52.406113",
+  "kernel_mean_latency_ms": 0.009576,
+  "canonical_baseline_mean_latency_ms": 0.546145,
+  "canonical_baseline_provenance": "see ../../baseline.json (23 workloads, per-workload canonical refs)",
+  "speedup_vs_canonical_baseline": 58.889,
+  "n_workloads": 23,
+  "n_passed": 23,
+  "per_workload": {
+    "0c23b10c7b7645719517828c12eaa1d2": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.006812899999999999,
+      "canonical_baseline_latency_ms": 0.5372547,
+      "speedup_vs_canonical_baseline": 78.858
+    },
+    "9d4a5f21268e484ea05a2f2af91d9fa7": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.007196800000000001,
+      "canonical_baseline_latency_ms": 0.5351233000000001,
+      "speedup_vs_canonical_baseline": 74.356
+    },
+    "b7668cfd194c4b95ab600feb205ebac6": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0076,
+      "canonical_baseline_latency_ms": 0.5350691999999999,
+      "speedup_vs_canonical_baseline": 70.404
+    },
+    "0a63b87bb2e54e9db1ca3c4c53a1d521": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0077120999999999995,
+      "canonical_baseline_latency_ms": 0.5347649999999999,
+      "speedup_vs_canonical_baseline": 69.341
+    },
+    "05f6de657db543ae9e4c46796522843a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0081664,
+      "canonical_baseline_latency_ms": 0.5418916,
+      "speedup_vs_canonical_baseline": 66.356
+    },
+    "fc85411e250c41879b6d6a1edb80f0a7": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.007174600000000001,
+      "canonical_baseline_latency_ms": 0.5353378,
+      "speedup_vs_canonical_baseline": 74.616
+    },
+    "e6b849f2900446148c01d81152efae23": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0077280000000000005,
+      "canonical_baseline_latency_ms": 0.535261,
+      "speedup_vs_canonical_baseline": 69.263
+    },
+    "9f3f891bfbe24776adfcd5a579d093dd": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0081694,
+      "canonical_baseline_latency_ms": 0.5408581,
+      "speedup_vs_canonical_baseline": 66.205
+    },
+    "f77df5ce21634f7ca0586af7e3c13434": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.007209599999999999,
+      "canonical_baseline_latency_ms": 0.545642,
+      "speedup_vs_canonical_baseline": 75.683
+    },
+    "385742b2717e4f02b918c7349dde23d8": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0107903,
+      "canonical_baseline_latency_ms": 0.5598019,
+      "speedup_vs_canonical_baseline": 51.88
+    },
+    "4c46a94ba2364dc7ab476286dee8dce3": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0107358,
+      "canonical_baseline_latency_ms": 0.5565637,
+      "speedup_vs_canonical_baseline": 51.842
+    },
+    "3838996164a94d728710f913477feba8": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0107518,
+      "canonical_baseline_latency_ms": 0.5628006,
+      "speedup_vs_canonical_baseline": 52.345
+    },
+    "02d6ae9c64ab42ff93f05c23c53bcb7d": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0109348,
+      "canonical_baseline_latency_ms": 0.5544805,
+      "speedup_vs_canonical_baseline": 50.708
+    },
+    "ddfa9e340b264f76abe7418692faa876": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.010758199999999999,
+      "canonical_baseline_latency_ms": 0.5487908,
+      "speedup_vs_canonical_baseline": 51.011
+    },
+    "78b2e11c30004cceb84355722a7c6b0a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0109568,
+      "canonical_baseline_latency_ms": 0.552909,
+      "speedup_vs_canonical_baseline": 50.463
+    },
+    "68d6817dcfd1433aa8d2ddeefd54b6ea": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.010105800000000002,
+      "canonical_baseline_latency_ms": 0.541658,
+      "speedup_vs_canonical_baseline": 53.599
+    },
+    "564007ac354e4662a62cc4d6352dc494": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0113825,
+      "canonical_baseline_latency_ms": 0.5518692,
+      "speedup_vs_canonical_baseline": 48.484
+    },
+    "ae4219a95f044f45bd10e17ab63c6e8f": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0109056,
+      "canonical_baseline_latency_ms": 0.5466564,
+      "speedup_vs_canonical_baseline": 50.126
+    },
+    "232ed014bafc4835b9881bb308c659b0": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0108477,
+      "canonical_baseline_latency_ms": 0.5475714999999999,
+      "speedup_vs_canonical_baseline": 50.478
+    },
+    "7a389715dcc3479e9b0512309f9d1d56": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0108224,
+      "canonical_baseline_latency_ms": 0.5518628999999999,
+      "speedup_vs_canonical_baseline": 50.993
+    },
+    "5096e459ce3f4cdf82773ce1a0c73c8a": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0113344,
+      "canonical_baseline_latency_ms": 0.5509413000000001,
+      "speedup_vs_canonical_baseline": 48.608
+    },
+    "d57eb9e19f0642e8af9bd76ad0823303": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.011027100000000001,
+      "canonical_baseline_latency_ms": 0.5477315,
+      "speedup_vs_canonical_baseline": 49.671
+    },
+    "2207f0fdc96347c59d106e4976cfad57": {
+      "status": "PASSED",
+      "kernel_latency_ms": 0.0111174,
+      "canonical_baseline_latency_ms": 0.5464870000000001,
+      "speedup_vs_canonical_baseline": 49.156
+    }
+  },
+  "bench_config": {
+    "warmup_runs": 3,
+    "baseline_iterations": 100,
+    "solution_iterations": 100,
+    "num_trials": 5
+  },
+  "speedup_methodology": "mean_of_per_workload_ratios (matches bash scripts/bench.sh FINAL SCORE)",
+  "kernel_to_baseline_latency_ratio": 57.035,
+  "variance_check": {
+    "n_runs": 3,
+    "score_mean": 58.342,
+    "score_std": 0.037,
+    "score_cv": 0.00063,
+    "ref": "./variance.json"
+  }
+}

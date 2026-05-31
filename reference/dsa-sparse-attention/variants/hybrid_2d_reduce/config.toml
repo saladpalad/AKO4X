@@ -1,0 +1,13 @@
+# Config for variants/hybrid_2d_reduce/kernel.py
+# Deps: torch + triton + tilelang + apache-tvm-ffi
+# Variance-check: 55.31 ± 0.07x (CV 0.1%, 3-run, Modal B200, CUDA 13.2, 2026-04-24).
+# Canonical abs kernel latency: ~9.5 µs mean (T=1: 7.4 µs, T=8: 11.2 µs).
+[solution]
+name = "hybrid_2d_reduce"
+definition = "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false

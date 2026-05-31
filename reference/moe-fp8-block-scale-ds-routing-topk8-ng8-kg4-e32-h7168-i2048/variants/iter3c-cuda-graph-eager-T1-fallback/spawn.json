@@ -1,0 +1,13 @@
+{
+  "round": 3,
+  "operator": "moe_fp8_block_scale_ds_routing_topk8_ng8_kg4_e32_h7168_i2048",
+  "family": "moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048",
+  "gpu": "b200",
+  "backend": "modal",
+  "child_dir": "ako4fib-run-moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048-r3",
+  "session_id": "ae532562-8931-4a97-af54-174be1eb3445",
+  "parent": "iter2-direct-cpp-bypass",
+  "source": "Layer 2 (master picked from ITERATIONS.md Summary; only Passed=19/19 row)",
+  "label": "iter-3c-cuda-graph-eager-T1-fallback",
+  "snapshot_dir": "ako4fib-run-moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048-r3/trajectory/20260523_152328_iter-3c-cuda-graph-eager-T1-fallback"
+}

@@ -1,0 +1,15 @@
+{
+  "round": 7,
+  "round_id": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1-r7",
+  "operator": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1",
+  "gpu": "b200",
+  "backend": "modal",
+  "parent": "iter1-cute-mla-donor-discovery",
+  "parent_kernel_path": "reference/mla-paged-prefill-causal-h16-ckv512-kpe64-ps1/variants/iter1-cute-mla-donor-discovery/kernel.py",
+  "sub_session_id": "aa4edd42-ddd6-45c2-9644-907508a6624a",
+  "phase1_iters": 1,
+  "score": 1.45606215155693,
+  "forensic_subbaseline": true,
+  "closing_evidence": "BUILD-layer probe: 38/38 Modal workers cute.compile the donor with bf16 inputs at our shape axes (1-line allowlist patch). Architectural close at the adapter-vs-surgery layer: donor is decode-only with is_causal=False baked into softmax warp + per-batch persistent scheduler; prefill adaptation requires kernel surgery (10-20+ iter budget), not adapter work."
+}

@@ -1,0 +1,13 @@
+# Config for variants/hybrid_dual_ns/kernel.py
+# Deps: torch + triton + tilelang + apache-tvm-ffi
+# Legacy headline: 47.43 ± 0.11x @ CUDA 12.8 baseline.
+# Canonical abs kernel latency (CUDA 13.2, 2026-04-19): ~10.5 µs mean.
+[solution]
+name = "hybrid_dual_ns"
+definition = "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false

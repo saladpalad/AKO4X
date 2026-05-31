@@ -1,0 +1,13 @@
+{
+  "variant": "cute_reduce_v5",
+  "definition": "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64",
+  "status": "not_measured_on_this_env",
+  "note": "Iter-1 split-loop CuTe DSL reduce. Kept for diff vs v6.",
+  "kernel_env": "unknown",
+  "kernel_mean_latency_ms": null,
+  "canonical_baseline_mean_latency_ms": null,
+  "speedup_vs_canonical_baseline": null,
+  "legacy_speedup_headline": "71.05 \u00b1 0.31x (mean \u00b1 std, 5-run variance-check)",
+  "legacy_env": "Modal B200 / CUDA 12.8 / v5 sub-env / attention-optimized machine (not this Mac)",
+  "per_workload": null
+}

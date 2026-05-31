@@ -1,0 +1,24 @@
+{
+  "operator": "mla_paged_decode_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-decode",
+  "round": 4,
+  "round_label": "mla-paged-decode-r4",
+  "gpu": "b200",
+  "backend": "modal",
+  "session_id": "52a44ce8-9999-4d79-9809-1047033c40c1",
+  "parent_variant": "triton_split_kv_2d_reduce_pdl_rw2",
+  "spawn_seed_origin": "reference/mla-paged-decode/variants/triton_split_kv_2d_reduce_pdl_rw2/kernel.py",
+  "child_head_commit": "ad15ffd",
+  "iterations_in_session": 8,
+  "headline_caveat": "\u0394 +1.4% over parent is within Modal session noise (~5-15%); per-batch b=16=+8-11pp is the actual signal. NOT variance-verified.",
+  "wins": [
+    "iter-5/iter-8 (+0.97% A/B headline, +8-11pp b=16): conditional reduce-tile dispatch \u2014 D_CHUNK=64 nw=4 for b>=16, D_CHUNK=32 nw=2 for b=1"
+  ],
+  "dead_ends": [
+    "iter-0/1 per-call-site BLOCK_N=32 dispatch (within drift, refutes prior open-direction)",
+    "iter-2 split num_stages=3 (-10%, occupancy crush)",
+    "iter-6 reduce D_CHUNK=128 nw=8 (-1.5pp from D_CHUNK=64 nw=4)",
+    "iter-7 reduce nw=8 at D_CHUNK=64 (-11.5%, same over-paralleling fail mode as nw=8 at D_CHUNK=32)"
+  ],
+  "date": "2026-05-20"
+}

@@ -1,0 +1,12 @@
+{
+  "round": 1,
+  "operator": "moe_fp8_block_scale_ds_routing_topk8_ng8_kg4_e32_h7168_i2048",
+  "family": "moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048",
+  "gpu": "b200",
+  "backend": "modal",
+  "child_dir": "ako4fib-run-moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048-r1",
+  "session_id": "8177a771-a4da-4a7f-9292-a4e916a8892e",
+  "parent": "null",
+  "source": "Layer 1 (sub-packaged)",
+  "label": "iter-1-seed-trtllm"
+}

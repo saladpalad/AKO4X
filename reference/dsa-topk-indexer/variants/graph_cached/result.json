@@ -1,0 +1,13 @@
+{
+  "variant": "graph_cached",
+  "definition": "dsa_topk_indexer_fp8_h64_d128_topk2048_ps64",
+  "status": "not_measured_on_this_env",
+  "note": "v2 baseline with graph capture. Predates warp-coop + evict_last wins.",
+  "kernel_env": "unknown",
+  "kernel_mean_latency_ms": null,
+  "canonical_baseline_mean_latency_ms": null,
+  "speedup_vs_canonical_baseline": null,
+  "legacy_speedup_headline": "41.35 \u00b1 0.16x (CV 0.4%, 3-run variance-check)",
+  "legacy_env": "Modal B200 / CUDA 12.8 / v2 sub-env (this Mac, earlier sessions)",
+  "per_workload": null
+}

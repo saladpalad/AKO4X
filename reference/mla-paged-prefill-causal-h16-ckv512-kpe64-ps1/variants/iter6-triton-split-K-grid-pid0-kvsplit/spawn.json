@@ -1,0 +1,13 @@
+{
+  "round": 2,
+  "round_id": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1-r2",
+  "operator": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1",
+  "gpu": "b200",
+  "backend": "modal",
+  "parent": "iter12-triton-kvaware-bn-splitk",
+  "parent_kernel_path": "reference/mla-paged-prefill-causal-h16-ckv512-kpe64-ps1/variants/iter12-triton-kvaware-bn-splitk/kernel.py",
+  "sub_session_id": "56f0fe91-3370-482c-9a5e-bc005f17051e",
+  "phase1_iters": 6,
+  "score": 1.47
+}

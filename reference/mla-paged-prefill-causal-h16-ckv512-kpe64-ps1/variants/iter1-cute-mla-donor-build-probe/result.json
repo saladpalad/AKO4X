@@ -1,0 +1,786 @@
+{
+  "timestamp": "2026-05-22T08:00:40.391467",
+  "label": "iter1-cute-mla-donor-build-probe",
+  "backend": "modal-b200",
+  "solution_name": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+  "definition": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1",
+  "baseline_cached": true,
+  "baseline_iterations": 5,
+  "solution_iterations": 100,
+  "score": {
+    "final_score": 1.45606215155693,
+    "group_scores": {
+      "1": {
+        "speedup": 2.2738955448852423,
+        "latency_ms": 0.0064353
+      },
+      "2": {
+        "speedup": 2.0110615315744633,
+        "latency_ms": 0.0069249
+      },
+      "3": {
+        "speedup": 1.534486942085435,
+        "latency_ms": 0.0078305
+      },
+      "4": {
+        "speedup": 2.070648091722056,
+        "latency_ms": 0.0070561
+      },
+      "5": {
+        "speedup": 1.5092794759825328,
+        "latency_ms": 0.0080608
+      },
+      "6": {
+        "speedup": 1.9569074426288682,
+        "latency_ms": 0.0072031
+      },
+      "8": {
+        "speedup": 1.5543590373280942,
+        "latency_ms": 0.008144
+      },
+      "10": {
+        "speedup": 1.483682869462956,
+        "latency_ms": 0.008163199999999999
+      },
+      "13": {
+        "speedup": 1.5407617921859083,
+        "latency_ms": 0.0079523
+      },
+      "15": {
+        "speedup": 1.5502564360418343,
+        "latency_ms": 0.007955199999999999
+      },
+      "17": {
+        "speedup": 1.5692303843074458,
+        "latency_ms": 0.0079936
+      },
+      "22": {
+        "speedup": 1.1872260612696532,
+        "latency_ms": 0.030230299999999998
+      },
+      "26": {
+        "speedup": 1.5139287782623594,
+        "latency_ms": 0.0084609
+      },
+      "29": {
+        "speedup": 1.8988570438116217,
+        "latency_ms": 0.0098079
+      },
+      "33": {
+        "speedup": 2.1183816334970795,
+        "latency_ms": 0.009913700000000001
+      },
+      "43": {
+        "speedup": 2.2425764020163834,
+        "latency_ms": 0.010156799999999999
+      },
+      "52": {
+        "speedup": 2.3765283935278005,
+        "latency_ms": 0.0106239
+      },
+      "58": {
+        "speedup": 2.37535046728972,
+        "latency_ms": 0.010272
+      },
+      "69": {
+        "speedup": 2.358674813716509,
+        "latency_ms": 0.0105887
+      },
+      "96": {
+        "speedup": 1.7529627694676637,
+        "latency_ms": 0.0145472
+      },
+      "123": {
+        "speedup": 1.1385944092827003,
+        "latency_ms": 0.015168000000000001
+      },
+      "138": {
+        "speedup": 1.5934807267517064,
+        "latency_ms": 0.0150753
+      },
+      "199": {
+        "speedup": 1.303076178539963,
+        "latency_ms": 0.0241761
+      },
+      "287": {
+        "speedup": 1.3600201392623141,
+        "latency_ms": 0.0291967
+      },
+      "376": {
+        "speedup": 1.0611716119528618,
+        "latency_ms": 0.038016
+      },
+      "473": {
+        "speedup": 1.1646107138462771,
+        "latency_ms": 0.0349473
+      },
+      "805": {
+        "speedup": 0.899389648755222,
+        "latency_ms": 0.08452509999999999
+      },
+      "1028": {
+        "speedup": 0.813740578575437,
+        "latency_ms": 0.1190372
+      },
+      "1187": {
+        "speedup": 0.9136746027814537,
+        "latency_ms": 0.1271781
+      },
+      "1954": {
+        "speedup": 0.850861574754377,
+        "latency_ms": 0.0758785
+      },
+      "3024": {
+        "speedup": 0.8633059576106152,
+        "latency_ms": 0.5463112999999999
+      },
+      "3842": {
+        "speedup": 0.9035722179456889,
+        "latency_ms": 0.2492933
+      },
+      "6053": {
+        "speedup": 0.9070504848503593,
+        "latency_ms": 0.5399501
+      },
+      "8987": {
+        "speedup": 0.9132147193592337,
+        "latency_ms": 0.8755516999999999
+      },
+      "10870": {
+        "speedup": 0.9231184456354011,
+        "latency_ms": 3.7668125000000003
+      },
+      "15092": {
+        "speedup": 0.9521050129729925,
+        "latency_ms": 1.8251764000000001
+      },
+      "15883": {
+        "speedup": 0.9552659332793326,
+        "latency_ms": 2.4967616
+      },
+      "16384": {
+        "speedup": 0.9350528919437728,
+        "latency_ms": 16.2952321
+      }
+    },
+    "group_axis": "total_q",
+    "passed": 38,
+    "failed": 0,
+    "error": 0,
+    "total": 38,
+    "min_speedup": 0.813740578575437,
+    "max_speedup": 2.3765283935278005
+  },
+  "results": {
+    "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1": {
+      "55b51e96-eecc-4dc9-814a-0f1301b2951e": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 33,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 34
+        },
+        "latency_ms": 0.009913700000000001,
+        "reference_latency_ms": 0.021001,
+        "speedup_factor": 2.1183816334970795,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 352.6798095703125,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "d30e4c23-bb35-4f61-adb9-2163db9f5ea7": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 1,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 34
+        },
+        "latency_ms": 0.0064353,
+        "reference_latency_ms": 0.014633199999999999,
+        "speedup_factor": 2.2738955448852423,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 22.796735763549805,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "7572654f-7994-431a-bed1-65d7ec507b10": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 17,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 19
+        },
+        "latency_ms": 0.0079936,
+        "reference_latency_ms": 0.012543799999999999,
+        "speedup_factor": 1.5692303843074458,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 267.0357971191406,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "473e30ea-b329-4ef7-9961-7de140fd35da": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 52,
+          "num_pages": 989669,
+          "len_indptr": 5,
+          "num_kv_indices": 67
+        },
+        "latency_ms": 0.0106239,
+        "reference_latency_ms": 0.025248,
+        "speedup_factor": 2.3765283935278005,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 327.3941955566406,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "bda0e743-f862-4800-95e4-a7c5717c8e7e": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 376,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 381
+        },
+        "latency_ms": 0.038016,
+        "reference_latency_ms": 0.040341499999999995,
+        "speedup_factor": 1.0611716119528618,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 6323.93701171875,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "7e602557-ff89-41a1-8650-6c3e48fdf52a": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 287,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 288
+        },
+        "latency_ms": 0.0291967,
+        "reference_latency_ms": 0.0397081,
+        "speedup_factor": 1.3600201392623141,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1652.8292236328125,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "5ca61491-4ac7-426f-af85-cf592620a435": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 5,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 7
+        },
+        "latency_ms": 0.0080608,
+        "reference_latency_ms": 0.012166,
+        "speedup_factor": 1.5092794759825328,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 77.0700912475586,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "77737de2-b4e3-4f75-a275-2addbc9e175d": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 1187,
+          "num_pages": 989669,
+          "len_indptr": 4,
+          "num_kv_indices": 1205
+        },
+        "latency_ms": 0.1271781,
+        "reference_latency_ms": 0.1161994,
+        "speedup_factor": 0.9136746027814537,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 5322.76708984375,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "b270fd9c-8520-4bf1-87b7-f0bd87326ab6": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 10,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 12
+        },
+        "latency_ms": 0.008163199999999999,
+        "reference_latency_ms": 0.0121116,
+        "speedup_factor": 1.483682869462956,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 32.739437103271484,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "3bdcf0e1-3855-44b4-9ef2-db4422074531": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 3,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 5
+        },
+        "latency_ms": 0.0078305,
+        "reference_latency_ms": 0.0120158,
+        "speedup_factor": 1.534486942085435,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 531.0918579101562,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "6c8fe593-d2b1-4abe-89e3-51bb93638186": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 13,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 14
+        },
+        "latency_ms": 0.0079523,
+        "reference_latency_ms": 0.012252599999999999,
+        "speedup_factor": 1.5407617921859083,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 63.514015197753906,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "98814691-2060-4bbe-8158-7bdd6868e7d0": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 26,
+          "num_pages": 989669,
+          "len_indptr": 3,
+          "num_kv_indices": 32
+        },
+        "latency_ms": 0.0084609,
+        "reference_latency_ms": 0.012809199999999998,
+        "speedup_factor": 1.5139287782623594,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 2122.845703125,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "74202b1d-e57c-424d-93ea-396a614e7864": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 8987,
+          "num_pages": 989669,
+          "len_indptr": 57,
+          "num_kv_indices": 14390
+        },
+        "latency_ms": 0.8755516999999999,
+        "reference_latency_ms": 0.7995667,
+        "speedup_factor": 0.9132147193592337,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 51225.9765625,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "6e3567c4-94d7-462d-b0af-b083ff8a9def": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 29,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 34
+        },
+        "latency_ms": 0.0098079,
+        "reference_latency_ms": 0.018623800000000003,
+        "speedup_factor": 1.8988570438116217,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 563.6598510742188,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "a455e8fb-76b9-49ee-8bfb-4ac63bcd571c": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 2,
+          "num_pages": 989669,
+          "len_indptr": 3,
+          "num_kv_indices": 53
+        },
+        "latency_ms": 0.0069249,
+        "reference_latency_ms": 0.0139264,
+        "speedup_factor": 2.0110615315744633,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1307.6019287109375,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "bb28f188-53a9-45d4-89f3-b6bfe4b5fdb8": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 1028,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 1038
+        },
+        "latency_ms": 0.1190372,
+        "reference_latency_ms": 0.0968654,
+        "speedup_factor": 0.813740578575437,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 12624.904296875,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "ed999c80-d4d1-4952-b063-cd39dfbf5612": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 22,
+          "num_pages": 989669,
+          "len_indptr": 23,
+          "num_kv_indices": 17759
+        },
+        "latency_ms": 0.030230299999999998,
+        "reference_latency_ms": 0.0358902,
+        "speedup_factor": 1.1872260612696532,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 18.468564987182617,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "cb60b649-f5da-49a7-b21e-0b9022bf9ff1": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 15,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 18
+        },
+        "latency_ms": 0.007955199999999999,
+        "reference_latency_ms": 0.012332599999999999,
+        "speedup_factor": 1.5502564360418343,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1409.44189453125,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "e6f75600-c981-4c46-9e7d-d82b41cff36c": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 69,
+          "num_pages": 989669,
+          "len_indptr": 4,
+          "num_kv_indices": 90
+        },
+        "latency_ms": 0.0105887,
+        "reference_latency_ms": 0.0249753,
+        "speedup_factor": 2.358674813716509,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 1802.4095458984375,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "733a7bbe-55fc-4834-82db-f428949e8ab2": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 3024,
+          "num_pages": 989669,
+          "len_indptr": 4,
+          "num_kv_indices": 3029
+        },
+        "latency_ms": 0.5463112999999999,
+        "reference_latency_ms": 0.47163380000000005,
+        "speedup_factor": 0.8633059576106152,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 59138.921875,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "892d1b8f-f6fe-40ad-aa3f-b6d391753bd3": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 1954,
+          "num_pages": 989669,
+          "len_indptr": 29,
+          "num_kv_indices": 2044
+        },
+        "latency_ms": 0.0758785,
+        "reference_latency_ms": 0.0645621,
+        "speedup_factor": 0.850861574754377,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 12944.255859375,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "4eeb9b51-ce9b-40a3-9f8f-2604fed79629": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 199,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 203
+        },
+        "latency_ms": 0.0241761,
+        "reference_latency_ms": 0.0315033,
+        "speedup_factor": 1.303076178539963,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 20417.701171875,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "77573fb4-557b-430d-979f-5579a0349825": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 473,
+          "num_pages": 989669,
+          "len_indptr": 6,
+          "num_kv_indices": 491
+        },
+        "latency_ms": 0.0349473,
+        "reference_latency_ms": 0.0407,
+        "speedup_factor": 1.1646107138462771,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 11378.1044921875,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "9722a8a5-542e-4b96-b962-7ae93eb259ac": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 96,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 98
+        },
+        "latency_ms": 0.0145472,
+        "reference_latency_ms": 0.025500699999999998,
+        "speedup_factor": 1.7529627694676637,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1378.583984375,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "053a88a3-d024-4fbe-bc46-3f49d141de9f": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 6053,
+          "num_pages": 989669,
+          "len_indptr": 12,
+          "num_kv_indices": 6091
+        },
+        "latency_ms": 0.5399501,
+        "reference_latency_ms": 0.489762,
+        "speedup_factor": 0.9070504848503593,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 23248.1484375,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "a06f2653-81ce-449f-91dd-e5ae53a16b92": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 16384,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 16387
+        },
+        "latency_ms": 16.2952321,
+        "reference_latency_ms": 15.236903899999998,
+        "speedup_factor": 0.9350528919437728,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 55603.3046875,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "a8cff3c6-0976-4dbb-833f-481091dc6a39": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 43,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 46
+        },
+        "latency_ms": 0.010156799999999999,
+        "reference_latency_ms": 0.0227774,
+        "speedup_factor": 2.2425764020163834,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 1676.469970703125,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "71df32c9-6f0f-4499-8599-c632f94ca83e": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 6,
+          "num_pages": 989669,
+          "len_indptr": 7,
+          "num_kv_indices": 109
+        },
+        "latency_ms": 0.0072031,
+        "reference_latency_ms": 0.0140958,
+        "speedup_factor": 1.9569074426288682,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 69.99200439453125,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "22689bbd-cd9e-4251-a90e-a2d367ddb7d8": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 805,
+          "num_pages": 989669,
+          "len_indptr": 5,
+          "num_kv_indices": 814
+        },
+        "latency_ms": 0.08452509999999999,
+        "reference_latency_ms": 0.076021,
+        "speedup_factor": 0.899389648755222,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 19761.369140625,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "a6fbb45c-905c-48b3-a74b-cc18bd963220": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 58,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 60
+        },
+        "latency_ms": 0.010272,
+        "reference_latency_ms": 0.0243996,
+        "speedup_factor": 2.37535046728972,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 532.5528564453125,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "d44f32e1-f92e-4f37-ae26-29d71b0b105a": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 123,
+          "num_pages": 989669,
+          "len_indptr": 3,
+          "num_kv_indices": 185
+        },
+        "latency_ms": 0.015168000000000001,
+        "reference_latency_ms": 0.0172702,
+        "speedup_factor": 1.1385944092827003,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 843.4157104492188,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "9265de63-6831-406b-b449-8bee4be7f372": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 4,
+          "num_pages": 989669,
+          "len_indptr": 5,
+          "num_kv_indices": 121
+        },
+        "latency_ms": 0.0070561,
+        "reference_latency_ms": 0.0146107,
+        "speedup_factor": 2.070648091722056,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 245.64830017089844,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "805238ee-8470-4f4e-aa41-7c15f785173f": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 3842,
+          "num_pages": 989669,
+          "len_indptr": 21,
+          "num_kv_indices": 3916
+        },
+        "latency_ms": 0.2492933,
+        "reference_latency_ms": 0.2252545,
+        "speedup_factor": 0.9035722179456889,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 24546.59375,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "fe63f292-d826-4950-8785-0a516707527f": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 15883,
+          "num_pages": 989669,
+          "len_indptr": 19,
+          "num_kv_indices": 15937
+        },
+        "latency_ms": 2.4967616,
+        "reference_latency_ms": 2.3850713,
+        "speedup_factor": 0.9552659332793326,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 30813.1875,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "54187805-1b18-4d39-83ca-46332f85da9e": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 15092,
+          "num_pages": 989669,
+          "len_indptr": 27,
+          "num_kv_indices": 15187
+        },
+        "latency_ms": 1.8251764000000001,
+        "reference_latency_ms": 1.7377596,
+        "speedup_factor": 0.9521050129729925,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 31207.2578125,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "f96b666d-373d-40ee-ad8d-0c3b74374558": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 138,
+          "num_pages": 989669,
+          "len_indptr": 5,
+          "num_kv_indices": 151
+        },
+        "latency_ms": 0.0150753,
+        "reference_latency_ms": 0.0240222,
+        "speedup_factor": 1.5934807267517064,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 6338.16796875,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "d88c9577-ac5d-414c-9d57-d91cc14b7eed": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 8,
+          "num_pages": 989669,
+          "len_indptr": 2,
+          "num_kv_indices": 12
+        },
+        "latency_ms": 0.008144,
+        "reference_latency_ms": 0.0126587,
+        "speedup_factor": 1.5543590373280942,
+        "max_abs_error": 0.015625,
+        "max_rel_error": 53.338985443115234,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      },
+      "0e70750d-4274-4a1f-a626-0c981044138d": {
+        "status": "PASSED",
+        "solution": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution",
+        "axes": {
+          "total_q": 10870,
+          "num_pages": 989669,
+          "len_indptr": 3,
+          "num_kv_indices": 10875
+        },
+        "latency_ms": 3.7668125000000003,
+        "reference_latency_ms": 3.4772141,
+        "speedup_factor": 0.9231184456354011,
+        "max_abs_error": 0.03125,
+        "max_rel_error": 28500.599609375,
+        "log": "[r7-probe] can_implement bf16=False fp16=True\n/opt/conda/envs/py312/lib/python3.12/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/pipeline/helpers.py:451: UserWarning: NamedBarrier wait also arrives on the barrier. Routing call to NamedBarrier.arrive_and_wait().\n  warnings.warn(\n[r7-probe] BUILD SUCCESS \u2014 donor compiled with bf16 on Modal CI image. Structural lever opens at BUILD layer (round-6's can_implement-layer evidence is empirically confirmed at JIT level). Remaining round-8+ work: (a) prefill packing BLOCK_Q\u00d7NUM_HEADS into the donor's H dim; (b) causal-mask injection into the softmax warp (compute warps 0-3); (c) per-(batch,q_block) dispatch with sliced pre-gathered Kc.\n"
+      }
+    }
+  }
+}

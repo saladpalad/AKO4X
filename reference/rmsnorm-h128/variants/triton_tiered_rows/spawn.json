@@ -1,0 +1,10 @@
+{
+  "operator": "rmsnorm_h128",
+  "family": "rmsnorm-h128",
+  "gpu": "b200",
+  "backend": "modal",
+  "parent": "null",
+  "name_label": "rmsnorm-h128-r1",
+  "session_id": "be24e952-02e5-49bb-9e37-ba6c1a9e6f5d",
+  "spawned_at": "2026-05-20"
+}

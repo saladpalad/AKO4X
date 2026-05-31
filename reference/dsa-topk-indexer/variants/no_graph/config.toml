@@ -1,0 +1,14 @@
+# Config for variants/no_graph/kernel.py
+# Deps: torch + triton + torch.utils.cpp_extension.load_inline (CUDA)
+# Legacy headline: 32.25 ± 0.03x @ CUDA 12.8 + cached expert baseline.
+# Canonical abs kernel latency (CUDA 13.2): not re-measured this session.
+# Note: kept as fallback illustration of graph capture's contribution.
+[solution]
+name = "no_graph"
+definition = "dsa_topk_indexer_fp8_h64_d128_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false

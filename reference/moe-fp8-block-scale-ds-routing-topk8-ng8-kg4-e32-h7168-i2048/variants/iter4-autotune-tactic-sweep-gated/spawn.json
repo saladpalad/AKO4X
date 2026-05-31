@@ -1,0 +1,12 @@
+{
+  "round": 4,
+  "operator": "moe_fp8_block_scale_ds_routing_topk8_ng8_kg4_e32_h7168_i2048",
+  "family": "moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048",
+  "gpu": "b200",
+  "backend": "modal",
+  "child_dir": "ako4fib-run-moe-fp8-block-scale-ds-routing-topk8-ng8-kg4-e32-h7168-i2048-r4",
+  "session_id": "303dfa59-8bfd-454a-ae8c-108e92409892",
+  "parent": "iter3c-cuda-graph-eager-T1-fallback",
+  "source": "Layer 1 (sub-packaged)",
+  "label": "iter4-autotune-tactic-sweep-gated"
+}

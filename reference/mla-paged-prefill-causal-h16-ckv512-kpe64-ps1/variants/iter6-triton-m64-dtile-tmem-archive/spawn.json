@@ -1,0 +1,15 @@
+{
+  "round": 4,
+  "round_id": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1-r4",
+  "operator": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1",
+  "gpu": "b200",
+  "backend": "modal",
+  "parent": "iter5-triton-graph-tilelang-archive",
+  "parent_kernel_path": "reference/mla-paged-prefill-causal-h16-ckv512-kpe64-ps1/variants/iter5-triton-graph-tilelang-archive/kernel.py",
+  "sub_session_id": "14b67e21-92e8-41ad-b417-352ffe2af8b6",
+  "phase1_iters": 6,
+  "score": 1.4493478167507199,
+  "forensic_sub_baseline": true,
+  "closing_evidence": "Triton-3.6 M=64 D-tile reaches tmem but cannot fit acc[M=64,D_CKV=512] fp32 in 512-cell tmem budget; allocator is tensor-count-permanent across 4 orthogonal knobs."
+}

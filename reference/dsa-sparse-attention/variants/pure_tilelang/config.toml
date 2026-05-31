@@ -1,0 +1,13 @@
+# Config for variants/pure_tilelang/kernel.py
+# Deps: torch + triton + tilelang + apache-tvm-ffi
+# Legacy headline: 45.37 ± 0.03x @ CUDA 12.8 baseline.
+# Canonical abs kernel latency (CUDA 13.2): not re-measured this session.
+[solution]
+name = "pure_tilelang"
+definition = "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64"
+author = "FISAC"
+
+[build]
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false

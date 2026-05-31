@@ -1,0 +1,18 @@
+{
+  "round": 5,
+  "round_id": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1-r5",
+  "operator": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1",
+  "gpu": "b200",
+  "backend": "modal",
+  "parent": "iter5-triton-graph-tilelang-archive",
+  "parent_kernel_path": "reference/mla-paged-prefill-causal-h16-ckv512-kpe64-ps1/variants/iter5-triton-graph-tilelang-archive/kernel.py",
+  "sub_session_id": "58f7c91c-a75d-4eca-af37-7f92e6b0f703",
+  "phase1_iters": 2,
+  "score_variance_checked": true,
+  "score_mean": 1.4567364902613185,
+  "score_cv": 0.0014390446756149889,
+  "score_n_runs": 3,
+  "forensic_subbaseline": true,
+  "closing_evidence": "CuTe-DSL 1cta-group M=64 closes analytically: acc[M=64,D=512] fp32 = 512 cols = full tmem budget, leaves zero for s; same physical wall as Triton hit. Sub did not attempt CuTe-DSL empirically; 2 sub-levers (persisted-P, 2cta-mma) remain theoretically open."
+}

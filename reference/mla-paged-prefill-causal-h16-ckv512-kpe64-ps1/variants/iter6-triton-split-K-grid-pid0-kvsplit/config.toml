@@ -1,0 +1,29 @@
+[solution]
+name = "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1-solution"
+definition = "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1"
+author = "user"
+
+[build]
+gpu = "b200"
+
+# ── Agent-configurable (update to match your kernel) ──
+language = "python"
+entry_point = "kernel.py::run"
+destination_passing_style = false
+
+[benchmark]
+baseline_iterations = 5
+solution_iterations = 100
+num_trials = 5
+warmup_runs = 3
+timeout_seconds = 300
+use_isolated_runner = true
+backend = "modal"
+archive_seed_path = "reference/mla-paged-prefill-causal-h16-ckv512-kpe64-ps1/baseline.json"
+
+[advisory]
+# Advisory review hook: prints a self-review prompt to stderr
+# after every N labeled benches. See templates/agent/hooks/
+# advisory-review.sh. No gate, no blocking.
+frequency = 3
+enabled = true

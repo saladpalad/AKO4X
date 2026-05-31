@@ -1,0 +1,13 @@
+{
+  "round": 1,
+  "round_id": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1-r1",
+  "operator": "mla_paged_prefill_causal_h16_ckv512_kpe64_ps1",
+  "family": "mla-paged-prefill-causal-h16-ckv512-kpe64-ps1",
+  "gpu": "b200",
+  "backend": "modal",
+  "parent": "null",
+  "parent_kernel_path": null,
+  "sub_session_id": "dec3e8e0-3f23-4c5a-94e4-f02ea3a07361",
+  "phase1_iters": 13,
+  "score": 1.4022310660554562
+}
