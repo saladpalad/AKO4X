@@ -14,6 +14,7 @@ from master.master import (  # noqa: F401 — re-export for `import master`
     Phase2Result,
     init_campaign,
     read_campaign_mode,
+    verify_production_evidence,
     spawn_child,
     run_sub_phase1,
     send_retrospective_prompt,

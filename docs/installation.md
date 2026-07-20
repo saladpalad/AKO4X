@@ -41,7 +41,7 @@ export AKO_DATASET_PATH=/path/to/flashinfer-trace   # FIB_DATASET_PATH also work
 ```
 
 Keep this environment activated when running `spawn.py` and when
-launching `claude` in child environments — the benchmark scripts use
+launching `codex` or `claude` in child environments — the benchmark scripts use
 `python` from `PATH`, so the activated environment must contain all
 dependencies.
 
@@ -118,10 +118,11 @@ If this reports "unavailable" because of a driver mismatch, see
 ## First spawn
 
 ```bash
-python spawn.py --operator dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64 --name my_run
+python spawn.py --operator dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64 \
+  --name my_run --agent codex
 cd ../ako4x-run-my_run
-claude
-# Send an initial prompt, e.g. "Read CLAUDE.md and optimize the kernel using Triton."
+codex
+# Send an initial prompt, e.g. "Optimize the kernel using Triton."
 ```
 
 `python spawn.py --help` lists every flag; `python spawn.py` with no
@@ -132,16 +133,17 @@ run, custom dataset, custom task template). For closed-loop campaigns
 
 ## Working with the agent
 
-Once `claude` is running inside the child env, the agent reads its own
-`CLAUDE.md` for task framing and loads SKILLs on demand. A few
+Once the selected agent is running inside the child env, it reads its own
+task file (`AGENTS.md` for Codex, `CLAUDE.md` for Claude) and loads SKILLs on demand. A few
 operator-side things worth knowing.
 
 ### Permissions
 
-Each child env includes `.claude/settings.local.json` controlling what
-tools the agent may use. By default broad access is granted (file I/O,
-bash, web search, etc.); edit it before launch to restrict. For fully
-unattended runs, Claude Code supports:
+Claude children include `.claude/settings.local.json` controlling what tools
+the agent may use. Codex children use the sandbox declared in
+`templates/agent/codex.json` (`workspace-write` by default). Production lanes
+launch the runtime themselves so profiler preflight cannot be bypassed. For
+fully unattended Claude runs, Claude Code also supports:
 
 ```bash
 claude --dangerously-skip-permissions

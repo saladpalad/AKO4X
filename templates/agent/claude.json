@@ -1,5 +1,8 @@
 {
+  "runner": "claude",
   "task_filename": "CLAUDE.md",
+  "skills_dir": ".claude/skills",
+  "approval_policy": "never",
   "permissions": {
     "allow": [
       "Bash(*)", "Edit(*)", "Read(*)", "Write(*)",

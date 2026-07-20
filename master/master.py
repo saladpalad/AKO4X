@@ -1,6 +1,6 @@
 """Thin IO layer for the AKO4X closed-loop master agent.
 
-This file is intentionally NOT where decisions live. The master CC makes
+This file is intentionally NOT where decisions live. The master agent makes
 accept / reject / archive / quarantine decisions in its prompt; master.py
 exposes mechanical helpers (spawn, run sub, parse transcripts, write
 artifacts to disk).
@@ -10,8 +10,9 @@ Functions, see MASTER.md for round-flow context:
   init_campaign(...)             — Round-0 archive setup (idempotent)
   read_campaign_mode(...)        — read locked mode (2 or 3) from baseline.json
   spawn_child(...)               — derive a child env via spawn.py
-  run_sub_phase1(...)            — drive sub through phase-1 (claude --print)
-  send_retrospective_prompt(...) — drive sub through phase-2 (claude --resume; Mode 3 only)
+  run_sub_phase1(...)            — drive sub through phase-1 (Claude or Codex)
+  send_retrospective_prompt(...) — resume phase-2 (Claude or Codex; Mode 3 only)
+  verify_production_evidence(...)— bind archive eligibility to validated source
   archive_variant(...)           — land a successful variant under reference/<family>/
   archive_failed(...)            — land a crash/timeout transcript under reference/<family>/_failed/
   append_ledger(...)             — append one line to harness-ledger.md
@@ -34,6 +35,13 @@ import subprocess
 import uuid
 from datetime import datetime
 from pathlib import Path
+
+from ako4x.agent_runtime import (
+    read_child_agent_metadata,
+    resume_command,
+    session_id_from_transcript,
+    start_command,
+)
 
 PKG_DIR = Path(__file__).resolve().parent  # AKO4X/master/
 ROOT = PKG_DIR.parent                      # AKO4X/
@@ -71,7 +79,7 @@ class Phase2Result:
     not 'sub had nothing to propose'."""
     transcript_path: Path
     proposals_md_path: Path | None  # None when sub didn't write PROPOSALS.md (or call failed before it could)
-    exit_status: int = 0            # claude --resume exit code (-1 on TimeoutExpired)
+    exit_status: int = 0            # selected runtime's resume exit code (-1 on timeout)
     timed_out: bool = False         # True iff subprocess.TimeoutExpired fired
     stderr_tail: str = ""           # last ~4KB of stderr; empty on success
 
@@ -88,8 +96,8 @@ def _validate_safe_name(value: str, *, kind: str) -> None:
         raise ValueError(f"unsafe {kind} {value!r}: must match {_SAFE_NAME_RE.pattern}")
 
 
-def _read_campaign_env(family: str) -> tuple[str, str]:
-    """Read (gpu, backend) from reference/<family>/baseline.json's environment.
+def _read_campaign_env(family: str) -> tuple[str, str, str, str]:
+    """Read (gpu, backend, agent, profile) from the campaign environment.
 
     The campaign baseline is the single source of truth for hardware/backend.
     Round 0 seeds an environment-only shell (workloads={}, source="bootstrap")
@@ -116,15 +124,21 @@ def _read_campaign_env(family: str) -> tuple[str, str]:
         raise RuntimeError(f"campaign baseline {baseline} is not valid JSON: {e}")
     env = data.get("environment", {})
     gpu, backend = env.get("gpu"), env.get("backend")
+    agent, profile = env.get("agent", "claude"), env.get("profile", "standard")
     if not gpu or not backend:
         raise RuntimeError(
             f"campaign baseline {baseline} missing environment.gpu/backend:\n"
             f"  environment={env!r}"
         )
-    return gpu, backend
+    if agent not in {"claude", "codex"} or profile not in {"standard", "production"}:
+        raise RuntimeError(
+            f"campaign baseline {baseline} has invalid agent/profile: "
+            f"agent={agent!r}, profile={profile!r}"
+        )
+    return gpu, backend, agent, profile
 
 
-def _shell_baseline(gpu: str, backend: str, mode: int) -> dict:
+def _shell_baseline(gpu: str, backend: str, mode: int, agent: str, profile: str) -> dict:
     """Round-0 environment-only baseline shell. No real latencies — sub's
     first reference profile overwrites it via save_baseline auto-promote
     (which treats a workloads-less archive as promotable)."""
@@ -134,6 +148,8 @@ def _shell_baseline(gpu: str, backend: str, mode: int) -> dict:
             "gpu": gpu,
             "backend": backend,
             "mode": mode,
+            "agent": agent,
+            "profile": profile,
             "cuda_version": "unknown",
             "measured_at": None,
         },
@@ -187,6 +203,75 @@ def read_campaign_mode(family: str) -> int:
             f"campaign baseline {baseline} has invalid mode {mode!r}; must be int 2 or 3"
         )
     return mode
+
+
+def verify_production_evidence(
+    child_dir: Path,
+    *,
+    candidate_path: Path | None = None,
+    run_id: str | None = None,
+) -> dict:
+    """Fail unless the exact archive candidate passed the production pipeline.
+
+    The production state machine can only reach PROMOTABLE after baseline and
+    candidate NCU/NSYS reports were produced and parsed, every required gate
+    passed, and the benchmark completed. This helper closes the remaining
+    archive gap: the bytes selected by master must still match that evidence.
+    """
+    from ako4x.events import RunStore
+    from ako4x.production import integrity_manifest, source_hash
+    from ako4x.production_config import load_production_config
+
+    child_dir = child_dir.resolve()
+    config_path = child_dir / ".ako4x" / "production.toml"
+    if not config_path.is_file():
+        raise RuntimeError(f"production config not found: {config_path}")
+    config = load_production_config(config_path)
+    store = RunStore(config.project_root / ".ako4x" / "runs.sqlite")
+    try:
+        run = store.run(run_id) if run_id else store.latest_run()
+    finally:
+        store.close()
+    if run is None:
+        raise RuntimeError("no production evidence run found")
+    if run["state"] not in {"PROMOTABLE", "PROMOTED"}:
+        raise RuntimeError(
+            f"production run {run['id']} is {run['state']}, not PROMOTABLE/PROMOTED"
+        )
+    current_integrity = integrity_manifest(config)["sha256"]
+    if current_integrity != run.get("integrity_hash"):
+        raise RuntimeError(
+            "protected benchmark/test/reference infrastructure no longer matches "
+            "the production evidence"
+        )
+    validated_candidate = config.candidate.resolve()
+    current_hash = source_hash(validated_candidate)
+    if current_hash != run["source_hash"]:
+        raise RuntimeError(
+            "configured candidate no longer matches the source hash that passed "
+            f"production evidence: current={current_hash}, passed={run['source_hash']}"
+        )
+    selected = (candidate_path or validated_candidate).resolve()
+    selected_hash = source_hash(selected)
+    if selected != validated_candidate:
+        validated_artifact = (
+            validated_candidate / selected.name
+            if selected.is_file() and validated_candidate.is_dir()
+            else validated_candidate
+        )
+        if not validated_artifact.exists() or source_hash(validated_artifact) != selected_hash:
+            raise RuntimeError(
+                "archive candidate does not match the artifact in the source tree "
+                "that passed production evidence"
+            )
+    return {
+        "run_id": run["id"],
+        "state": run["state"],
+        "source_hash": current_hash,
+        "integrity_hash": current_integrity,
+        "candidate": str(selected),
+        "candidate_hash": selected_hash,
+    }
 
 
 def _sha256_file(path: Path) -> str | None:
@@ -280,12 +365,14 @@ def init_campaign(
     gpu: str = "b200",
     backend: str = "modal",
     mode: int = 2,
+    agent: str = "claude",
+    profile: str = "standard",
 ) -> None:
     """Idempotent Round-0 campaign initializer.
 
     Ensures reference/<family>/ exists with a README placeholder and a
     baseline.json whose environment block carries the campaign's
-    gpu/backend/mode — the single source of truth spawn_child / mode
+    gpu/backend/mode/agent/profile — the campaign lock read by spawn_child
     gating reads each round (master CC never re-passes them).
 
     `mode` (2 or 3): orchestration mode for the campaign.
@@ -320,6 +407,10 @@ def init_campaign(
     # float and persist "mode": 2.0 into baseline.json.
     if type(mode) is not int or mode not in (2, 3):
         raise ValueError(f"mode must be int 2 or 3; got {mode!r}")
+    if agent not in {"claude", "codex"}:
+        raise ValueError(f"agent must be 'claude' or 'codex'; got {agent!r}")
+    if profile not in {"standard", "production"}:
+        raise ValueError(f"profile must be 'standard' or 'production'; got {profile!r}")
     # GPU slug is canonically lowercase: spawn.py lowercases --gpu, and
     # bench_utils._detect_environment() reads the child config's lowercase
     # [build] gpu. Seeding the baseline with the same casing keeps
@@ -344,6 +435,8 @@ def init_campaign(
         env = data.get("environment", {})
         cur_gpu, cur_backend = env.get("gpu"), env.get("backend")
         cur_mode = env.get("mode")
+        cur_agent = env.get("agent", "claude")
+        cur_profile = env.get("profile", "standard")
         # A present-but-malformed stored mode (e.g. hand-edited "3" or 2.0) must
         # surface as corruption, not as a "mode conflict" — the conflict message
         # would misleadingly claim the caller asked for a different mode.
@@ -354,7 +447,10 @@ def init_campaign(
                 f"Fix the file by hand before continuing."
             )
         is_real = bool(data.get("workloads"))
-        env_match = (cur_gpu or "").lower() == gpu and cur_backend == backend
+        env_match = (
+            (cur_gpu or "").lower() == gpu and cur_backend == backend
+            and cur_agent == agent and cur_profile == profile
+        )
         if env_match and cur_mode is not None and cur_mode != mode:
             raise RuntimeError(
                 f"campaign mode conflict for family {family!r}:\n"
@@ -366,10 +462,12 @@ def init_campaign(
                 f"with mode={cur_mode!r} or start a new family."
             )
         if env_match:
-            if cur_mode is None:
+            if cur_mode is None or "agent" not in env or "profile" not in env:
                 # Additive migration: backfill the mode field without
                 # disturbing measurement state (workloads, source, etc.).
                 env["mode"] = mode
+                env["agent"] = agent
+                env["profile"] = profile
                 data["environment"] = env
                 baseline.write_text(json.dumps(data, indent=2))
                 kind = "real, continuing campaign" if is_real else "shell"
@@ -381,21 +479,24 @@ def init_campaign(
                 return
             kind = "real, continuing campaign" if is_real else "shell"
             print(f"init_campaign: {family} already initialized "
-                  f"[{kind}; gpu={gpu}, backend={backend}, mode={mode}] — no-op")
+                  f"[{kind}; gpu={gpu}, backend={backend}, mode={mode}, "
+                  f"agent={agent}, profile={profile}] — no-op")
             return
         if is_real:
             raise RuntimeError(
                 f"campaign conflict for family {family!r}:\n"
                 f"  existing archive {baseline} was measured on "
-                f"gpu={cur_gpu!r}, backend={cur_backend!r}\n"
-                f"  this campaign asked for gpu={gpu!r}, backend={backend!r}\n"
+                f"gpu={cur_gpu!r}, backend={cur_backend!r}, agent={cur_agent!r}, "
+                f"profile={cur_profile!r}\n"
+                f"  this campaign asked for gpu={gpu!r}, backend={backend!r}, "
+                f"agent={agent!r}, profile={profile!r}\n"
                 f"A hardware/backend change is a NEW family (e.g. "
                 f"reference/{family}-{gpu}/), not a re-seed — "
                 f"mixing corrupts the campaign denominator. Halt and consult "
                 f"the user (see MASTER.md 'Round 0' — different hardware/"
                 f"backend is a new family, not a re-seed)."
             )
-        baseline.write_text(json.dumps(_shell_baseline(gpu, backend, mode), indent=2))
+        baseline.write_text(json.dumps(_shell_baseline(gpu, backend, mode, agent, profile), indent=2))
         print(f"init_campaign: re-seeded shell for {family} "
               f"[gpu {cur_gpu}→{gpu}, backend {cur_backend}→{backend}, mode={mode}]")
         return
@@ -405,7 +506,7 @@ def init_campaign(
     if not readme.is_file():
         date = datetime.now().strftime("%Y-%m-%d")
         readme.write_text(f"# {family} — campaign started {date}; anchor TBD\n")
-    baseline.write_text(json.dumps(_shell_baseline(gpu, backend, mode), indent=2))
+    baseline.write_text(json.dumps(_shell_baseline(gpu, backend, mode, agent, profile), indent=2))
     print(f"init_campaign: seeded {family} "
           f"[new family; gpu={gpu}, backend={backend}, mode={mode}] — "
           f"variants/ + README + shell baseline.json created")
@@ -448,7 +549,7 @@ def spawn_child(
     """
     _validate_safe_name(name_label, kind="name_label")
     _validate_safe_name(family, kind="family")
-    gpu, backend = _read_campaign_env(family)
+    gpu, backend, agent, profile = _read_campaign_env(family)
 
     # Guard the "continuing campaign + parent=None" footgun. parent=None is
     # documented (above) as the brand-new round-1 bootstrap only — spawn.py
@@ -483,6 +584,8 @@ def spawn_child(
         "--family", family,
         "--gpu", gpu,
         "--backend", backend,
+        "--agent", agent,
+        "--profile", profile,
         "--name", name_label,
     ]
     if parent_kernel_path is not None:
@@ -531,9 +634,8 @@ def spawn_child(
 def run_sub_phase1(child_dir: Path, prompt: str, *, timeout: int = 18000) -> SubResult:
     """Drive sub through phase-1 (kernel optimization).
 
-    Generates a UUID and passes it via `--session-id` (the Claude Code CLI
-    accepts an externally-supplied valid UUID); phase-2 reuses it via
-    `claude --resume <session_id>`.
+    Claude receives a generated UUID; Codex emits its native thread ID. Phase 2
+    resumes the same selected-runtime session.
 
     Captures stdout into `<child>/.ako/phase1-transcript.jsonl`, stderr into
     `<child>/.ako/phase1-stderr.log`, and preserves the last ~4KB of stderr
@@ -544,25 +646,84 @@ def run_sub_phase1(child_dir: Path, prompt: str, *, timeout: int = 18000) -> Sub
     Caller decides outcome branch (improved / no-improvement / crash /
     timeout) from exit_status, timed_out, and presence of final_kernel_path.
     """
-    session_id = str(uuid.uuid4())
+    spec = read_child_agent_metadata(child_dir)
+    requested_session_id = str(uuid.uuid4()) if spec.runner == "claude" else None
     ako = child_dir / ".ako"
     ako.mkdir(exist_ok=True)
-    (ako / "session-id.txt").write_text(session_id + "\n")  # phase-2 resume handle; NOT the round label
 
     transcript_path = ako / "phase1-transcript.jsonl"
     stderr_log = ako / "phase1-stderr.log"
 
+    production_pipeline = None
+    production_run_id = None
+    preparation_error = None
+    profile_path = ako / "profile.json"
+    if profile_path.is_file():
+        try:
+            profile = json.loads(profile_path.read_text()).get("profile", "standard")
+        except json.JSONDecodeError as exc:
+            profile = "invalid"
+            preparation_error = f"invalid production profile metadata: {exc}"
+        if profile not in {"standard", "production"} and preparation_error is None:
+            preparation_error = f"unsupported child profile {profile!r}"
+        if profile == "production" and preparation_error is None:
+            try:
+                from ako4x.production import ProductionPipeline
+                from ako4x.production_config import load_production_config
+
+                config = load_production_config(child_dir / ".ako4x" / "production.toml")
+                production_pipeline = ProductionPipeline(config)
+                production_run_id = production_pipeline.new_run(
+                    lane="closed-loop", agent=spec.name
+                )
+                (ako / "production-run-id.txt").write_text(production_run_id + "\n")
+                # Hard boundary: real NCU/NSYS baseline evidence must exist
+                # before either Claude or Codex receives an optimization turn.
+                production_pipeline.prepare(production_run_id)
+            except Exception as exc:
+                preparation_error = f"production preparation failed: {exc}"
+                if production_pipeline is not None and production_run_id is not None:
+                    state = production_pipeline.store.run(production_run_id)["state"]
+                    if state not in {"FAILED", "PROMOTED"}:
+                        production_pipeline.store.transition(
+                            production_run_id, "FAILED", payload={"error": str(exc)}
+                        )
+
     # `--output-format stream-json` with `--print` requires `--verbose`
     # (Claude CLI >= ~2.1 enforces this; without it the sub exits 1 instantly).
-    cmd = [
-        "claude", "--print", "--verbose",
-        "--output-format", "stream-json",
-        "--session-id", session_id,
-        prompt,
-    ]
-    stdout, stderr, exit_status, timed_out = _run_bounded(
-        cmd, cwd=child_dir, timeout=timeout
-    )
+    cmd = start_command(spec, prompt, claude_session_id=requested_session_id)
+    if preparation_error:
+        stdout, stderr, exit_status, timed_out = "", preparation_error, 1, False
+    else:
+        stdout, stderr, exit_status, timed_out = _run_bounded(
+            cmd, cwd=child_dir, timeout=timeout
+        )
+
+    if production_pipeline is not None and production_run_id is not None and not preparation_error:
+        try:
+            if exit_status == 0 and not timed_out:
+                # The exact post-agent source must clear every gate, benchmark,
+                # and both candidate profiles before master may archive it.
+                production_pipeline.validate_candidate(production_run_id)
+            else:
+                state = production_pipeline.store.run(production_run_id)["state"]
+                if state not in {"FAILED", "PROMOTED"}:
+                    production_pipeline.store.transition(
+                        production_run_id, "FAILED",
+                        payload={"error": f"agent exit={exit_status}, timeout={timed_out}"},
+                    )
+        except Exception as exc:
+            state = production_pipeline.store.run(production_run_id)["state"]
+            if state not in {"FAILED", "PROMOTED"}:
+                production_pipeline.store.transition(
+                    production_run_id, "FAILED", payload={"error": str(exc)}
+                )
+            stderr = (stderr + f"\nproduction validation failed: {exc}").lstrip()
+            exit_status = 1
+        finally:
+            production_pipeline.store.close()
+    elif production_pipeline is not None:
+        production_pipeline.store.close()
 
     # Sub can wipe untracked working-tree state during phase-1 (e.g. `git
     # clean -fd` after a revert), which deletes the .ako dir we created
@@ -572,6 +733,16 @@ def run_sub_phase1(child_dir: Path, prompt: str, *, timeout: int = 18000) -> Sub
     transcript_path.write_text(stdout)
     stderr_log.write_text(stderr)
     stderr_tail = stderr[-4096:] if len(stderr) > 4096 else stderr
+    try:
+        session_id = session_id_from_transcript(spec, stdout, fallback=requested_session_id)
+    except ValueError as exc:
+        # A failed Codex startup may not emit thread.started. Preserve the
+        # transcript and route the round through its ordinary failure branch.
+        session_id = requested_session_id or "unavailable"
+        if exit_status == 0:
+            exit_status = 1
+        stderr_tail = (stderr_tail + f"\n{exc}")[-4096:]
+    (ako / "session-id.txt").write_text(session_id + "\n")
 
     diff_text = _git_diff_head(child_dir) or ""
 
@@ -613,9 +784,9 @@ def send_retrospective_prompt(
 ) -> Phase2Result:
     """Phase-2: continue the same sub session and inject the retrospective prompt.
 
-    Uses `claude --resume <session_id> --print --output-format stream-json`
-    so the sub keeps phase-1 context (transcript, ITERATIONS.md, git history,
-    bench output) when reflecting on harness gaps. The retrospective template
+    Uses the selected runtime's native resume command so the sub keeps phase-1
+    context (transcript, ITERATIONS.md, git history, bench output) when
+    reflecting on harness gaps. The retrospective template
     (`templates/retrospective.md`, a ROOT-anchored default) is read and
     passed as the prompt argument.
 
@@ -640,12 +811,8 @@ def send_retrospective_prompt(
     transcript_path = ako / "phase2-transcript.jsonl"
     stderr_log = ako / "phase2-stderr.log"
 
-    cmd = [
-        "claude", "--resume", session_id,
-        "--print", "--verbose",  # stream-json + --print requires --verbose (see run_sub_phase1)
-        "--output-format", "stream-json",
-        template_text,
-    ]
+    spec = read_child_agent_metadata(child_dir)
+    cmd = resume_command(spec, session_id, template_text)
     stdout, stderr, exit_status, timed_out = _run_bounded(
         cmd, cwd=child_dir, timeout=timeout
     )

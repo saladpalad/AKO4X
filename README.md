@@ -39,7 +39,7 @@
 
 ## What is AKO4X?
 
-**AKO4X is an agent-driven framework for optimizing GPU kernels.** Point it at a kernel operator (e.g. an attention or gemm shape), and it spawns a fresh, isolated workspace where a coding agent (currently [Claude Code](https://docs.anthropic.com/en/docs/claude-code)) iterates on the kernel using the tools, profilers, and per-DSL knowledge AKO4X provides.
+**AKO4X is an agent-driven framework for optimizing GPU kernels.** Point it at a kernel operator (e.g. an attention or gemm shape), and it spawns a fresh, isolated workspace where Codex or Claude iterates on the kernel using the tools, profilers, and per-DSL knowledge AKO4X provides.
 
 Use it as a **single session** — spawn one workspace, let the agent optimize, you're done. Or run a **multi-round campaign** — a persistent master agent autonomously spawns rounds back-to-back, archives each round's best variant, and uses the growing archive to seed the next round.
 
@@ -69,13 +69,13 @@ AKO4ALL is the simplest path — install the skill once, drop in a kernel, go. A
   <img src="assets/architecture.webp" alt="AKO4X system architecture diagram with two zones. Top: a 5-step process flow tracing one campaign round — Operator request → Master picks parent → Spawn child env → Sub optimizes → Archive variant — with a curved 'next round (closed-loop)' arrow from step 5 back to step 2. Bottom: the runtime stack the sub agent runs on, in two layers — (a) Generic Agent Substrate from Claude Code (Agent Loop, Context Management, Tool Use), and (b) Kernel-Specific Harness from AKO4X (Task Template, Reference Archive with cross-session memory, and a SKILL Catalog of 9 cards: Bench, Benchmark Adapter, Profiler-NCU, Sanitizer, Triton, CUDA, CuTe DSL, TileLang, C++). An arrow descends from 'Sub optimizes' labeled 'Sub runs on this stack', tying the dynamic flow to the static architecture." width="900" />
 </p>
 
-The top strip traces one closed-loop campaign round: the master picks a parent, spawns a child env, the sub agent optimizes a kernel, and the variant gets archived (feeding the next round). The stack below shows what the sub agent actually runs on — a **Generic Agent Substrate** brought by Claude Code (agent loop, context, tool use), plus the **Kernel-Specific Harness** AKO4X layers on top: a task template, a cross-session reference archive, and a SKILL catalog the sub progressively loads from. The harness layer is where AKO4X's value sits — when you extend or port the framework, the pieces you touch live in `(b)`, and you only touch the ones relevant to your change (a benchmark swap, a new DSL SKILL, etc.). How you actually drive this loop depends on the mode you pick — covered next.
+The top strip traces one closed-loop campaign round: the master picks a parent, spawns a child env, the sub agent optimizes a kernel, and the variant gets archived (feeding the next round). The stack below shows what the sub agent actually runs on — a **Generic Agent Substrate** supplied by Codex or Claude (agent loop, context, tool use), plus the **Kernel-Specific Harness** AKO4X layers on top: a task template, a cross-session reference archive, and a SKILL catalog the sub progressively loads from. The harness layer is where AKO4X's value sits — when you extend or port the framework, the pieces you touch live in `(b)`, and you only touch the ones relevant to your change (a benchmark swap, a new DSL SKILL, etc.). How you actually drive this loop depends on the mode you pick — covered next.
 
 ## Three Operating Modes
 
 AKO supports three ways to drive an optimization session. Pick by how much autonomy you want:
 
-- **Mode 1 — Manual.** Single spawn, one session. `spawn.py` creates one child environment; you `cd` in, run `claude`, and give it an initial prompt — the agent then iterates on the kernel itself within that session. You can stay hands-off, chime in occasionally, or pair-program closely — your call. Simplest path; covered in [Quick Start](#quick-start) below.
+- **Mode 1 — Manual.** Single spawn, one session. `spawn.py` creates one child environment; you `cd` in, run the selected agent, and give it an initial prompt — the agent then iterates on the kernel itself within that session. You can stay hands-off, chime in occasionally, or pair-program closely — your call. Simplest path; covered in [Quick Start](#quick-start) below.
 - **Mode 2 — Closed-loop (default).** You start a persistent **master agent**; it autonomously spawns a fresh child env each round, launches a **sub agent** inside, frames the round with a high-level prompt (direction, not micro-instructions), collects the resulting kernel and metrics, archives the variant into `reference/<family>/` (one archive directory per operator — `family` is the kebab-case operator name; see [Closed-loop campaigns](docs/closed-loop.md)), and uses that variant plus prior-round lessons to steer the next round's parent selection and prompt. The harness (templates, scripts, SKILLs) stays static — only kernels evolve.
 - **Mode 3 — Closed-loop + harness co-evolution (opt-in).** **Mode 2 plus** a phase-2 retrospective: after each successful kernel round, the sub additionally writes harness improvement proposals to `PROPOSALS.md`. The master evidence-gates them and applies accepted edits to `templates/skills/` etc. Both kernels and the agent's knowledge/tooling evolve across rounds.
 
@@ -98,11 +98,12 @@ GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/flashinfer-ai/fl
 export AKO_DATASET_PATH=/path/to/flashinfer-trace   # FIB_DATASET_PATH also works
 
 # Spawn an optimization environment
-python spawn.py --operator dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64 --name my_run
+python spawn.py --operator dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64 \
+  --name my_run --agent codex
 
 # Enter the child environment and start optimizing
 cd ../ako4x-run-my_run
-claude
+codex
 # Send your initial prompt, e.g. "Optimize this kernel using Triton"
 ```
 
@@ -110,12 +111,25 @@ claude
 
 A few extras worth knowing about in Mode 1: you can seed a non-default starting kernel with `--kernel /path/to/kernel`. Everything else is **recorded for you as you go** — the agent writes one Summary row per labeled bench into `ITERATIONS.md`, `scripts/bench.sh` snapshots every labeled run into `trajectory/`, and `git log` is your iteration history.
 
+For production-focused work in any repository, initialize the strict supervisor:
+
+```bash
+ako4x-lab init .
+# Configure .ako4x/production.toml, then:
+ako4x-lab doctor --config .ako4x/production.toml
+```
+
+The production profile requires real parsed NCU and NSYS reports, numerical and
+training-integration tests, concurrency/lifetime/deployment gates, and an exact
+source hash before promotion. It also supports concurrent isolated hands-on and
+autonomous lanes. See [Production kernel campaigns](docs/production.md).
+
 ## Core Features
 
 AKO is deliberately small at the system layer. Three things make it distinctive:
 
 - **Swappable benchmark.** Every call into the benchmark goes through a single seam, `scripts/benchmark_adapter.py`, exposing plain-data functions (`run` / `pack` / `solution_meta` / `list_workloads`, plus optional `profile` / `list_ncu_options` / `sanitize` / `cheat_check`). The contract is **derived from flashinfer-bench**: ports adapt their native shape to AKO's at the adapter and, when the dataset layout differs, at a spawn-time transform on the `spawn.py` side (a flat-pyfile benchmark like KernelBench, for example, would need ~80 lines of `spawn.py`-side code to materialize an AKO-shaped `definitions/` + `workloads/` tree from the source). Once those two are in place, `bench_utils.py` scoring math, the runners, and the DSL skills work untouched — they only ever see `str` / `list[str]` / `dict`. Step-by-step in the [porting guide](docs/porting.md).
-- **Progressive-disclosure SKILLs you can extend.** Per-DSL knowledge, benchmark contracts, and tool wrappers live as Claude Code SKILLs under `templates/skills/<name>/SKILL.md`. At spawn time the whole subtree is copied into the child's `.claude/skills/` (no SKILL registry, no hardcoded name list — `spawn.py` `copytree`s the entire `templates/skills/` directory); the sub agent loads only the frontmatter (`name` + `description`) at startup and bodies on demand. **Adding your own SKILL = drop a folder under `templates/skills/`** — it ships with every spawn from then on. For *knowledge-only* SKILLs (new optimization patterns, supplementary DSL notes) that's all you need; SKILLs introducing a *new language or new tool* may additionally need a small wiring update in `spawn.py`'s `infer_language()` extension map or in `scripts/benchmark_adapter.py`.
+- **Progressive-disclosure SKILLs you can extend.** Per-DSL knowledge, benchmark contracts, and tool wrappers live under `templates/skills/<name>/SKILL.md`. At spawn time the subtree is copied into the selected agent's native directory (`.agents/skills/` for Codex, `.claude/skills/` for Claude). Production lanes additionally materialize KDA's `KernelWiki` and `ncu-report-skill` plus `cuda-kernel-style` verbatim, with provenance hashes. **Adding your own SKILL = drop a folder under `templates/skills/`** — it ships with every spawn from then on.
 - **Closed-loop with cross-round memory and audit trail (experimental).** Multi-round campaigns accumulate per-operator memory in `reference/<family>/`: working variants (each with a `kernel.py` header carrying Identity / Delta / Lessons / Dead-ends), a frozen baseline, the current anchor pointer, a `TRAPS.md` silent-bug catalog, and failed-round transcripts. Every master decision lands in append-only `master/harness-ledger.md`. A small FROZEN scope (task identity + the active benchmark's scoring/baseline) is enforced by the master step-7 gate, so cross-round comparability isn't broken by accident. See [Closed-loop campaigns](docs/closed-loop.md).
 
 ## Default Benchmark: flashinfer-bench
@@ -174,6 +188,7 @@ Every kernel above — together with its full optimization trajectory (per-round
 |-------|---------------|
 | [Installation](docs/installation.md) | Install + first spawn + working with the agent |
 | [Closed-loop campaigns](docs/closed-loop.md) | Autonomous multi-round optimization (Mode 2 / Mode 3) + family-archive lifecycle |
+| [Production kernel campaigns](docs/production.md) | Codex/Claude lanes, mandatory NCU+NSYS evidence, production gates, telemetry, and promotion |
 | [Porting to another benchmark](docs/porting.md) | Swap FlashInfer-Bench for a different benchmark — the adapter seam + swap checklist |
 | [Troubleshooting](docs/troubleshooting.md) | flashinfer-bench-specific issues (CUPTI driver mismatch, version pinning, TVM FFI linking) |
 
@@ -199,7 +214,6 @@ We welcome contributions! For architecture details and development guidance, see
 
 **Roadmap:**
 
-- Support for coding agents beyond Claude Code
 - **Capability-adaptive harness — proposals that reshape, not just append.** Honestly, the current proposal mechanism isn't good enough yet. The master is reactive-only (it gates and applies sub's phase-2 proposals but never proposes its own), and even that reactive channel is structurally biased toward *append*: sub-side framing is "what was missing", so proposals tend to grow SKILL docs rather than reshape them, and the harness slowly bloats. The real target is a proposal mechanism that **adapts the harness to the model's actual capability** — adding scaffolding when the model needs it, *removing* instructions when it doesn't (stronger models need less hand-holding, not more). Two near-term steps in this direction: (a) a master self-proposal channel gated on cross-round failure patterns the per-round sub view can't see; (b) lifting the structural append bias in the proposal contract (today partially patched in MASTER.md by an SKILL-hygiene gate + supersession gate, but those are workarounds, not the right shape). Ultimately gated on general model capability — a model that can robustly judge "load-bearing vs noise" in long-running SKILL docs is the prerequisite.
 - **Parallel sub agents per round** — currently the master spawns one sub per round and blocks until it finishes; rounds run strictly serially. Future: fan out N subs concurrently within a round (different parents, different framings of the same problem, competing DSLs) and aggregate before archiving — multiplies campaign throughput on parallel compute (Modal / multi-GPU local).
 - **Cross-operator variant sharing within a kernel class** — currently every operator gets its own fully-isolated `reference/<operator>/` archive, so a new operator in the same kernel class always restarts from the PyTorch reference. Future: kernel-class-level shared lessons + opt-in sibling-anchor warm-starting.

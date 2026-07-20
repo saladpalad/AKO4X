@@ -1,0 +1,28 @@
+[[skill]]
+name = "KernelWiki"
+destination = "kernelwiki"
+required = true
+candidates = [
+  "${AKO4X_KERNELWIKI_PATH}",
+  "${KDA_ROOT}/skills/KernelWiki",
+  "${HOME}/kernel-design-agents/skills/KernelWiki",
+]
+
+[[skill]]
+name = "ncu-report-skill"
+destination = "ncu-report-skill"
+required = true
+candidates = [
+  "${AKO4X_NCU_SKILL_PATH}",
+  "${KDA_ROOT}/skills/ncu-report-skill",
+  "${HOME}/kernel-design-agents/skills/ncu-report-skill",
+]
+
+[[skill]]
+name = "cuda-kernel-style"
+destination = "cuda-kernel-style"
+required = true
+candidates = [
+  "${AKO4X_CUDA_STYLE_PATH}",
+  "${HOME}/.codex/skills/cuda-kernel-style",
+]

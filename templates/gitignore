@@ -17,6 +17,12 @@ sanitizer/
 solution.json
 baseline.json
 
+# AKO4X production supervisor runtime (production.toml remains trackable)
+.ako4x/runs/
+.ako4x/runs.sqlite*
+.ako4x/profiles/
+.ako4x/promotions/
+
 # Claude Code runtime state (hooks + commands + settings.local.json are spawn-time setup and stay tracked)
 .claude/*
 !.claude/hooks/

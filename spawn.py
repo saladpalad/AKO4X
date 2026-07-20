@@ -20,6 +20,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+from ako4x.agent_runtime import AgentSpec, load_agent_spec, write_child_agent_metadata
+from ako4x.production_config import load_production_config
+from ako4x.skill_sources import load_manifest, materialize_skills, parse_overrides, resolve_skills
+
 PARENT_DIR = Path(__file__).resolve().parent
 BASE_DIR = PARENT_DIR.parent
 
@@ -32,7 +36,7 @@ BENCHMARK_DIR = "benchmark"
 
 USAGE_LINE = (
     "Usage: python spawn.py --operator <name> [--dataset <path>] "
-    "[--backend local|modal] [--gpu <name>] [--agent claude] "
+    "[--backend local|modal] [--gpu <name>] [--agent codex|claude] "
     "[--kernel <path>] [--name <label>] [--strict-config] [--task <path>]"
 )
 
@@ -48,7 +52,11 @@ def parse_args():
                              "operator-prefix archive discovery.")
     parser.add_argument("--backend", default="local", choices=["local", "modal"])
     parser.add_argument("--gpu", default="")
-    parser.add_argument("--agent", default="claude")
+    parser.add_argument("--agent", default="claude", choices=["claude", "codex"])
+    parser.add_argument("--profile", default="standard", choices=["standard", "production"],
+                        help="Production requires external KDA/style skills and hard promotion gates.")
+    parser.add_argument("--skill-source", action="append", default=[], metavar="NAME=PATH",
+                        help="Override an external production skill source (repeatable).")
     parser.add_argument("--kernel", default="")
     parser.add_argument("--name", default="", dest="label")
     parser.add_argument("--strict-config", action="store_true",
@@ -100,12 +108,16 @@ def resolve_gpu(gpu_arg, backend):
 
 
 def load_agent_config(agent):
-    """Load agent config JSON, return (config_dict, task_filename)."""
+    """Load and validate an agent config."""
     config_path = PARENT_DIR / "templates" / "agent" / f"{agent}.json"
     if not config_path.is_file():
         sys.exit(f"Error: Agent config not found: {config_path}")
     config = json.loads(config_path.read_text())
-    return config, config["task_filename"]
+    try:
+        spec = load_agent_spec(config_path, name=agent)
+    except (ValueError, json.JSONDecodeError) as exc:
+        sys.exit(f"Error: Invalid agent config {config_path}: {exc}")
+    return config, spec
 
 
 def load_evaluation_config(op_type):
@@ -419,11 +431,13 @@ def render_template(task_text, placeholders):
 
 def populate_child(child_dir, *, operator, op_type, gpu, backend, kernel_path,
                    definition_path, workloads_path, dataset_path, agent_config,
+                   agent_spec, profile="standard", skill_overrides=None,
+                   production_skills=None,
                    expert_baseline_path=None, prior_lessons_dir=None,
                    strict_config=False):
     """Create child directory structure and populate with files."""
     # Create directories — flat solution/ (no language subdirectory)
-    for subdir in [".claude", "docs", "scripts", "solution"]:
+    for subdir in [".ako", "docs", "scripts", "solution", agent_spec.skills_dir]:
         (child_dir / subdir).mkdir(parents=True, exist_ok=True)
 
     # Copy common files
@@ -433,8 +447,9 @@ def populate_child(child_dir, *, operator, op_type, gpu, backend, kernel_path,
     shutil.copy2(PARENT_DIR / "scripts" / "pack_solution.py", child_dir / "scripts" / "pack_solution.py")
     shutil.copy2(PARENT_DIR / "scripts" / "benchmark_adapter.py", child_dir / "scripts" / "benchmark_adapter.py")
     shutil.copy2(PARENT_DIR / "scripts" / "bench_utils.py", child_dir / "scripts" / "bench_utils.py")
-    shutil.copy2(PARENT_DIR / "scripts" / "CLAUDE.md", child_dir / "scripts" / "CLAUDE.md")
-    # Language references live as SKILLs at .claude/skills/<skill>/. The
+    shutil.copy2(PARENT_DIR / "scripts" / "CLAUDE.md",
+                 child_dir / "scripts" / agent_spec.task_filename)
+    # Language references live as progressively disclosed agent skills. The
     # pure-PyTorch fallback (language=python) has no separate SKILL — its
     # convention is inlined under the benchmark SKILL's entry_point
     # per-language list.
@@ -707,51 +722,84 @@ def populate_child(child_dir, *, operator, op_type, gpu, backend, kernel_path,
         p.write_text(content)
         p.chmod(0o755)
 
-    # Copy advisory hook + slash commands into child env.
+    # Copy Claude-specific advisory hook + slash commands into child env.
     # Hook fires after each labeled bench, printing a self-review prompt to
     # stderr (see templates/agent/hooks/advisory-review.sh). /review slash
     # command shares the same prompt file. Soft protocol only — no gating.
-    hooks_src = PARENT_DIR / "templates" / "agent" / "hooks"
-    hooks_dst = child_dir / ".claude" / "hooks"
-    if hooks_src.is_dir():
-        shutil.copytree(hooks_src, hooks_dst)
-        for hook_file in hooks_dst.iterdir():
-            if hook_file.is_file():
-                hook_file.chmod(0o755)
+    if agent_spec.runner == "claude":
+        hooks_src = PARENT_DIR / "templates" / "agent" / "hooks"
+        hooks_dst = child_dir / ".claude" / "hooks"
+        if hooks_src.is_dir():
+            shutil.copytree(hooks_src, hooks_dst)
+            for hook_file in hooks_dst.iterdir():
+                if hook_file.is_file():
+                    hook_file.chmod(0o755)
 
-    commands_src = PARENT_DIR / "templates" / "agent" / "commands"
-    commands_dst = child_dir / ".claude" / "commands"
-    if commands_src.is_dir():
-        shutil.copytree(commands_src, commands_dst)
+        commands_src = PARENT_DIR / "templates" / "agent" / "commands"
+        commands_dst = child_dir / ".claude" / "commands"
+        if commands_src.is_dir():
+            shutil.copytree(commands_src, commands_dst)
 
-    # Copy SKILLs into child/.claude/skills/ for Claude Code progressive-disclosure discovery.
+    # Copy built-in skills to the selected agent's native discovery directory.
     # Sub finds skills by name + description (frontmatter); body + supporting docs load on demand.
     skills_src = PARENT_DIR / "templates" / "skills"
-    skills_dst = child_dir / ".claude" / "skills"
+    skills_dst = child_dir / agent_spec.skills_dir
     if skills_src.is_dir():
-        shutil.copytree(skills_src, skills_dst)
+        shutil.copytree(skills_src, skills_dst, dirs_exist_ok=True)
+
+    if profile == "production":
+        manifest_path = PARENT_DIR / "templates" / "production" / "skills.toml"
+        try:
+            resolved = production_skills
+            if resolved is None:
+                specs = load_manifest(manifest_path)
+                resolved, _ = resolve_skills(specs, overrides=skill_overrides, strict=True)
+            records = materialize_skills(
+                resolved, skills_dst, lock_path=child_dir / ".ako4x" / "skills.lock.json"
+            )
+        except (ValueError, FileNotFoundError, RuntimeError) as exc:
+            sys.exit(f"Error: Production skill materialization failed: {exc}")
+        print(f"Materialized {len(records)} production skill sources with verified hashes.")
+        production_dir = child_dir / ".ako4x"
+        production_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(PARENT_DIR / "templates" / "production" / "project.toml",
+                     production_dir / "production.toml")
+        production_config = production_dir / "production.toml"
+        production_config.write_text(
+            production_config.read_text().replace('candidate = "submission.py"',
+                                                  'candidate = "solution"')
+        )
+        shutil.copy2(PARENT_DIR / "templates" / "production" / "AGENT_POLICY.md",
+                     production_dir / "AGENT_POLICY.md")
+
+    write_child_agent_metadata(child_dir, agent_spec)
+    (child_dir / ".ako" / "profile.json").write_text(
+        json.dumps({"profile": profile, "requires": ["ncu", "nsys"] if profile == "production" else []},
+                   indent=2, sort_keys=True) + "\n"
+    )
 
     # Generate .claude/settings.local.json (permissions + advisory hook).
     # The advisory hook is soft — it prints a self-review prompt to stderr
     # after every N labeled benches but never blocks. See templates/agent/
     # hooks/advisory-review.sh.
-    settings = {
-        "permissions": agent_config["permissions"],
-        "hooks": {
-            "PostToolUse": [
-                {
-                    "matcher": "Bash",
-                    "hooks": [{
-                        "type": "command",
-                        "if": "Bash(*bench.sh*)",
-                        "command": ".claude/hooks/advisory-review.sh",
-                    }],
-                },
-            ],
-        },
-    }
-    settings_path = child_dir / ".claude" / "settings.local.json"
-    settings_path.write_text(json.dumps(settings, indent=2) + "\n")
+    if agent_spec.runner == "claude":
+        settings = {
+            "permissions": agent_config["permissions"],
+            "hooks": {
+                "PostToolUse": [
+                    {
+                        "matcher": "Bash",
+                        "hooks": [{
+                            "type": "command",
+                            "if": "Bash(*bench.sh*)",
+                            "command": ".claude/hooks/advisory-review.sh",
+                        }],
+                    },
+                ],
+            },
+        }
+        settings_path = child_dir / ".claude" / "settings.local.json"
+        settings_path.write_text(json.dumps(settings, indent=2) + "\n")
 
 
 def init_git(child_dir, operator, backend):
@@ -785,7 +833,23 @@ def main():
     gpu, gpu_name = resolve_gpu(args.gpu, args.backend)
 
     # Load agent config
-    agent_config, task_filename = load_agent_config(args.agent)
+    agent_config, agent_spec = load_agent_config(args.agent)
+    try:
+        skill_overrides = parse_overrides(args.skill_source)
+    except ValueError as exc:
+        sys.exit(f"Error: {exc}")
+    production_skills = None
+    if args.profile == "production":
+        try:
+            # Validate the complete adapter and skill set before child_dir is
+            # created, so production setup cannot leave a half-spawned tree.
+            load_production_config(PARENT_DIR / "templates" / "production" / "project.toml")
+            specs = load_manifest(PARENT_DIR / "templates" / "production" / "skills.toml")
+            production_skills, _ = resolve_skills(
+                specs, overrides=skill_overrides, strict=True
+            )
+        except (ValueError, FileNotFoundError, RuntimeError) as exc:
+            sys.exit(f"Error: Production preflight failed before spawn: {exc}")
 
     # Resolve task template path
     task_path = PARENT_DIR / "templates" / "task.md"
@@ -862,6 +926,10 @@ def main():
         workloads_path=workloads_path,
         dataset_path=dataset_path,
         agent_config=agent_config,
+        agent_spec=agent_spec,
+        profile=args.profile,
+        skill_overrides=skill_overrides,
+        production_skills=production_skills,
         expert_baseline_path=expert_baseline,
         prior_lessons_dir=prior_lessons_dir,
         strict_config=args.strict_config,
@@ -870,7 +938,15 @@ def main():
     # Render and write task file
     task_text = task_path.read_text()
     rendered = render_template(task_text, placeholders)
-    (child_dir / task_filename).write_text(rendered)
+    if args.profile == "production":
+        rendered += (
+            "\n\n## Production profile\n\n"
+            "Read `.ako4x/AGENT_POLICY.md`. The project adapter was validated "
+            "before this child was created. Optimization must not begin until "
+            "`ako4x-lab doctor --config .ako4x/production.toml` succeeds. "
+            "Promotion requires every executable production gate.\n"
+        )
+    (child_dir / agent_spec.task_filename).write_text(rendered)
 
     # Git init
     init_git(child_dir, operator, args.backend)
@@ -881,6 +957,8 @@ def main():
     print(f"  Path:     {child_dir}")
     print(f"  Operator: {operator}")
     print(f"  Backend:  {args.backend}")
+    print(f"  Agent:    {agent_spec.name}")
+    print(f"  Profile:  {args.profile}")
     print(f"  GPU:      {gpu_name}")
     print(f"  Dataset:  {dataset_path}")
     if args.kernel:
@@ -888,10 +966,12 @@ def main():
     print()
     print("Next steps:")
     print(f"  cd {child_dir}")
-    print(f"  claude")
+    if args.profile == "production":
+        print("  ako4x-lab doctor --config .ako4x/production.toml")
+    print(f"  {agent_spec.runner}")
     print()
     print("  # Then send a prompt to start optimizing, e.g.:")
-    print('  > Read CLAUDE.md and optimize the kernel. Try your best.')
+    print(f'  > Read {agent_spec.task_filename} and optimize the kernel. Try your best.')
     print("=======================================")
 
 

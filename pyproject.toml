@@ -60,5 +60,14 @@ cutlass-dsl = ["nvidia-cutlass-dsl>=4.3.4"]
 # (or pre-install torch + ninja in the isolated env by other means.)
 deep-gemm = ["deep_gemm @ git+https://github.com/deepseek-ai/DeepGEMM.git@main ; sys_platform == 'linux'"]
 
+[project.scripts]
+ako4x-lab = "ako4x.cli:main"
+
 [tool.hatch.metadata]
 allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["ako4x"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"templates" = "ako4x/_assets/templates"

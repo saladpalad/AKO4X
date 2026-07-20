@@ -1,0 +1,4 @@
+interface:
+  display_name: "Production Kernel"
+  short_description: "Promote fast kernels with production evidence"
+  default_prompt: "Use $production-kernel to validate and promote this GPU kernel for production use."

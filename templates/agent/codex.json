@@ -1,0 +1,7 @@
+{
+  "runner": "codex",
+  "task_filename": "AGENTS.md",
+  "skills_dir": ".agents/skills",
+  "sandbox": "workspace-write",
+  "approval_policy": "never"
+}

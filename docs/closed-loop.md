@@ -117,30 +117,36 @@ One-time setup per campaign, from a clean `main`:
 
 ```bash
 python scripts/campaign_start.py --operator <operator_name> \
-    --gpu b200 --backend modal --mode 2
+    --gpu b200 --backend modal --mode 2 \
+    --agent codex --profile production
 ```
 
-`--gpu` (default `b200`), `--backend` (`local` / `modal`, default `modal`), and
-`--mode` (`2` / `3`, default `2`) are optional. The script:
+`--gpu` (default `b200`), `--backend` (`local` / `modal`, default `modal`),
+`--mode` (`2` / `3`, default `2`), `--agent` (`codex` / `claude`, default
+`codex`), and `--profile` (`production` / `standard`, default `production`) are
+optional. Production requires a configured `templates/production/project.toml`;
+setup fails before changing Git state if its commands or required skills are
+incomplete. The script:
 
 1. creates a campaign branch `campaign/<operator>/<YYYYMMDD-HHMM>`,
-2. replaces root `CLAUDE.md` with `master/MASTER.md` (so the master agent's
-   auto-loaded context **is** the orchestrator protocol),
+2. installs `master/MASTER.md` as root `AGENTS.md` for Codex or `CLAUDE.md` for
+   Claude (so auto-loaded context **is** the orchestrator protocol),
 3. replaces root `README.md` with a campaign stub,
 4. commits the swap as a self-documenting `campaign-mode:` commit (carries
-   operator / family / gpu / backend / mode — wrap-up reads it later).
+   operator / family / gpu / backend / mode / agent / profile — wrap-up reads it later).
 
 Then start the master and tell it what to run:
 
 ```bash
-# from the repo root (root CLAUDE.md is now the protocol)
-claude
+# from the repo root (root AGENTS.md is now the Codex protocol)
+codex
 ```
 
 Send an initial prompt declaring the **same mode** the setup recorded:
 
 ```
-Run a Mode-2 campaign on family=<family>, gpu=b200, backend=modal.
+Run a Mode-2 campaign on family=<family>, gpu=b200, backend=modal,
+agent=codex, profile=production.
 ```
 
 The master initializes the family archive (Round 0) and then loops rounds on its
@@ -148,7 +154,7 @@ own. It prints next steps after setup, so you don't have to memorize this.
 
 ## Mode is locked
 
-`<family>`, `<gpu>`, `<backend>`, and `<mode>` are fixed for the whole campaign and
+`<family>`, `<gpu>`, `<backend>`, `<mode>`, `<agent>`, and `<profile>` are fixed for the whole campaign and
 recorded in `reference/<family>/baseline.json`'s `environment` block at Round 0.
 Mixing them mid-campaign breaks baseline / variance / score comparability (and for
 mode specifically, mixes variants born with phase-2 active and without). The master

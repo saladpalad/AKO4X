@@ -1,0 +1,127 @@
+version = 1
+
+[project]
+root = ".."
+candidate = "submission.py"
+
+[integrity]
+# Test/reference/benchmark sources the agent must never alter.
+protected = []
+
+[backend]
+plugin = "local"
+
+# Every command is an argv array: no implicit shell, pipes, or interpolation.
+[commands.baseline]
+command = []
+timeout = 1800
+evidence = []
+
+[commands.benchmark]
+command = []
+timeout = 1800
+evidence = []
+
+# Optional. Leave empty when a hands-on or separate AKO4X lane creates the candidate.
+[commands.optimizer]
+command = []
+timeout = 18000
+
+# Each profiler must create a real report and then parse that exact report.
+[profilers.ncu]
+executable = "ncu"
+
+[profilers.ncu.smoke]
+command = []
+report = ".ako4x/profiles/doctor.ncu-rep"
+timeout = 300
+[profilers.ncu.smoke.parse]
+command = []
+timeout = 120
+
+[profilers.ncu.baseline]
+command = []
+report = ".ako4x/profiles/baseline.ncu-rep"
+timeout = 1800
+[profilers.ncu.baseline.parse]
+command = []
+timeout = 300
+
+[profilers.ncu.candidate]
+command = []
+report = ".ako4x/profiles/candidate.ncu-rep"
+timeout = 1800
+[profilers.ncu.candidate.parse]
+command = []
+timeout = 300
+
+[profilers.nsys]
+executable = "nsys"
+
+[profilers.nsys.smoke]
+command = []
+report = ".ako4x/profiles/doctor.nsys-rep"
+timeout = 300
+[profilers.nsys.smoke.parse]
+command = []
+timeout = 120
+
+[profilers.nsys.baseline]
+command = []
+report = ".ako4x/profiles/baseline.nsys-rep"
+timeout = 1800
+[profilers.nsys.baseline.parse]
+command = []
+timeout = 300
+
+[profilers.nsys.candidate]
+command = []
+report = ".ako4x/profiles/candidate.nsys-rep"
+timeout = 1800
+[profilers.nsys.candidate.parse]
+command = []
+timeout = 300
+
+[[gate]]
+name = "correctness"
+command = []
+
+[[gate]]
+name = "numerical"
+command = []
+
+[[gate]]
+name = "api-lifetime"
+command = []
+
+[[gate]]
+name = "stream"
+command = []
+
+[[gate]]
+name = "concurrency"
+command = []
+
+[[gate]]
+name = "process-state"
+command = []
+
+[[gate]]
+name = "benchmark-integrity"
+command = []
+
+[[gate]]
+name = "training-integration"
+command = []
+
+[[gate]]
+name = "clean-deployment"
+command = []
+
+[[gate]]
+name = "fallback"
+command = []
+
+[[gate]]
+name = "reviewability"
+command = []

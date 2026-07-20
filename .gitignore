@@ -11,6 +11,14 @@ ako4fib-run-*/
 # real artifacts of each round live in the child env + reference/<family>/).
 .ako-run/
 
+# Production supervisor runtime (keep .ako4x/production.toml tracked)
+.ako4x/runs/
+.ako4x/runs.sqlite*
+.ako4x/profiles/
+.ako4x/promotions/
+.ako4x/lanes/
+.ako4x/worktrees/
+
 # Per-campaign experiment archives (full provenance bundles: child envs +
 # claude session memory + reference snapshot — kept local for paper writing,
 # not pushed to origin).
@@ -30,6 +38,7 @@ venv/
 # OS / editor
 .DS_Store
 Thumbs.db
+PanGPA.log
 *.swp
 *~
 

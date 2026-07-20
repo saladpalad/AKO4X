@@ -6,8 +6,8 @@ docs and stages a clean commit-curation surface for wrap-up:
 
 1. Pre-flight: must be on `main`, working tree clean
 2. Create branch `campaign/<operator>/<YYYYMMDD-HHMM>`
-3. Replace root `CLAUDE.md` with `master/MASTER.md` content
-   (so master CC's auto-loaded root context IS the orchestrator protocol)
+3. Replace the selected agent's root guidance file with `master/MASTER.md`
+   (`CLAUDE.md` for Claude, `AGENTS.md` for Codex)
 4. Replace root `README.md` with a campaign stub
    (avoids "no README" footguns from IDE / GitHub repo page)
 5. Commit the swap with a self-documenting metadata-rich message —
@@ -25,7 +25,8 @@ Convention: `family == operator name kebab-cased` (e.g. operator
 sharing extension is left for a future version.
 
 Usage:
-    python scripts/campaign_start.py --operator <name> [--gpu b200] [--backend modal] [--mode 2]
+    python scripts/campaign_start.py --operator <name> [--gpu b200] [--backend modal] \
+        [--mode 2] [--agent codex] [--profile production]
 
 Example:
     python scripts/campaign_start.py \\
@@ -46,7 +47,7 @@ Example:
 # 1. Read the campaign-mode commit message for context:
 #        git log main..HEAD --format=%B | head -30
 #    The bottommost (oldest) commit is `campaign-mode: ...` and carries
-#    operator / family / backend / gpu / mode / base-sha — recovers campaign
+#    operator / family / backend / gpu / mode / agent / profile / base-sha — recovers campaign
 #    identity (including the Mode 2/3 it locked) without asking the user.
 #
 # 2. Enumerate campaign commits:
@@ -94,13 +95,11 @@ Example:
 #        -cJf <round-label>.tar.xz`) only if a round bloats past ~100 MB
 #        (e.g. trajectory snapshots of large auxiliary files); the MLA
 #        r2 precedent compressed 3.6 GB → 354 MB.
-#      - master-claude-sessions/AKO4X-cwd/<uuid>.jsonl — this
-#        campaign's master CC session memory from
-#        `~/.claude/projects/-home-...-AKO4X/`. Filter by date if
-#        multiple sessions exist.
-#      - sub-claude-sessions/r{N}/ ........ per-round sub CC local
-#        session memory from
-#        `~/.claude/projects/-home-...-ako4x-run-<round-label>/`.
+#      - agent-sessions/master/ and agent-sessions/r{N}/ — selected
+#        runtime's local session memory. Codex sessions live under
+#        `$CODEX_HOME/sessions/` and their thread IDs are recorded in each
+#        child `.ako/session-id.txt`; Claude project sessions live under
+#        `~/.claude/projects/`. Filter by campaign dates and recorded IDs.
 #      - reference-snapshot/<family>/ ..... snapshot of
 #        `reference/<family>/` as of campaign end (variant archive +
 #        README + baseline + _failed/ if any).
@@ -225,6 +224,27 @@ def dataset_preflight(operator):
         )
 
 
+def production_preflight(profile):
+    """Refuse a production campaign whose executable adapter is still blank."""
+    if profile != "production":
+        return
+    sys.path.insert(0, str(REPO_ROOT))
+    config = REPO_ROOT / "templates" / "production" / "project.toml"
+    try:
+        from ako4x.production_config import load_production_config
+        from ako4x.skill_sources import load_manifest, resolve_skills
+        load_production_config(config)
+        manifest = REPO_ROOT / "templates" / "production" / "skills.toml"
+        resolve_skills(load_manifest(manifest), strict=True)
+    except Exception as exc:
+        sys.exit(
+            "Error: production campaign preflight failed before git state changed:\n"
+            f"  {exc}\n\n"
+            "Configure templates/production/project.toml with real argv commands "
+            "for this benchmark and make the required KDA/style skills available."
+        )
+
+
 def validate_operator(operator):
     """Operator name must be safe for filesystem + branch + commit message."""
     if not re.fullmatch(r"[A-Za-z0-9_]+", operator):
@@ -245,7 +265,7 @@ def make_branch_name(operator):
     return f"campaign/{operator}/{ts}"
 
 
-def render_readme_stub(operator, family, backend, gpu, mode, branch):
+def render_readme_stub(operator, family, backend, gpu, mode, agent, profile, branch):
     mode_desc = "no harness modification" if mode == 2 else "harness co-evolution"
     return f"""# AKO4X — Campaign Branch
 
@@ -257,11 +277,11 @@ This branch is a **closed-loop campaign workspace**, not the main repo.
 | Family | `{family}` |
 | Backend / GPU | `{backend}` / `{gpu}` |
 | Mode | `{mode}` ({mode_desc}) |
+| Agent / profile | `{agent}` / `{profile}` |
 | Branch | `{branch}` |
 
-Root `CLAUDE.md` on this branch is `master/MASTER.md` (the closed-loop
-orchestrator protocol) — that's the agent context master CC needs, not
-the dev guide that lives on `main`.
+Root `{guidance_filename(agent)}` on this branch is `master/MASTER.md` (the
+closed-loop orchestrator protocol).
 
 For **developer documentation**, switch to `main`:
 
@@ -278,7 +298,12 @@ reverts it before landing on main.
 """
 
 
-def render_commit_message(operator, family, backend, gpu, mode, base_sha, branch):
+def guidance_filename(agent):
+    return "AGENTS.md" if agent == "codex" else "CLAUDE.md"
+
+
+def render_commit_message(operator, family, backend, gpu, mode, agent, profile,
+                          base_sha, branch):
     ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M %z").strip() or \
          datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     return (
@@ -289,12 +314,14 @@ def render_commit_message(operator, family, backend, gpu, mode, base_sha, branch
         f"Backend:  {backend}\n"
         f"GPU:      {gpu}\n"
         f"Mode:     {mode}\n"
+        f"Agent:    {agent}\n"
+        f"Profile:  {profile}\n"
         f"Started:  {ts} (from main @ {base_sha})\n"
         f"Branch:   {branch}\n"
         f"Script:   scripts/campaign_start.py\n"
         f"\n"
         f"Files changed by this commit:\n"
-        f"  CLAUDE.md   <- replaced with master/MASTER.md content\n"
+        f"  {guidance_filename(agent):<11} <- replaced with master/MASTER.md content\n"
         f"  README.md   <- replaced with campaign stub\n"
         f"\n"
         f"Wrap-up: see scripts/campaign_start.py top-of-file\n"
@@ -324,11 +351,18 @@ def main():
                              "commit: 2 = no harness modification (default); "
                              "3 = harness co-evolution. Declare the SAME mode in "
                              "the master CC prompt so the locked baseline matches.")
+    parser.add_argument("--agent", choices=["codex", "claude"], default="codex",
+                        help="Master/sub-agent runtime (default: codex).")
+    parser.add_argument("--profile", choices=["standard", "production"],
+                        default="production",
+                        help="Evidence policy (default: production). Production "
+                             "requires configured NCU, NSYS, and all promotion gates.")
     args = parser.parse_args()
 
     validate_operator(args.operator)
     base_sha = preflight()
     dataset_preflight(args.operator)
+    production_preflight(args.profile)
     family = derive_family(args.operator)
     branch = make_branch_name(args.operator)
 
@@ -337,20 +371,22 @@ def main():
 
     # 2. Verify source-of-truth file exists, then swap
     master_md = REPO_ROOT / "master" / "MASTER.md"
-    claude_md = REPO_ROOT / "CLAUDE.md"
+    guidance = REPO_ROOT / guidance_filename(args.agent)
     readme = REPO_ROOT / "README.md"
     if not master_md.is_file():
-        sys.exit(f"Error: {master_md} not found. Cannot swap into CLAUDE.md.")
-    claude_md.write_text(master_md.read_text())
+        sys.exit(f"Error: {master_md} not found. Cannot install campaign guidance.")
+    guidance.write_text(master_md.read_text())
     readme.write_text(render_readme_stub(
-        args.operator, family, args.backend, args.gpu, args.mode, branch,
+        args.operator, family, args.backend, args.gpu, args.mode, args.agent,
+        args.profile, branch,
     ))
 
     # 3. Commit the swap with self-documenting metadata
     commit_msg = render_commit_message(
-        args.operator, family, args.backend, args.gpu, args.mode, base_sha, branch,
+        args.operator, family, args.backend, args.gpu, args.mode, args.agent,
+        args.profile, base_sha, branch,
     )
-    _run(["git", "add", "CLAUDE.md", "README.md"])
+    _run(["git", "add", guidance.name, "README.md"])
     _run(["git", "commit", "-m", commit_msg])
     commit_sha = _run(["git", "rev-parse", "--short", "HEAD"])
 
@@ -366,22 +402,25 @@ def main():
     print(f"  Family:               {family}")
     print(f"  Backend / GPU:        {args.backend} / {args.gpu}")
     print(f"  Mode:                 {args.mode} ({mode_desc})")
+    print(f"  Agent / profile:      {args.agent} / {args.profile}")
     print(f"  Started from:         main @ {base_sha}")
     print()
     if not fib_dataset:
         print("WARNING: AKO_DATASET_PATH is not set in this shell. Master CC")
         print("         will need it to spawn children. Set before starting")
-        print("         your claude session, e.g.:")
+        print(f"         your {args.agent} session, e.g.:")
         print('           export AKO_DATASET_PATH="/path/to/flashinfer-trace"')
         print()
     print("Next steps:")
     print(f"  1. cd {REPO_ROOT}")
-    print(f"  2. Start master CC: `claude` (root CLAUDE.md is now the protocol)")
+    print(f"  2. Start master agent: `{args.agent}` (root "
+          f"{guidance.name} is now the protocol)")
     print(f"  3. Send the initial prompt to master CC. This campaign is set up")
     print(f"     for Mode {args.mode} ({mode_desc}); declare the SAME mode in the")
     print(f"     prompt so the locked baseline matches the campaign-mode commit:")
     print(f'         > Run a Mode-{args.mode} campaign on family={family},')
-    print(f'         > gpu={args.gpu}, backend={args.backend}.')
+    print(f'         > gpu={args.gpu}, backend={args.backend}, agent={args.agent},')
+    print(f'         > profile={args.profile}.')
     print(f"  4. When the campaign concludes, run wrap-up — protocol is in")
     print(f"     scripts/campaign_start.py (top of file). It applies regardless")
     print(f"     of who does it (master CC, dev CC, or you directly).")
