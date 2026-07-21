@@ -21,6 +21,7 @@ class AgentSpec:
     skills_dir: str
     sandbox: str = "workspace-write"
     approval_policy: str = "never"
+    network_access: bool = False
 
     @classmethod
     def from_mapping(cls, name: str, data: dict[str, Any]) -> "AgentSpec":
@@ -39,9 +40,13 @@ class AgentSpec:
         approval_policy = str(data.get("approval_policy", "never"))
         if approval_policy not in {"untrusted", "on-request", "never"}:
             raise ValueError(f"unsupported Codex approval policy {approval_policy!r}")
+        network_access = data.get("network_access", False)
+        if not isinstance(network_access, bool):
+            raise ValueError("network_access must be a boolean")
         return cls(name=name, runner=runner, task_filename=task_filename,
                    skills_dir=skills_dir, sandbox=sandbox,
-                   approval_policy=approval_policy)
+                   approval_policy=approval_policy,
+                   network_access=network_access)
 
 
 def load_agent_spec(config_path: Path, *, name: str | None = None) -> AgentSpec:
@@ -57,10 +62,14 @@ def start_command(spec: AgentSpec, prompt: str, *, claude_session_id: str | None
             "claude", "--print", "--verbose", "--output-format", "stream-json",
             "--session-id", claude_session_id, prompt,
         ]
-    return [
-        "codex", "exec", "--json", "--color", "never",
+    command = ["codex"]
+    if spec.sandbox == "workspace-write" and spec.network_access:
+        command.extend(["-c", "sandbox_workspace_write.network_access=true"])
+    command.extend([
+        "exec", "--json", "--color", "never",
         "--sandbox", spec.sandbox, "--ask-for-approval", spec.approval_policy, prompt,
-    ]
+    ])
+    return command
 
 
 def resume_command(spec: AgentSpec, session_id: str, prompt: str) -> list[str]:
@@ -72,8 +81,13 @@ def resume_command(spec: AgentSpec, session_id: str, prompt: str) -> list[str]:
             "--output-format", "stream-json", prompt,
         ]
     # Codex resumes with the sandbox and project context persisted on the
-    # thread.  Its resume subcommand intentionally has no --sandbox flag.
-    return ["codex", "exec", "resume", "--json", "--color", "never", session_id, prompt]
+    # thread.  Its resume subcommand intentionally has no --sandbox flag, but
+    # process-level network access must be supplied on every invocation.
+    command = ["codex"]
+    if spec.sandbox == "workspace-write" and spec.network_access:
+        command.extend(["-c", "sandbox_workspace_write.network_access=true"])
+    command.extend(["exec", "resume", "--json", "--color", "never", session_id, prompt])
+    return command
 
 
 def session_id_from_transcript(spec: AgentSpec, transcript: str, *, fallback: str | None = None) -> str:

@@ -148,12 +148,17 @@ Create an autonomous lane:
 ```bash
 ako4x-lab lane-create auto \
   --project . --config .ako4x/production.toml \
-  --agent codex --mode autonomous
+  --agent codex --mode autonomous --network-access
 ako4x-lab lane-run auto --project . --timeout 18000
 ```
 
 Run the two `lane-run` commands in separate terminals for concurrent human and
 autonomous search. They use different worktrees and branches.
+
+Network access is opt-in per lane. `--network-access` keeps the Codex sandbox at
+`workspace-write` and approval policy at `never`; it only enables outbound
+network commands needed by remote benchmark backends. Omit it for local-only
+campaigns.
 
 Follow a lane from another terminal using its worktree path from `lane-create`:
 

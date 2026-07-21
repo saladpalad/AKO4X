@@ -60,14 +60,16 @@ class LaneTests(unittest.TestCase):
             worktree = base / "worktree"
             metadata = create_lane(
                 repo, "human", agent="codex", mode="hands-on", config_path=config,
-                skill_sources=overrides, worktree_path=worktree,
+                skill_sources=overrides, worktree_path=worktree, network_access=True,
             )
             self.assertTrue((worktree / ".agents" / "skills" / "kernelwiki" / "SKILL.md").is_file())
             self.assertTrue((worktree / ".agents" / "skills" / "production-kernel" / "SKILL.md").is_file())
             self.assertTrue((worktree / ".ako4x" / "skills.lock.json").is_file())
             self.assertEqual(metadata["mode"], "hands-on")
+            self.assertTrue(metadata["network_access"])
             launch = hands_on_command(metadata)
             self.assertEqual(launch[0], "codex")
+            self.assertIn("sandbox_workspace_write.network_access=true", launch)
             self.assertIn("--ask-for-approval", launch)
             self.assertIn("never", launch)
 

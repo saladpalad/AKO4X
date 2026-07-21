@@ -11,6 +11,7 @@ import signal
 import subprocess
 import time
 import uuid
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -73,7 +74,8 @@ def _all_commands(config: Any) -> list[Any]:
 
 def create_lane(project: Path, name: str, *, agent: str, mode: str,
                 config_path: Path, skill_sources: list[str] | None = None,
-                worktree_path: Path | None = None) -> dict[str, Any]:
+                worktree_path: Path | None = None,
+                network_access: bool = False) -> dict[str, Any]:
     if not _LANE_RE.fullmatch(name):
         raise ValueError("lane name must match [a-z0-9][a-z0-9-]{0,47}")
     if mode not in {"hands-on", "autonomous"}:
@@ -149,6 +151,7 @@ def create_lane(project: Path, name: str, *, agent: str, mode: str,
             "runner": spec.runner,
             "sandbox": spec.sandbox,
             "approval_policy": spec.approval_policy,
+            "network_access": network_access,
             "branch": branch,
             "project": str(root),
             "worktree": str(destination),
@@ -182,12 +185,17 @@ def hands_on_command(metadata: dict[str, Any]) -> list[str]:
     worktree = metadata["worktree"]
     prompt = "Read .ako4x/AGENT_POLICY.md, then work with me hands-on to optimize the configured candidate."
     if runner == "codex":
-        return [
-            "codex", "-C", worktree,
+        command = ["codex"]
+        if (metadata.get("sandbox", "workspace-write") == "workspace-write"
+                and metadata.get("network_access", False)):
+            command.extend(["-c", "sandbox_workspace_write.network_access=true"])
+        command.extend([
+            "-C", worktree,
             "--sandbox", metadata.get("sandbox", "workspace-write"),
             "--ask-for-approval", metadata.get("approval_policy", "never"),
             prompt,
-        ]
+        ])
+        return command
     return ["claude", "--add-dir", worktree, prompt]
 
 
@@ -252,6 +260,7 @@ def _run_agent(metadata: dict[str, Any], pipeline: ProductionPipeline, run_id: s
     worktree = Path(metadata["worktree"])
     spec = load_agent_spec(TEMPLATE_ROOT / "agent" / f"{metadata['agent']}.json",
                            name=metadata["agent"])
+    spec = replace(spec, network_access=bool(metadata.get("network_access", False)))
     requested_id = str(uuid.uuid4()) if spec.runner == "claude" else None
     prompt = (
         "Read .ako4x/AGENT_POLICY.md and all applicable repository guidance. "

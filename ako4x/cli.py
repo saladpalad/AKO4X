@@ -150,6 +150,7 @@ def command_lane_create(args: argparse.Namespace) -> int:
         Path(args.project), args.name, agent=args.agent, mode=args.mode,
         config_path=Path(args.config), skill_sources=args.skill_source,
         worktree_path=Path(args.worktree).resolve() if args.worktree else None,
+        network_access=args.network_access,
     )
     print(json.dumps(metadata, indent=2, sort_keys=True))
     print(f"Launch through the enforced profiler/gate lifecycle: "
@@ -212,6 +213,10 @@ def build_parser() -> argparse.ArgumentParser:
     lane_create.add_argument("--agent", choices=["codex", "claude"], default="codex")
     lane_create.add_argument("--mode", choices=["hands-on", "autonomous"], required=True)
     lane_create.add_argument("--worktree")
+    lane_create.add_argument(
+        "--network-access", action="store_true",
+        help="allow the lane's Codex commands network access inside workspace-write",
+    )
     lane_create.add_argument("--skill-source", action="append", default=[], metavar="NAME=PATH")
     lane_create.set_defaults(func=command_lane_create)
 
