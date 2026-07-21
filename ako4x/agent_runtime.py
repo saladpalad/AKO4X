@@ -66,8 +66,12 @@ def start_command(spec: AgentSpec, prompt: str, *, claude_session_id: str | None
     if spec.sandbox == "workspace-write" and spec.network_access:
         command.extend(["-c", "sandbox_workspace_write.network_access=true"])
     command.extend([
+        "--sandbox", spec.sandbox,
+        "--ask-for-approval", spec.approval_policy,
+    ])
+    command.extend([
         "exec", "--json", "--color", "never",
-        "--sandbox", spec.sandbox, "--ask-for-approval", spec.approval_policy, prompt,
+        prompt,
     ])
     return command
 

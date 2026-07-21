@@ -25,7 +25,11 @@ class MasterCodexTests(unittest.TestCase):
             with mock.patch.object(master, "_run_bounded", return_value=(stdout, "", 0, False)) as run:
                 result = master.run_sub_phase1(child, "optimize")
             command = run.call_args.args[0]
-            self.assertEqual(command[:3], ["codex", "exec", "--json"])
+            self.assertEqual(command[:6], [
+                "codex", "--sandbox", "workspace-write",
+                "--ask-for-approval", "never", "exec",
+            ])
+            self.assertIn("--json", command)
             self.assertEqual(result.session_id, "thread-42")
             self.assertEqual((child / ".ako" / "session-id.txt").read_text().strip(), "thread-42")
 

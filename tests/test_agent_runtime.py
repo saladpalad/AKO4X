@@ -20,8 +20,9 @@ class AgentRuntimeTests(unittest.TestCase):
             network_access=True,
         )
         start = start_command(spec, "work")
-        self.assertEqual(start[:4], [
-            "codex", "-c", "sandbox_workspace_write.network_access=true", "exec",
+        self.assertEqual(start[:8], [
+            "codex", "-c", "sandbox_workspace_write.network_access=true",
+            "--sandbox", "workspace-write", "--ask-for-approval", "never", "exec",
         ])
         self.assertIn("workspace-write", start)
         self.assertIn("never", start)
