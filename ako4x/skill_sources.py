@@ -67,6 +67,12 @@ def _iter_files(root: Path) -> Iterable[Path]:
     for path in sorted(root.rglob("*"), key=lambda item: item.as_posix()):
         if any(part in _IGNORED_PARTS for part in path.relative_to(root).parts):
             continue
+        # Compatibility aliases in KDA link one skill tree into another and
+        # may include a self-link.  They are not owned skill content: each
+        # external skill is resolved and locked independently.  Never follow
+        # or hash them as part of the source tree.
+        if path.is_symlink():
+            continue
         if path.is_file():
             yield path
 
@@ -112,10 +118,18 @@ def _copy_skill(source: Path, destination: Path) -> None:
         raise FileExistsError(f"skill destination already exists: {destination}")
     with tempfile.TemporaryDirectory(prefix=f".{destination.name}-", dir=destination.parent) as tmp:
         staged = Path(tmp) / destination.name
+        def ignore(directory: str, names: list[str]) -> set[str]:
+            ignored = set(shutil.ignore_patterns(
+                ".git", "__pycache__", ".mypy_cache", ".pytest_cache"
+            )(directory, names))
+            parent = Path(directory)
+            ignored.update(name for name in names if (parent / name).is_symlink())
+            return ignored
+
         shutil.copytree(
             source,
             staged,
-            ignore=shutil.ignore_patterns(".git", "__pycache__", ".mypy_cache", ".pytest_cache"),
+            ignore=ignore,
             symlinks=False,
         )
         staged.rename(destination)

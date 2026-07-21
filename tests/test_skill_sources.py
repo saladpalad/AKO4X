@@ -52,6 +52,34 @@ class SkillSourceTests(unittest.TestCase):
                 materialize_skills(resolved, destination,
                                    lock_path=root / "child" / ".ako" / "lock2.json")
 
+    def test_compatibility_symlink_and_self_link_are_not_materialized(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "source"
+            other = root / "other"
+            source.mkdir()
+            other.mkdir()
+            (source / "SKILL.md").write_text("source\n")
+            (source / "knowledge.md").write_text("owned\n")
+            (other / "SKILL.md").write_text("other\n")
+            (source / "other-skill").symlink_to(other, target_is_directory=True)
+            (source / "self").symlink_to(source, target_is_directory=True)
+
+            spec = SkillSource("demo", "demo", True, (str(source),))
+            resolved, _ = resolve_skills([spec])
+            self.assertEqual(resolved[0].files, 2)
+            destination = root / "child" / ".agents" / "skills"
+            destination.mkdir(parents=True)
+            materialize_skills(
+                resolved,
+                destination,
+                lock_path=root / "child" / ".ako" / "skills.lock.json",
+            )
+            copied = destination / "demo"
+            self.assertEqual(tree_hash(source), tree_hash(copied))
+            self.assertFalse((copied / "other-skill").exists())
+            self.assertFalse((copied / "self").exists())
+
 
 if __name__ == "__main__":
     unittest.main()
